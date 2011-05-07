@@ -15,14 +15,14 @@ class Api::BaseController < ApplicationController
     end
 
     def has_valid_signature?
-      if (key = env['HTTP_X_OF_KEY']) && (game = ClientApplication.find_by_key(key)) && (signature = env['HTTP_X_OF_SIGNATURE'])
-        uri, raw_params = if (get? || delete?)
-          request_uri.split('?')
+      if (key = env['HTTP_X_OF_KEY']) && (game = ClientApplication.find_by_key(key)) && (http_signature = env['HTTP_X_OF_SIGNATURE'])
+        raw_params = if (request.get? || request.delete?)
+          request.query_string
         else
-          [request_uri, raw_post]
+          raw_post
         end
-        string = "#{uri}+#{game.secret}+#{method.to_s.upcase}+#{raw_params}"
-        signature(string, game.secret) == signature
+        string = "#{request.path}+#{game.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
+        signature(string, game.secret) == http_signature
       else
         false
       end
@@ -31,5 +31,9 @@ class Api::BaseController < ApplicationController
     def signature(string, secret)
       salt = "#{escape(secret)}"
       Base64.encode64(HMAC::SHA1.digest(salt, string)).chomp.gsub(/\n/,'')
+    end
+
+    def escape(value)
+      CGI.escape(value.to_s).gsub("%7E", '~').gsub("+", "%20")
     end
 end
