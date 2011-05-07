@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  devise_for :developers
+
   devise_for :parents
 
   # The priority is based upon order of creation:
