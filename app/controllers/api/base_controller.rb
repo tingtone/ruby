@@ -15,6 +15,7 @@ class Api::BaseController < ApplicationController
     end
 
     def has_valid_signature?
+      return true if params['no_sign'] && !Rails.env.production?
       if (key = params['key']) && (game = ClientApplication.find_by_key(key)) && (signature = params.delete('signature'))
         raw_params = if (request.get? || request.delete?)
           request.query_string

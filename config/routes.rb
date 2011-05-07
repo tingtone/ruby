@@ -1,12 +1,7 @@
 Server::Application.routes.draw do
-  devise_for :children
-
-  devise_for :developers
-
-  devise_for :parents
-
   namespace :api do
     namespace :v1 do
+      resources :parents
       resources :client_applications
     end
   end
