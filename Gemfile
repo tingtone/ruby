@@ -7,6 +7,7 @@ gem 'haml'
 gem 'devise'
 gem 'simple_form'
 gem 'oauth'
+gem 'ruby-hmac', :require => 'hmac'
 
 group :development do
   gem 'thin'
