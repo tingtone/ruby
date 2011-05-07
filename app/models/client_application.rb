@@ -2,6 +2,7 @@ class ClientApplication < ActiveRecord::Base
   include OAuth::Helper
 
   belongs_to :developer
+  belongs_to :device
 
   before_create :generate_keys
 

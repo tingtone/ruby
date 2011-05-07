@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  devise_for :children
+
   devise_for :developers
 
   devise_for :parents
