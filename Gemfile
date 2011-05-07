@@ -6,6 +6,7 @@ gem 'capistrano'
 gem 'haml'
 gem 'devise'
 gem 'simple_form'
+gem 'oauth'
 
 group :development do
   gem 'thin'
