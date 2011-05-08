@@ -1,11 +1,12 @@
 class Api::V1::ChildSessionsController < Api::V1::BaseController
+  before_filter :parent_required
+
   def create
-    # TODO: without password?
-    child = Child.find_by_email(params[:email])
-    if child && child.valid_password?(params[:password])
-      render :json => {:error => false, :authentication_token => child.authentication_token}
+    child = current_parent.children.find_by_fullname(params[:fullname])
+    if child
+      render :json => {:error => false, :child => {:id => child.id}}
     else
-      render :json => {:error => true}
+      render :json => {:error => true, :messages => ["no such child"]}
     end
   end
 end
