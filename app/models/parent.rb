@@ -10,4 +10,10 @@ class Parent < ActiveRecord::Base
   has_many :children
   has_many :parent_client_applications
   has_many :client_applications, :through => :parent_client_applications, :source => :client_application
+
+  def add_client_application(client_application)
+    unless self.client_applications.include? client_application
+      self.parent_client_applications.create(:client_application => client_application)
+    end
+  end
 end

@@ -6,6 +6,7 @@ class Api::BaseController < ApplicationController
 
   helper_method :current_parent
   helper_method :current_child
+  helper_method :current_client_application
 
   protected
     def current_child
@@ -26,6 +27,10 @@ class Api::BaseController < ApplicationController
       access_denied('no such parent') unless @current_parent
     end
 
+    def current_client_application
+      @client_application ||= ClientApplication.find_by_key(params[:key])
+    end
+
     def access_denied(message)
       render :json => { :error => true, :messages => [message] }, :status => :unauthorized
       return false
@@ -42,15 +47,15 @@ class Api::BaseController < ApplicationController
 
     def has_valid_signature?
       return true if params['no_sign'] && !Rails.env.production?
-      if (key = params['key']) && (game = ClientApplication.find_by_key(key)) && (signature = params.delete('signature'))
+      if (key = params['key']) && (@client_application = ClientApplication.find_by_key(key)) && (signature = params.delete('signature'))
         raw_params = if (request.get? || request.delete?)
           request.query_string
         else
           raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
-        string = "#{request.path}+#{game.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
-        sign(string, game.secret) == signature
+        string = "#{request.path}+#{current_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
+        sign(string, current_application.secret) == signature
       else
         false
       end
