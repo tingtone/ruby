@@ -7,4 +7,9 @@ class Api::V1::ChildrenController < Api::V1::BaseController
       render :json => {:error => true, :messages => child.errors.full_messages}
     end
   end
+
+  def index
+    children = current_parent.children.select(:email)
+    render :json => {:error => false, :children => children }
+  end
 end
