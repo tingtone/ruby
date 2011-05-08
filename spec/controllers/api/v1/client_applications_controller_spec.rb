@@ -17,8 +17,8 @@ describe Api::V1::ClientApplicationsController do
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
       client_applications = json_response['client_applications']
-      client_applications.first['client_application']['name'].should == client_application1.name
-      client_applications.last['client_application']['name'].should == client_application2.name
+      client_applications.first['name'].should == client_application1.name
+      client_applications.last['name'].should == client_application2.name
     end
   end
 end

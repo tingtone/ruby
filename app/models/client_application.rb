@@ -7,7 +7,7 @@ class ClientApplication < ActiveRecord::Base
   before_create :generate_keys
 
   def as_json(options={})
-    {:id => id, :name => :name}
+    {:id => id, :name => name}
   end
 
   def generate_keys
