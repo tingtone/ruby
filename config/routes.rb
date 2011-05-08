@@ -4,6 +4,7 @@ Server::Application.routes.draw do
       resources :parents
       resources :parent_sessions
       resources :children
+      resources :child_sessions
       resources :client_applications
     end
   end
