@@ -11,6 +11,7 @@ describe Api::V1::ParentsController do
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
+      json_response['parent']['id'].should_not be_blank
 
       Parent.last.client_applications.should be_include(@client_application)
     end
