@@ -3,11 +3,29 @@ require 'hmac-sha1'
 
 class Api::BaseController < ApplicationController
   before_filter :signature_required
+  before_filter :parent_required
+
+  helper_method :current_parent
 
   private
+    def current_parent
+      @current_parent
+    end
+
+    def parent_required
+      @current_parent = Parent.find_by_authentication_token(params[:authentication_token])
+      access_denied('no such authentication_token')
+    end
+
+    def access_denied(message)
+      head :unauthorized
+      render :json => { :error => true, :messages => [message] }
+      return false
+    end
+
     def signature_required
       unless has_valid_signature?
-        head :unauthorized
+        access_denied('invalid signature')
         return false
       else
         return true
