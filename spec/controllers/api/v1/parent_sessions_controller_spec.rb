@@ -12,7 +12,7 @@ describe Api::V1::ParentSessionsController do
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-      json_response['authentication_token'].should_not be_blank
+      json_response['parent']['id'].should_not be_blank
     end
 
     it "should fail" do

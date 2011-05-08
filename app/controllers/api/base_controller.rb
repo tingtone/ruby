@@ -13,8 +13,8 @@ class Api::BaseController < ApplicationController
     end
 
     def child_required
-      @current_child = Child.find_by_authentication_token(params[:child_token])
-      access_denied('no such child authentication token') unless @current_child
+      @current_child = Child.find_by_id(params[:child_id])
+      access_denied('no such child') unless @current_child
     end
 
     def current_parent
@@ -22,8 +22,8 @@ class Api::BaseController < ApplicationController
     end
 
     def parent_required
-      @current_parent = Parent.find_by_authentication_token(params[:parent_token])
-      access_denied('no such parent authentication token') unless @current_parent
+      @current_parent = Parent.find_by_id(params[:parent_id])
+      access_denied('no such parent') unless @current_parent
     end
 
     def access_denied(message)

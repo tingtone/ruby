@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Api::V1::ChildSessionsController do
   context "sign in" do
     before do
-      parent = Factory(:parent, :authentication_token => '1234')
-      Factory(:child, :fullname => 'Child', :gender => 'male', :birthday => '2000-01-01', :parent => parent)
+      @parent = Factory(:parent)
+      Factory(:child, :fullname => 'Child', :gender => 'male', :birthday => '2000-01-01', :parent => @parent)
     end
 
     it "should success" do
-      post :create, :fullname => 'Child', :parent_token => '1234', :format => :json, :no_sign => true
+      post :create, :fullname => 'Child', :parent_id => @parent.id, :format => :json, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -17,7 +17,7 @@ describe Api::V1::ChildSessionsController do
     end
 
     it "should fail" do
-      post :create, :fullname => 'Nobody', :parent_token => '1234', :format => :json, :no_sign => true
+      post :create, :fullname => 'Nobody', :parent_id => @parent.id, :format => :json, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body

@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Api::V1::ChildrenController do
   before do
-    @parent = Factory(:parent, :authentication_token => '1234')
+    @parent = Factory(:parent)
   end
 
   context 'create' do
     it "should success" do
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '2000-01-01' }, :parent_token => '1234', :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '2000-01-01' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -15,7 +15,7 @@ describe Api::V1::ChildrenController do
     end
 
     it "should fail for validation" do
-      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_token => '1234', :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -24,12 +24,12 @@ describe Api::V1::ChildrenController do
     end
 
     it "should fail for wrong parent_token" do
-      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_token => '4321', :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_id => -1, :format => 'json', :no_sign => true
 
       response.response_code.should == 401
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == true
-      json_response['messages'].should == ["no such parent authentication token"]
+      json_response['messages'].should == ["no such parent"]
     end
   end
 
@@ -37,7 +37,7 @@ describe Api::V1::ChildrenController do
     it "should get all children" do
       child1 = Factory(:child, :parent => @parent)
       child2 = Factory(:child, :parent => @parent)
-      get :index, :parent_token => '1234', :format => 'json', :no_sign => true
+      get :index, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
