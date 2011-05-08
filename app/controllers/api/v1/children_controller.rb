@@ -1,4 +1,6 @@
 class Api::V1::ChildrenController < Api::V1::BaseController
+  before_filter :parent_required
+
   def create
     child = current_parent.children.build(params[:child])
     if child.save

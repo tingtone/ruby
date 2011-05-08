@@ -29,7 +29,7 @@ describe Api::V1::ChildrenController do
       response.response_code.should == 401
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == true
-      json_response['messages'].should == ["no such authentication token"]
+      json_response['messages'].should == ["no such parent authentication token"]
     end
   end
 

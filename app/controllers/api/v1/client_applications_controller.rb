@@ -1,4 +1,6 @@
 class Api::V1::ClientApplicationsController < Api::V1::BaseController
+  before_filter :parent_required
+
   def show
     # only for test now
     client_application = ClientApplication.find(params[:id])

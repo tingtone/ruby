@@ -1,6 +1,4 @@
 class Api::V1::ChildSessionsController < Api::V1::BaseController
-  skip_before_filter :parent_required
-
   def create
     # TODO: without password?
     child = Child.find_by_email(params[:email])

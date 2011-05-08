@@ -3,18 +3,27 @@ require 'hmac-sha1'
 
 class Api::BaseController < ApplicationController
   before_filter :signature_required
-  before_filter :parent_required
 
   helper_method :current_parent
+  helper_method :current_child
 
-  private
+  protected
+    def current_child
+      @current_child
+    end
+
+    def child_required
+      @current_child = Child.find_by_authentication_token(params[:child_token])
+      access_denied('no such child authentication token') unless @current_child
+    end
+
     def current_parent
       @current_parent
     end
 
     def parent_required
       @current_parent = Parent.find_by_authentication_token(params[:parent_token])
-      access_denied('no such authentication token') unless @current_parent
+      access_denied('no such parent authentication token') unless @current_parent
     end
 
     def access_denied(message)
