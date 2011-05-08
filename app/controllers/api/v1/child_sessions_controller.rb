@@ -6,7 +6,7 @@ class Api::V1::ChildSessionsController < Api::V1::BaseController
     if child
       render :json => {:error => false, :child => {:id => child.id}}
     else
-      render :json => {:error => true, :messages => ["no such child"]}
+      render :json => {:error => true}
     end
   end
 end
