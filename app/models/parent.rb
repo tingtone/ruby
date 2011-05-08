@@ -9,4 +9,6 @@ class Parent < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :children
+  has_many :parent_client_applications
+  has_many :client_applications, :through => :parent_client_applications, :source => :client_application
 end

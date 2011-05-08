@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110508055059) do
+ActiveRecord::Schema.define(:version => 20110508060642) do
 
   create_table "children", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -62,6 +62,13 @@ ActiveRecord::Schema.define(:version => 20110508055059) do
 
   create_table "devices", :force => true do |t|
     t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "parent_client_applications", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "client_application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
