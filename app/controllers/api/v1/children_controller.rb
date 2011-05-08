@@ -9,7 +9,12 @@ class Api::V1::ChildrenController < Api::V1::BaseController
   end
 
   def index
-    children = current_parent.children.select(:email)
-    render :json => {:error => false, :children => children }
+    children = current_parent.children
+    render :json => {:error => false, :children => children}
+  end
+
+  def show
+    child = current_parent.children.find(params[:id])
+    render :json => {:error => false, :child => child}
   end
 end

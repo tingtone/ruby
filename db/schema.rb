@@ -10,7 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110508060642) do
+ActiveRecord::Schema.define(:version => 20110508073652) do
+
+  create_table "achievements", :force => true do |t|
+    t.string   "course"
+    t.integer  "grade_id"
+    t.integer  "score"
+    t.integer  "child_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "child_client_applications", :force => true do |t|
+    t.integer  "child_id"
+    t.integer  "client_application_id"
+    t.integer  "time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "children", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -62,6 +79,14 @@ ActiveRecord::Schema.define(:version => 20110508060642) do
 
   create_table "devices", :force => true do |t|
     t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "grades", :force => true do |t|
+    t.string   "name"
+    t.integer  "min_score"
+    t.integer  "max_score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
