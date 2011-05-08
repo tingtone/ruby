@@ -5,6 +5,6 @@ class Child < ActiveRecord::Base
   has_many :client_applications, :through => :child_client_applications, :source => :client_application
 
   def as_json(options={})
-    {:id => id, :fullname => fullname}
+    {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday}
   end
 end
