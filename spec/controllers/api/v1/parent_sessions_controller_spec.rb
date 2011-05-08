@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::ParentSessionsController do
   context "sign in" do
-    before :all do
+    before do
       Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent')
     end
 

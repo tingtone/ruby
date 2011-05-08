@@ -3,6 +3,7 @@ Server::Application.routes.draw do
     namespace :v1 do
       resources :parents
       resources :parent_sessions
+      resources :children
       resources :client_applications
     end
   end

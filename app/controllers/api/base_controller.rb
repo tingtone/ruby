@@ -13,13 +13,12 @@ class Api::BaseController < ApplicationController
     end
 
     def parent_required
-      @current_parent = Parent.find_by_authentication_token(params[:authentication_token])
-      access_denied('no such authentication_token')
+      @current_parent = Parent.find_by_authentication_token(params[:parent_token])
+      access_denied('no such authentication token') unless @current_parent
     end
 
     def access_denied(message)
-      head :unauthorized
-      render :json => { :error => true, :messages => [message] }
+      render :json => { :error => true, :messages => [message] }, :status => :unauthorized
       return false
     end
 
