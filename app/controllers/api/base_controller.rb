@@ -54,8 +54,8 @@ class Api::BaseController < ApplicationController
           raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
-        string = "#{request.path}+#{current_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
-        sign(string, current_application.secret) == signature
+        string = "#{request.path}+#{current_client_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
+        sign(string, current_client_application.secret) == signature
       else
         false
       end
