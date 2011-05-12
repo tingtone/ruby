@@ -51,7 +51,7 @@ class Api::BaseController < ApplicationController
         raw_params = if (request.get? || request.delete?)
           request.query_string
         else
-          raw_post
+          request.raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
         string = "#{request.path}+#{current_client_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
