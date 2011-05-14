@@ -1,0 +1,2 @@
+module Dev::EducationApplicationsHelper
+end

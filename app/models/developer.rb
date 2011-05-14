@@ -9,4 +9,5 @@ class Developer < ActiveRecord::Base
 
   has_many :client_applications
   has_many :game_applications
+  has_many :education_applications
 end
