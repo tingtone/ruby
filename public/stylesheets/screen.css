@@ -500,14 +500,14 @@ body.two-col #container {
   *zoom: 1;
 }
 /* line 27, ../../app/stylesheets/partials/_two_col.scss */
-body.two-col #header, body.two-col #footer {
+body.two-col #header, body.two-col #footer, body.two-col #flash {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 950px;
 }
 /* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@kittypad/server/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html body.two-col #header, * html body.two-col #footer {
+* html body.two-col #header, * html body.two-col #footer, * html body.two-col #flash {
   overflow-x: hidden;
 }
 /* line 29, ../../app/stylesheets/partials/_two_col.scss */
