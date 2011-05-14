@@ -2,7 +2,6 @@ class ClientApplication < ActiveRecord::Base
   include OAuth::Helper
 
   belongs_to :developer
-  belongs_to :device
   belongs_to :client_application_category
 
   has_many :time_trackers
