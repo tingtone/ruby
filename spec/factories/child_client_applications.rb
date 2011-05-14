@@ -1,4 +1,4 @@
-Factory.define :child_client_application do |cca|
+Factory.define :time_tracker do |cca|
   cca.association :child
   cca.association :client_application
   cca.time 1000

@@ -14,7 +14,7 @@ Server::Application.routes.draw do
       resources :parent_sessions
       resources :children
       resources :child_sessions
-      resources :child_client_applications
+      resources :time_trackers
     end
   end
 

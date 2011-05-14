@@ -5,6 +5,8 @@ class ClientApplication < ActiveRecord::Base
   belongs_to :device
   belongs_to :client_application_category
 
+  has_many :time_trackers
+
   validates_presence_of :name, :description
   validates_uniqueness_of :name
   validates_uniqueness_of :identifier

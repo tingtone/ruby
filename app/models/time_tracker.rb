@@ -1,4 +1,4 @@
-class ChildClientApplication < ActiveRecord::Base
+class TimeTracker < ActiveRecord::Base
   belongs_to :child
   belongs_to :client_application
   validates_presence_of :time

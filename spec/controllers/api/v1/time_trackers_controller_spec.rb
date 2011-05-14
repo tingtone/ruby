@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::ChildClientApplicationsController do
+describe Api::V1::TimeTrackersController do
   context "create" do
     before do
       @child = Factory(:child)
@@ -13,10 +13,10 @@ describe Api::V1::ChildClientApplicationsController do
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
 
-      child_client_application = ChildClientApplication.last
-      child_client_application.time.should == 60
-      child_client_application.child.should == @child
-      child_client_application.client_application.should == @client_application
+      time_tracker = TimeTracker.last
+      time_tracker.time.should == 60
+      time_tracker.child.should == @child
+      time_tracker.client_application.should == @client_application
     end
 
     it "should fail" do
