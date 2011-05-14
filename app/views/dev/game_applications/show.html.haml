@@ -1,7 +1,10 @@
-%p Name:
-= @game_application.name
+%p Name
+%p= @game_application.name
+
+%p Tagss
+%p= @game_application.tag_list
 
 %p Description
-= @game_application.description
+%p= @game_application.description
 
 = link_to 'Edit', edit_dev_game_application_path(@game_application)

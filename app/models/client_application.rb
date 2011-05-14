@@ -6,6 +6,8 @@ class ClientApplication < ActiveRecord::Base
 
   before_create :generate_keys
 
+  acts_as_taggable
+
   def as_json(options={})
     {:id => id, :name => name}
   end
