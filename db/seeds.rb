@@ -1,3 +1,10 @@
+ParentClientApplication.destroy_all
+Parent.destroy_all
+ClientApplicationCategory.destroy_all
+Grade.destroy_all
+ClientApplication.destroy_all
+Developer.destroy_all
+
 developer = Developer.create(:email => 'richard@kittypad.com', :password => 'richard', :password_confirmation => 'richard')
 
 game_application1 = developer.game_applications.create(:name => 'first app', :description => 'first app', :identifier => 'com.applie.identifier1')
