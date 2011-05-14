@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110514074305) do
+ActiveRecord::Schema.define(:version => 20110514091754) do
 
   create_table "achievements", :force => true do |t|
     t.string   "course"
@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(:version => 20110514074305) do
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true
   add_index "parents", ["reset_password_token"], :name => "index_parents_on_reset_password_token", :unique => true
+
+  create_table "rule_definitions", :force => true do |t|
+    t.integer  "time"
+    t.string   "period"
+    t.integer  "client_application_id"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "score_trackers", :force => true do |t|
     t.integer  "child_id"
