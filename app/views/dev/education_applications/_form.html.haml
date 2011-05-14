@@ -1,6 +1,6 @@
 - simple_form_for [:dev, @education_application] do |form|
   = form.input :name
-  = form.input :tag_list
+  = form.association :client_application_category
   = form.input :description
 
   = form.submit

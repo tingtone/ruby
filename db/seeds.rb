@@ -6,3 +6,7 @@ developer.game_applications.create(:name => 'second app')
 [[:junior, 0, 999], [:senior, 1000, 9999], [:top, 1000, 999999999]].each do |name, min_score, max_score|
   Grade.create(:name => name, :min_score => min_score, :max_score => max_score)
 end
+
+[:math, :chinese, :english].each do |name|
+  ClientApplicationCategory.create(:name => name)
+end

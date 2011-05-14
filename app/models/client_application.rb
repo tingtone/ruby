@@ -3,13 +3,20 @@ class ClientApplication < ActiveRecord::Base
 
   belongs_to :developer
   belongs_to :device
+  belongs_to :client_application_category
+
+  validates_presence_of :name, :description
+  validates_uniqueness_of :name
 
   before_create :generate_keys
 
-  acts_as_taggable
 
   def as_json(options={})
     {:id => id, :name => name}
+  end
+
+  def category_name
+    client_application_category.try(:name)
   end
 
   def generate_keys
