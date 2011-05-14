@@ -1,4 +1,7 @@
 Server::Application.routes.draw do
+  devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions" }
+  devise_for :parents
+
   namespace :api do
     namespace :v1 do
       resources :parents
