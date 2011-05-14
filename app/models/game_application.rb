@@ -1,0 +1,2 @@
+class GameApplication < ClientApplication
+end

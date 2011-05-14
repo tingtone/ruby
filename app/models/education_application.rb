@@ -1,0 +1,2 @@
+class EducationApplication < ClientApplication
+end
