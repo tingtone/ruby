@@ -11,13 +11,13 @@
   %body.bp.two-col
     #container
       #header
-        This is header
+        = render 'dev/shared/header'
       - if flash.present?
         #flash
           - flash.each do |type, message|
             .message{:class => type}= message
       #sidebar
-        This is sidebar
+        = render 'dev/shared/sidebar'
       #content= yield
       #footer
         This is footer

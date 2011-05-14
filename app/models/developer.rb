@@ -8,4 +8,5 @@ class Developer < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :client_applications
+  has_many :game_applications
 end

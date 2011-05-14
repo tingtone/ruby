@@ -532,11 +532,3 @@ body.two-col #content {
 * html body.two-col #content {
   overflow-x: hidden;
 }
-
-/* line 15, ../../app/stylesheets/screen.scss */
-#container {
-  width: 950px;
-  margin: 0 auto;
-  overflow: hidden;
-  *zoom: 1;
-}

@@ -2,6 +2,10 @@ Server::Application.routes.draw do
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions" }
   devise_for :parents
 
+  namespace :dev do
+    resources :game_applications
+  end
+
   namespace :api do
     namespace :v1 do
       resources :parents
