@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::ClientApplicationsController do
   context "sync" do
     before do
-      @parent = Factory(:parent)
+      @parent = Factory(:parent, :total_time => 1000)
       @child1 = Factory(:child, :parent => @parent)
       @child2 = Factory(:child, :parent => @parent)
       @game_application1 = Factory(:game_application)
@@ -21,7 +21,9 @@ describe Api::V1::ClientApplicationsController do
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should be_false
       json_response['game_left_time'].should == 550
+      json_response['total_left_time'].should == 850
     end
   end
 end

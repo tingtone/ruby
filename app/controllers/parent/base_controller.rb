@@ -1,5 +1,5 @@
 class Parent::BaseController < ApplicationController
-  include Dev::BaseHelper
+  include Parent::BaseHelper
 
   layout 'parent'
 
