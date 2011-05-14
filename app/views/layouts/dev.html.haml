@@ -2,17 +2,22 @@
 %html
   %head
     %title Developer Dashboard
-    = stylesheet_link_tag :all
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = javascript_include_tag :defaults
     = csrf_meta_tag
-  %body
-    #header
+  %body.bp.two-col
     #container
+      #header
+        This is header
       - if flash.present?
         #flash
           - flash.each do |type, message|
             .message{:class => type}= message
       #sidebar
+        This is sidebar
       #content= yield
-    #footer
-
+      #footer
+        This is footer
