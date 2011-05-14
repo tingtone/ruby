@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110514061325) do
+ActiveRecord::Schema.define(:version => 20110514062526) do
 
   create_table "achievements", :force => true do |t|
     t.string   "course"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20110514061325) do
     t.text     "description"
     t.integer  "client_application_category_id"
     t.integer  "rating"
+    t.string   "identifier"
   end
 
   create_table "developers", :force => true do |t|

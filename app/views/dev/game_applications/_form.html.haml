@@ -2,6 +2,7 @@
   = form.input :name
   = form.association :client_application_category
   = form.input :rating, :collection => GameApplication::RATINGS.collect { |rating| ["#{rating}+", rating] }
+  = form.input :identifier
   = form.input :description
 
   = form.submit

@@ -7,6 +7,7 @@ class ClientApplication < ActiveRecord::Base
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
+  validates_uniqueness_of :identifier
 
   before_create :generate_keys
 
