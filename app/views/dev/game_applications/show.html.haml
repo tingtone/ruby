@@ -13,4 +13,7 @@
 %p Description
 %p= @game_application.description
 
+%p Key: #{@game_application.key}
+%p Secret: #{@game_application.secret}
+
 = link_to 'Edit', edit_dev_game_application_path(@game_application)
