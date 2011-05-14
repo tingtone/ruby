@@ -20,6 +20,7 @@ Server::Application.routes.draw do
       resources :children, :only => [:create, :index, :show]
       resources :time_trackers, :only => [:create]
       resources :score_trackers, :only => [:create]
+      match 'client_applications/sync' => 'client_applications#sync'
     end
   end
 
