@@ -1,0 +1,2 @@
+module Parent::RegistrationsHelper
+end

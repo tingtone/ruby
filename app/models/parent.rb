@@ -10,6 +10,7 @@ class Parent < ActiveRecord::Base
   has_many :children
   has_many :parent_client_applications
   has_many :client_applications, :through => :parent_client_applications, :source => :client_application
+  has_many :game_applications, :through => :parent_client_applications, :source => :client_application, :conditions => ["client_applications.type = 'GameApplication'"]
   has_many :rule_definitions
 
   before_save :ensure_authentication_token

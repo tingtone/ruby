@@ -1,10 +1,15 @@
 Server::Application.routes.draw do
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
-  devise_for :parents
+  devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations" }
 
   namespace :dev do
     resources :game_applications
     resources :education_applications
+    root :to => 'game_applications#index'
+  end
+
+  namespace :parent do
+    resources :game_applications
     root :to => 'game_applications#index'
   end
 
