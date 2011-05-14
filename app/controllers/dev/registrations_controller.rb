@@ -1,5 +1,6 @@
 class Dev::RegistrationsController < Devise::RegistrationsController
   layout 'dev'
+  include Dev::BaseHelper
 
   def update
     # Devise use update_with_password instead of update_attributes.
