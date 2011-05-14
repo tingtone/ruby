@@ -10,11 +10,11 @@ Server::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :parents
-      resources :parent_sessions
-      resources :children
-      resources :child_sessions
-      resources :time_trackers
+      resources :parents, :only => [:create]
+      resources :parent_sessions, :only => [:create]
+      resources :children, :only => [:create, :index, :show]
+      resources :time_trackers, :only => [:create]
+      resources :score_trackers, :only => [:create]
     end
   end
 
