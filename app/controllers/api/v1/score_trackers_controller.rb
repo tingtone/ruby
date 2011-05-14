@@ -6,7 +6,7 @@ class Api::V1::ScoreTrackersController < Api::V1::BaseController
     if score_tracker.save
       render :json => {:error => false}
     else
-      render :json => {:error => true}
+      render :json => {:error => true, :messages => score_tracker.errors.full_messages}
     end
   end
 end

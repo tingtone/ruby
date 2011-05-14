@@ -6,7 +6,7 @@ class Api::V1::TimeTrackersController < Api::V1::BaseController
     if time_tracker.save
       render :json => {:error => false}
     else
-      render :json => {:error => true}
+      render :json => {:error => true, :messages => time_tracker.errors.full_messages}
     end
   end
 end

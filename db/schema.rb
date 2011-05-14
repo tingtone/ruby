@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110514072904) do
+ActiveRecord::Schema.define(:version => 20110514074305) do
 
   create_table "achievements", :force => true do |t|
     t.string   "course"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20110514072904) do
     t.integer  "client_application_category_id"
     t.integer  "rating"
     t.string   "identifier"
+    t.integer  "max_score",                      :default => 0
   end
 
   create_table "developers", :force => true do |t|
