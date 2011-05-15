@@ -63,6 +63,9 @@ body {
   background: #fff;
   overflow: hidden;
 }
+#flash .message {
+  margin-bottom: 0;
+}
 #sidebar {
   background: url(/images/dropshadow_bottom.png) bottom right repeat-y;
   padding: 30px 0 25px 0;
@@ -134,6 +137,9 @@ body {
       padding: 0px 5px;
       font-size: 12px;
       color: #505050;
+    }
+    input[disabled=disabled] {
+      border: none;
     }
     textarea {
       display: inline-block;

@@ -4,4 +4,8 @@
   = form.input :identifier
   = form.input :description
 
+  - if @game_application.key.present?
+    = form.input :key, :input_html => {:disabled => true}
+    = form.input :secret, :input_html => {:disabled => true}
+
   .buttons= form.button :submit
