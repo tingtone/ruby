@@ -1,0 +1,94 @@
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
+
+body.bp {
+  a {
+    text-decoration: none;
+  }
+
+  a.button {
+    @include border-radius(5px);
+    @include box-shadow(#a4a4a4, 1px, 1px, 1px);
+    @include background-image(linear-gradient(#cdcdcd, #a0a0a0));
+    display: inline-block;
+    border: 1px solid #9a9a9a;
+    height: 26px;
+    padding: 0px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4c4c4c;
+    line-height: 26px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #E4E4E4;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      @include background-image(line-gradient(#a0a0a0, #cdcdcd));
+    }
+  }
+}
+body {
+  font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", sans-serif;
+  border-top: 1px solid #000;
+  background: #3a3a3a url(/images/bg.png);
+  font-size: 12px;
+  line-height: 150%;
+}
+#account_navigation {
+  background: url(/images/account_nav_bg.gif);
+  padding: 10px 20px;
+  color: #C8C8C8;
+  height: 26px;
+  line-height: 26px;
+  li {
+    display: inline-block;
+    padding: 0 10px 0 0;
+  }
+  a {
+    color: #F2F2F2;
+    font-weight: bold;
+  }
+}
+#global_navigation {
+  background: #232323;
+  overflow: hidden;
+  border-bottom: 7px solid #0C7A3E;
+}
+#main {
+  background: #fff;
+  overflow: hidden;
+  padding: 0 0 20px 0;
+}
+#sidebar {
+  background: url(/images/dropshadow_bottom.png) bottom right repeat-y;
+  padding: 30px 0 25px 0;
+  h3 {
+    font-weight: bold;
+    margin: 0px 0px 15px 15px;
+    font-size: 16px;
+    color: #555;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    border-top: 1px dotted #C8C8C8;
+    vertical-align: middle;
+    color: #757575;
+    a {
+      padding: 7px 10px 7px 25px;
+      font-size: 12px;
+      font-weight: bold;
+      display: block;
+      color: #757575;
+      line-height: 20px;
+    }
+  }
+  a.button {
+    width: 138px;
+    margin: 0 20px 40px 20px;
+  }
+}
