@@ -7,7 +7,7 @@ body.bp {
     text-decoration: none;
   }
 
-  a.button {
+  .button {
     @include border-radius(5px);
     @include box-shadow(#a4a4a4, 1px, 1px, 1px);
     @include background-image(linear-gradient(#cdcdcd, #a0a0a0));
@@ -17,7 +17,6 @@ body.bp {
     padding: 0px 15px;
     font-size: 12px;
     font-weight: bold;
-    color: #4c4c4c;
     line-height: 26px;
     text-align: center;
     text-decoration: none;
@@ -28,6 +27,9 @@ body.bp {
     &:hover {
       @include background-image(line-gradient(#a0a0a0, #cdcdcd));
     }
+  }
+  a.button {
+    color: #4c4c4c;
   }
 }
 body {
@@ -60,7 +62,6 @@ body {
 #main {
   background: #fff;
   overflow: hidden;
-  padding: 0 0 20px 0;
 }
 #sidebar {
   background: url(/images/dropshadow_bottom.png) bottom right repeat-y;
@@ -90,5 +91,64 @@ body {
   a.button {
     width: 138px;
     margin: 0 20px 40px 20px;
+  }
+}
+#content {
+  & > div {
+    padding: 30px 35px 100px 25px;
+  }
+  form {
+    background-color: #F7F7F7;
+    border: 1px solid #E1E1E1;
+  }
+  div.input {
+    position: relative;
+    padding: 15px 0px;
+    color: #555;
+    border-top: 1px dotted #BCBCBC;
+    label {
+      font-weight: bold;
+      display: inline-block;
+      width: 28%;
+      height: 100%;
+      margin-right: 2%;
+      text-align: right;
+      vertical-align: top;
+    }
+    input, textarea {
+      display: inline-block;
+      width: 69%;
+      height: 100%;
+      text-align: left;
+      vertical-align: middle;
+    }
+    .buttons {
+      text-align: center;
+    }
+    input[type=text] {
+      @include background-image(linear-gradient(#f7f7f7, #fff));
+      display: inline-block;
+      border: 1px solid #AAA;
+      height: 24px;
+      width: 205px;
+      padding: 0px 5px;
+      font-size: 12px;
+      color: #505050;
+    }
+    textarea {
+      display: inline-block;
+      border: 1px solid #AAA;
+      height: 82px;
+      width: 335px;
+      padding: 5px 5px;
+      font-size: 12px;
+      color: #505050;
+    }
+  }
+  .buttons {
+    text-align: center;
+    padding: 15px 0px;
+    color: #555;
+    border-top: 1px dotted #BCBCBC;
   }
 }
