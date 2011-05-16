@@ -46,6 +46,7 @@ class Api::BaseController < ApplicationController
     end
 
     def has_valid_signature?
+      puts "+++++"
       return true if params['no_sign'] && !Rails.env.production?
       if (key = params['key']) && (@client_application = ClientApplication.find_by_key(key)) && (signature = params.delete('signature'))
         raw_params = if (request.get? || request.delete?)
@@ -55,7 +56,10 @@ class Api::BaseController < ApplicationController
         end
         raw_params.sub!(/&signature=.*$/, '')
         string = "#{request.path}+#{current_client_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
-        sign(string, current_client_application.secret) == signature
+        puts 'before Calculation: '+string 
+        cal = sign(string, current_client_application.secret)
+        puts 'calculated:'+cal
+        cal == signature
       else
         false
       end
