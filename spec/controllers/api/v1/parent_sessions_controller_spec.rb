@@ -4,7 +4,8 @@ describe Api::V1::ParentSessionsController do
   context "sign in" do
     before do
       @client_application = Factory(:client_application)
-      @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent', :total_time => 1000)
+      @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent')
+      @parent.update_attribute(:total_time, 1000)
       @child1 = Factory(:child, :parent => @parent)
       @child2 = Factory(:child, :parent => @parent)
       Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 50)

@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Api::V1::ClientApplicationsController do
   context "sync" do
     before do
-      @parent = Factory(:parent, :total_time => 1000)
+      @parent = Factory(:parent)
+      @parent.update_attribute(:total_time, 1000)
       @child1 = Factory(:child, :parent => @parent)
       @child2 = Factory(:child, :parent => @parent)
       @game_application1 = Factory(:game_application)
