@@ -5,6 +5,6 @@ class Child < ActiveRecord::Base
   has_many :score_trackers
 
   def as_json(options={})
-    {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday}
+    {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday.to_time.to_i}
   end
 end
