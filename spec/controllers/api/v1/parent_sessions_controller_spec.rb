@@ -4,7 +4,13 @@ describe Api::V1::ParentSessionsController do
   context "sign in" do
     before do
       @client_application = Factory(:client_application)
-      @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent')
+      @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent', :total_time => 1000)
+      @child1 = Factory(:child, :parent => @parent)
+      @child2 = Factory(:child, :parent => @parent)
+      Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 50)
+      Factory(:time_tracker, :child => @child2, :client_application => @client_application, :time => 100)
+
+      Factory(:rule_definition, :parent => @parent, :client_application => @client_application, :time => 600, :period => 'day')
     end
 
     it "should success" do
@@ -16,6 +22,14 @@ describe Api::V1::ParentSessionsController do
       json_response['parent']['id'].should_not be_blank
       json_response['parent']['authentication_token'].should_not be_blank
       Parent.last.client_applications.should be_include(@client_application)
+
+      children = json_response['parent']['children']
+      children.first['child']['id'] = @child1.id
+      children.first['time_summary']['game_left_time'] = 550
+      children.first['time_summary']['total_left_time'] = 950
+      children.last['child']['id'] = @child2.id
+      children.last['time_summary']['game_left_time'] = 500
+      children.last['time_summary']['total_left_time'] = 900
     end
 
     it "should not add new association for parent and existing client_application" do
