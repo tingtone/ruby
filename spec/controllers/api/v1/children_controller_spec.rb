@@ -30,7 +30,7 @@ describe Api::V1::ChildrenController do
     it "should fail for wrong parent_token" do
       post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_id => -1, :format => 'json', :no_sign => true
 
-      response.response_code.should == 401
+      response.response_code.should == 200
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == true
       json_response['messages'].should == ["no such parent"]

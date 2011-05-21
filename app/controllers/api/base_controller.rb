@@ -32,7 +32,7 @@ class Api::BaseController < ApplicationController
     end
 
     def access_denied(message)
-      render :json => { :error => true, :messages => [message] }, :status => :unauthorized
+      render :json => { :error => true, :messages => [message] }
       return false
     end
 
