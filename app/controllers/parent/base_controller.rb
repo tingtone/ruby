@@ -4,5 +4,5 @@ class Parent::BaseController < ApplicationController
   layout 'parent'
 
   before_filter :authenticate_parent!
-  before_filter :current_game_applications
+  before_filter :current_parent_game_applications
 end
