@@ -1,5 +1,5 @@
 - if parent_signed_in?
   %h3 Applications
   %ul.client_applications
-    - current_game_applications.each do |game_application|
+    - current_parent_game_applications.each do |game_application|
       %li.client_application= link_to game_application.name, parent_game_application_path(game_application)
