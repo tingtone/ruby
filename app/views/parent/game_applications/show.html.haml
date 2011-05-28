@@ -1,10 +1,11 @@
+%h3 Set Limitation
+
 = form_for [:parent, @game_application] do |form|
-  %ul.rule_definitions
-    - @rule_definitions.each do |definition|
-      = form.fields_for :rule_definitions, definition do |definition_fields|
-        %li.rule_definition
-          = definition.period
-          = definition_fields.hidden_field :parent_id
-          = definition_fields.hidden_field :period
-          = definition_fields.text_field :time
-    = form.submit
+  - @rule_definitions.each do |definition|
+    = form.fields_for :rule_definitions, definition do |definition_fields|
+      %p.rule_definition.input
+        = definition_fields.label :time, definition.period
+        = definition_fields.hidden_field :parent_id
+        = definition_fields.hidden_field :period
+        = definition_fields.text_field :time
+  %p.buttons= form.submit "Update", :class => 'button'

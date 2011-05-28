@@ -1,3 +1,4 @@
+Child.destroy_all
 ParentClientApplication.destroy_all
 Parent.destroy_all
 ClientApplicationCategory.destroy_all
@@ -22,3 +23,6 @@ parent = Parent.create(:email => 'parent@kittypad.com', :password => 'parent', :
 
 ParentClientApplication.create(:parent => parent, :client_application => game_application1)
 ParentClientApplication.create(:parent => parent, :client_application => game_application2)
+
+child1 = parent.children.create(:fullname => 'Child1', :gender => 'male', :birthday => '2003/11/07')
+child2 = parent.children.create(:fullname => 'Child2', :gender => 'female', :birthday => '2006/11/02')

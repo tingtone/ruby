@@ -1,5 +1,5 @@
 class RuleDefinition < ActiveRecord::Base
-  PERIODS = ['day']
+  PERIODS = ['day', 'week']
 
   belongs_to :client_application
   belongs_to :parent
