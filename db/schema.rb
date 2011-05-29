@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529075327) do
+ActiveRecord::Schema.define(:version => 20110529150856) do
 
   create_table "achievements", :force => true do |t|
     t.string   "course"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20110529075327) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "total_time"
   end
 
   create_table "client_application_categories", :force => true do |t|
