@@ -1,10 +1,8 @@
-class Parent::GameApplicationsController < Parent::BaseController
+class Parent::ChildrenController < Parent::BaseController
   inherit_resources
-  def index
-    @s = "Hello"
-  end
+
   def show
-    @game_application = GameApplication.find(params[:id])
+    @child = current_child
     load_rule_definitions
   end
 
@@ -22,7 +20,7 @@ class Parent::GameApplicationsController < Parent::BaseController
     def load_rule_definitions
       @rule_definitions = []
       RuleDefinition::PERIODS.keys.each do |period|
-        @rule_definitions << @game_application.rule_definitions.find_or_create_by_period_and_child_id(period, current_child.id)
+        @rule_definitions << current_child.rule_definitions.find_or_create_by_period_and_client_application_id(period, nil)
       end
     end
 end

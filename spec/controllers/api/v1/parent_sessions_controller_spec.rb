@@ -5,13 +5,13 @@ describe Api::V1::ParentSessionsController do
     before do
       @client_application = Factory(:client_application)
       @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent')
-      @parent.update_attribute(:total_time, 1000)
       @child1 = Factory(:child, :parent => @parent)
+      @child1.update_attribute(:total_time, 1000)
       @child2 = Factory(:child, :parent => @parent)
       Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 50)
       Factory(:time_tracker, :child => @child2, :client_application => @client_application, :time => 100)
 
-      Factory(:rule_definition, :parent => @parent, :client_application => @client_application, :time => 600, :period => 'day')
+      Factory(:rule_definition, :child => @child1, :client_application => @client_application, :time => 600, :period => 'day')
     end
 
     it "should success" do
