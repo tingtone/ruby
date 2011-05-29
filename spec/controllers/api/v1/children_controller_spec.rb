@@ -8,7 +8,7 @@ describe Api::V1::ChildrenController do
   context 'create' do
     it "should success" do
       child = Factory(:child, :parent => @parent)
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '2000-01-01' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -16,10 +16,11 @@ describe Api::V1::ChildrenController do
       children = json_response['children']
       children.first['fullname'].should == child.fullname
       children.last['fullname'].should == 'Child'
+      children.last['birthday'].should == 1262275200
     end
 
     it "should fail for validation" do
-      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -28,7 +29,7 @@ describe Api::V1::ChildrenController do
     end
 
     it "should fail for wrong parent_token" do
-      post :create, :child => { :gender => 'male', :birthday => '2000-01-01' }, :parent_id => -1, :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => -1, :format => 'json', :no_sign => true
 
       response.response_code.should == 200
       json_response = ActiveSupport::JSON.decode response.body
