@@ -1,31 +1,9 @@
 module Analytics::BaseHelper
-  def hello
-    @ss = "hello from base"
-  end 
-  # 
-  def key_count(key,cond={})
-    data = [] 
-    xaxis = []  
-    show_data = []              
-      config_id = Admin::Statconfig.find_by_key(key).id
-      all =  Stat::StatItem.all({:created_at=>{"$gte"=>Time.now.beginning_of_day}}.merge({:config_id=>config_id}))
-      all.each do |item|
-        data  << {:name=>8.hours.since(item.created_at).strftime("%Y年-%m月-%d %H:%M") +"-" + 8.hours.since(item.created_at).strftime("%Y年-%m月-%d %H:%M"), :y=>item.value.to_i}  
-        xaxis << 7.hours.since(item.created_at).strftime("%H:%M") +"-" + 8.hours.since(item.created_at).strftime("%H:%M")  
-      end                            
-      show_data << {:type=>"column",:data=>data}
-
-
-      return column_line("所有时间",0,key,show_data,xaxis) 
-  end
-
   #generate the chart from the params
-  # - title:
-  # -  
-  # -  
-  # -  
-  # -  
-  # -  
+  # - title: 
+  # - label: 
+  # - data
+  # - xaxis   
   def column_line(title,label,data,xaxis) 
      # format the labels that show up on the chart
      pie_label_formatter = '
