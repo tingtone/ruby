@@ -1,7 +1,6 @@
 class ClientApplication < ActiveRecord::Base
   include OAuth::Helper
   RATINGS = [4, 9, 12]
-  PER_GAME_TIME = 30
 
   belongs_to :developer
   belongs_to :client_application_category
@@ -33,19 +32,25 @@ class ClientApplication < ActiveRecord::Base
     self.secret = generate_key(32)
   end
 
-  def time_summary(parent, child)
-    {:game_left_time => current_left_time(parent, child), :total_left_time => total_left_time(parent, child)}
+  def time_summary(child)
+    RuleDefinition::PERIODS.keys.inject({}) do |summary, period|
+      summary.merge({ :"game_#{period}_left_time" => send("#{period}_left_time", child) })
+    end.merge({:total_left_time => total_left_time(child)})
   end
 
-  def current_left_time(parent, child)
-    rule_definition = rule_definitions.find_by_parent_id_and_period(parent.id, 'day')
-    rule_day_time = rule_definition ? rule_definition.time : PER_GAME_TIME
-    play_day_time = child.time_trackers.sum('time', :conditions => ["client_application_id = ? and created_at >= ?", self.id, Time.now.beginning_of_day])
-    rule_day_time - play_day_time
+  RuleDefinition::PERIODS.each do |period, time|
+    class_eval <<-EOS
+      def #{period}_left_time(child)
+        rule_definition = rule_definitions.find_by_child_id_and_period(child.id, "#{period}")
+        rule_day_time = rule_definition ? rule_definition.time : #{time}
+        play_day_time = child.time_trackers.sum('time', :conditions => ["client_application_id = ? and created_at >= ?", self.id, Time.now.beginning_of_#{period}])
+        rule_day_time - play_day_time
+      end
+    EOS
   end
 
-  def total_left_time(parent, child)
-    total_time = parent.total_time
+  def total_left_time(child)
+    total_time = child.total_time
     play_total_time = child.time_trackers.sum('time', :conditions => ["created_at >= ?", Time.now.beginning_of_day])
     total_time - play_total_time
   end

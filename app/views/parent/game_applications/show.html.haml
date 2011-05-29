@@ -5,7 +5,7 @@
     = form.fields_for :rule_definitions, definition do |definition_fields|
       %p.rule_definition.input
         = definition_fields.label :time, definition.period
-        = definition_fields.hidden_field :parent_id
+        = definition_fields.hidden_field :child_id
         = definition_fields.hidden_field :period
         = definition_fields.text_field :time
   %p.buttons= form.submit "Update", :class => 'button'

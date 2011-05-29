@@ -19,8 +19,8 @@ class Parent::GameApplicationsController < Parent::BaseController
   protected
     def load_rule_definitions
       @rule_definitions = []
-      RuleDefinition::PERIODS.each do |period|
-        @rule_definitions << @game_application.rule_definitions.find_or_create_by_period_and_parent_id(period, current_parent.id)
+      RuleDefinition::PERIODS.keys.each do |period|
+        @rule_definitions << @game_application.rule_definitions.find_or_create_by_period_and_child_id(period, current_child.id)
       end
     end
 end
