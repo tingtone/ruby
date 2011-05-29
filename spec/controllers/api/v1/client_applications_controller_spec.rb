@@ -5,7 +5,6 @@ describe Api::V1::ClientApplicationsController do
     before do
       @parent = Factory(:parent)
       @child1 = Factory(:child, :parent => @parent)
-      @child1.update_attribute(:total_time, 1000)
       @child2 = Factory(:child, :parent => @parent)
       @game_application1 = Factory(:game_application)
       @game_application2 = Factory(:game_application)
@@ -16,6 +15,8 @@ describe Api::V1::ClientApplicationsController do
 
       Factory(:rule_definition, :child => @child1, :client_application => @game_application1, :time => 600, :period => 'day')
       Factory(:rule_definition, :child => @child1, :client_application => @game_application1, :time => 1000, :period => 'week')
+      Factory(:rule_definition, :child => @child1, :time => 1600, :period => 'day')
+      Factory(:rule_definition, :child => @child1, :time => 2000, :period => 'week')
     end
 
     it "should get json summary" do
@@ -26,7 +27,8 @@ describe Api::V1::ClientApplicationsController do
       json_response['error'].should be_false
       json_response['game_day_left_time'].should == 550
       json_response['game_week_left_time'].should == 950
-      json_response['total_left_time'].should == 850
+      json_response['total_day_left_time'].should == 1450
+      json_response['total_week_left_time'].should == 1850
     end
   end
 end

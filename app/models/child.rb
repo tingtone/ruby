@@ -1,12 +1,10 @@
 class Child < ActiveRecord::Base
-  DEFAULT_TOTAL_TIME = 120
-
   validates_presence_of :fullname, :gender, :birthday
   belongs_to :parent
   has_many :time_trackers
   has_many :score_trackers
-
-  before_create :set_default_total_time
+  has_many :rule_definitions
+  accepts_nested_attributes_for :rule_definitions
 
   def as_json(options={})
     {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday.to_time.to_i}
@@ -20,7 +18,25 @@ class Child < ActiveRecord::Base
     end
   end
 
-  def set_default_total_time
-    self.total_time = DEFAULT_TOTAL_TIME
+  RuleDefinition::PERIODS.each do |period, time|
+    class_eval <<-EOS
+      def #{period}_left_time(client_application)
+        rule_definition = rule_definitions.find_by_client_application_id_and_period(client_application.id, "#{period}")
+        rule_time = rule_definition ? rule_definition.time : #{time}
+        play_time = time_trackers.sum('time', :conditions => ["client_application_id = ? and created_at >= ?", client_application.id, Time.now.beginning_of_#{period}])
+        rule_time - play_time
+      end
+    EOS
+  end
+
+  RuleDefinition::GLOBAL_PERIODS.each do |period, time|
+    class_eval <<-EOS
+      def total_#{period}_left_time
+        rule_definition = rule_definitions.find_by_client_application_id_and_period(nil, "#{period}")
+        total_time = rule_definition ? rule_definition.time : #{time}
+        play_total_time = time_trackers.sum('time', :conditions => ["created_at >= ?", Time.now.beginning_of_day])
+        total_time - play_total_time
+      end
+    EOS
   end
 end

@@ -3,6 +3,10 @@ class RuleDefinition < ActiveRecord::Base
     :day => 30,
     :week => 60
   }
+  GLOBAL_PERIODS = {
+    :day => 120,
+    :week => 240
+  }
 
   belongs_to :client_application
   belongs_to :child
@@ -12,6 +16,10 @@ class RuleDefinition < ActiveRecord::Base
 
   def period=(period)
     write_attribute(:period, period)
-    write_attribute(:time, PERIODS[self.period.to_sym]) unless self.time
+    if client_application.blank?
+      write_attribute(:time, GLOBAL_PERIODS[self.period.to_sym]) unless self.time
+    else
+      write_attribute(:time, PERIODS[self.period.to_sym]) unless self.time
+    end
   end
 end
