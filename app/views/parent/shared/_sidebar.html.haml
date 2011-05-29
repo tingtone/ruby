@@ -1,8 +1,9 @@
-- if parent_signed_in? && current_child.present?
-  %h3= current_child.fullname
+- if parent_signed_in? #&& current_child.present?
+  %h3= "Game Application"
+
   %ul
     - current_parent_game_applications.each do |game_application|
-      %li= link_to game_application.name, parent_game_application_path(game_application)
+      %li= link_to game_application.name, parent_analytic_path(game_application)
 
   - other_children.each do |child|
     %h3= link_to child.fullname, parent_root_path(:child_id => child.id), :class => 'child'
