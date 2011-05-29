@@ -1,3 +1,2 @@
-class GameApplication < ClientApplication   
-
+class GameApplication < ClientApplication
 end
