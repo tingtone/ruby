@@ -26,3 +26,11 @@ ParentClientApplication.create(:parent => parent, :client_application => game_ap
 
 child1 = parent.children.create(:fullname => 'Child1', :gender => 'male', :birthday => '2003/11/07')
 child2 = parent.children.create(:fullname => 'Child2', :gender => 'female', :birthday => '2006/11/02')
+
+game_application1.time_trackers.create(:child=>child1,:time=>30,:created_at => 2.days.ago)
+game_application1.time_trackers.create(:child=>child1,:time=>20,:created_at => 4.days.ago)
+game_application1.time_trackers.create(:child=>child1,:time=>50,:created_at => 5.days.ago)
+
+game_application2.time_trackers.create(:child=>child2,:time=>10,:created_at => 1.days.ago)
+game_application2.time_trackers.create(:child=>child2,:time=>30,:created_at => 3.days.ago)
+game_application2.time_trackers.create(:child=>child2,:time=>40,:created_at => 5.days.ago)
