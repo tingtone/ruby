@@ -21,7 +21,7 @@ group :test do
   gem 'ZenTest'
   gem 'autotest'
   gem 'autotest-rails'
-  gem 'spork', '0.9.0.rc.7'
+  #gem 'spork', '0.9.0.rc.7'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
