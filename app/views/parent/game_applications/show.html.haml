@@ -1,10 +1,10 @@
-%h3 Set Limitation
+%h3 Set Time Control
 
 = form_for [:parent, @game_application] do |form|
   - @rule_definitions.each do |definition|
     = form.fields_for :rule_definitions, definition do |definition_fields|
       %p.rule_definition.input
-        = definition_fields.label :time, definition.period
+        = definition_fields.label :time, "allowed play time #{definition.period}"
         = definition_fields.hidden_field :child_id
         = definition_fields.hidden_field :period
         = definition_fields.text_field :time
