@@ -1,8 +1,14 @@
 module Parent::BaseHelper
   def current_child
-    session[:child_id] = params[:child_id] if params[:child_id]
-    session[:child_id] = current_parent.children.first.id unless session[:child_id]
-    @child ||= current_parent.children.find(session[:child_id])
+    @child ||= begin
+                 session[:child_id] = params[:child_id] if params[:child_id]
+                 child = current_parent.children.find_by_id(session[:child_id]) if session[:child_id]
+                 unless child
+                   child = current_parent.children.first
+                   session[:child_id] = child.try(:id)
+                 end
+                 child
+               end
   end
 
   def other_children
