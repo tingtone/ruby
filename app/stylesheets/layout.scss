@@ -90,9 +90,12 @@ body {
     a {
       padding: 7px 10px 7px 25px;
       font-size: 12px;
-      display: block;
+      display: inline-block;
       color: #757575;
       line-height: 20px;
+      &.analytics {
+        float: right;
+      }
     }
   }
   a.button {
