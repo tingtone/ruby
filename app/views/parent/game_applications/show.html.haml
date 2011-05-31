@@ -4,7 +4,7 @@
   - @rule_definitions.each do |definition|
     = form.fields_for :rule_definitions, definition do |definition_fields|
       %p.rule_definition.input
-        = definition_fields.label :time, "allowed play time #{definition.period}"
+        = definition_fields.label :time, "allowed play time per #{definition.period}"
         = definition_fields.hidden_field :child_id
         = definition_fields.hidden_field :period
         = definition_fields.text_field :time
