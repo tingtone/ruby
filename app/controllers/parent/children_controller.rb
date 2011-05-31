@@ -1,9 +1,13 @@
 class Parent::ChildrenController < Parent::BaseController
   inherit_resources
 
-  def show
+  def game
     @child = current_child
     load_rule_definitions
+  end
+
+  def education
+    @education_application = EducationApplication.new
   end
 
   def update

@@ -9,11 +9,16 @@ Server::Application.routes.draw do
   end
 
   namespace :parent do
-    resources :game_applications 
+    resources :game_applications
     resources :education_applications
     resources :registrations
     resources :analytics
-    resources :children
+    resources :children do
+      member do
+        get :game
+        get :education
+      end
+    end
     #root :to => 'analytics#index'
     root :to => 'game_applications#index'
   end

@@ -1,0 +1,10 @@
+%h3 Set Global Time Control
+
+= form_for [:parent, current_child] do |form|
+  - @rule_definitions.each do |definition|
+    = form.fields_for :rule_definitions, definition do |definition_fields|
+      %p.rule_definition.input
+        = definition_fields.label :time, "allowed total play time per #{definition.period}"
+        = definition_fields.hidden_field :period
+        = definition_fields.text_field :time
+  %p.buttons= form.submit "update", :class => 'button'
