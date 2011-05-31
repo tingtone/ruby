@@ -1,8 +1,9 @@
-- if parent_signed_in? #&& current_child.present?
-  %h3= "Game Application"
+- if parent_signed_in? && current_child.present?
+  %h3= current_child.fullname
 
   %ul
-    %li.title= link_to 'All', parent_child_path(current_child)
+    %li.title Game Applications
+    %li= link_to 'All', parent_child_path(current_child)
     - current_parent_game_applications.each do |game_application|
       %li
         = link_to game_application.name, parent_game_application_path(game_application)
