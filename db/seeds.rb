@@ -15,9 +15,14 @@ game_application2 = developer.game_applications.create(:name => 'second app', :d
   Grade.create(:name => name, :min_score => min_score, :max_score => max_score)
 end
 
-math = ClientApplicationCategory.create(:name => 'math')
-chinese = ClientApplicationCategory.create(:name => 'chinese')
-english = ClientApplicationCategory.create(:name => 'english')
+english = ClientApplicationCategory.create(:name => 'English')
+chinese = ClientApplicationCategory.create(:name => 'Chinese')
+math = ClientApplicationCategory.create(:name => 'Math')
+music = ClientApplicationCategory.create(:name => 'Music')
+geography = ClientApplicationCategory.create(:name => 'Geography')
+history = ClientApplicationCategory.create(:name => 'History')
+drawing = ClientApplicationCategory.create(:name => 'Drawing')
+mixed = ClientApplicationCategory.create(:name => 'Mixed')
 
 parent = Parent.create(:email => 'parent@kittypad.com', :password => 'parent', :password_confirmation => 'parent')
 
