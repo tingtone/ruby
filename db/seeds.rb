@@ -15,7 +15,7 @@ game_application2 = developer.game_applications.create(:name => 'second app', :d
   Grade.create(:name => name, :min_score => min_score, :max_score => max_score)
 end
 
-nglish = ClientApplicationCategory.create(:name => 'English')
+english = ClientApplicationCategory.create(:name => 'English')
 chinese = ClientApplicationCategory.create(:name => 'Chinese')
 math = ClientApplicationCategory.create(:name => 'Math')
 music = ClientApplicationCategory.create(:name => 'Music')
