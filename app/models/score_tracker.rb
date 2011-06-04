@@ -5,6 +5,7 @@ class ScoreTracker < ActiveRecord::Base
   validates_numericality_of :score
 
   before_save :check_score_count
+  after_save :add_score
 
   protected
     def check_score_count
@@ -12,6 +13,22 @@ class ScoreTracker < ActiveRecord::Base
       if client_application.max_score < sum + score
         self.errors.add(:score, "can't add to this child any more")
         false
+      end
+    end
+
+    def add_score
+      achievement = child.achievements.where(:client_application_category_id => client_application.client_application_category_id).order('score desc').first
+      if achievement
+        achievement.score += score
+        new_grade = Grade.by_score(achievement.score).first
+        if achievement.grade != new_grade
+          achievement.grade = new_grade
+          child.bonus.create(:time => Bonus::TIME)
+        end
+        achievement.save
+      else
+        grade = Grade.order("min_score asc").first
+        achievement = child.achievements.create(:client_application_category_id => client_application.client_application_category_id, :grade => grade, :score => score)
       end
     end
 end

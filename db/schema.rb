@@ -10,13 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529150856) do
+ActiveRecord::Schema.define(:version => 20110604080614) do
 
   create_table "achievements", :force => true do |t|
-    t.string   "course"
     t.integer  "grade_id"
-    t.integer  "score"
     t.integer  "child_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "score",                          :default => 0
+    t.integer  "client_application_category_id"
+  end
+
+  create_table "bonus", :force => true do |t|
+    t.integer  "child_id"
+    t.integer  "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

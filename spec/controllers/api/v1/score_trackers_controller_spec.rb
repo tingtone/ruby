@@ -4,7 +4,11 @@ describe Api::V1::ScoreTrackersController do
   context "create" do
     before do
       @child = Factory(:child)
-      @education_application = Factory(:education_application)
+      @english = Factory(:client_application_category, :name => 'english')
+      @math = Factory(:client_application_category, :name => 'math')
+      @education_application = Factory(:education_application, :client_application_category => @math)
+      @level1 = Factory(:grade, :name => 'level1', :min_score => 0, :max_score => 200)
+      @level2 = Factory(:grade, :name => 'level2', :min_score => 201, :max_score => 500)
     end
 
     it "should success" do
@@ -17,6 +21,30 @@ describe Api::V1::ScoreTrackersController do
       score_tracker.score.should == 100
       score_tracker.child.should == @child
       score_tracker.client_application.should == @education_application
+
+      achievement = Achievement.last
+      achievement.child.should == @child
+      achievement.client_application_category.should == @math
+      achievement.grade.should == @level1
+      achievement.score.should == 100
+
+      @child.should have(0).bonus
+    end
+
+    it "should upgrade grade" do
+      @achievement = Factory(:achievement, :client_application_category => @math, :score => 150, :grade => @level1, :child => @child)
+      post :create, :score => 100, :child_id => @child.id, :key => @education_application.key, :no_sign => true
+      response.should be_ok
+
+      achievement = Achievement.last
+      achievement.child.should == @child
+      achievement.client_application_category.should == @math
+      achievement.grade.should == @level2
+      achievement.score.should == 250
+
+      bonus = Bonus.last
+      bonus.child.should == @child
+      bonus.time.should == 15
     end
 
     it "should fail without score" do

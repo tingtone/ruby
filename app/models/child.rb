@@ -1,9 +1,12 @@
 class Child < ActiveRecord::Base
   validates_presence_of :fullname, :gender, :birthday
   belongs_to :parent
+  belongs_to :grade
   has_many :time_trackers
   has_many :score_trackers
   has_many :rule_definitions
+  has_many :achievements
+  has_many :bonus
   accepts_nested_attributes_for :rule_definitions
 
   def as_json(options={})
