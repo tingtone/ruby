@@ -1,0 +1,2 @@
+module Parent::AgeGradesHelper
+end

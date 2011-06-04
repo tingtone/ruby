@@ -13,7 +13,7 @@ Server::Application.routes.draw do
     resources :education_applications
     resources :registrations
     resources :analytics do
-      member do 
+      member do
         get :game
         get :game_top_5
         get :education
@@ -26,6 +26,7 @@ Server::Application.routes.draw do
         get :education
       end
     end
+    resources :age_grades
     #root :to => 'analytics#index'
     root :to => 'game_applications#index'
   end
