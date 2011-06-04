@@ -30,5 +30,20 @@ describe Api::V1::ClientApplicationsController do
       json_response['total_day_left_time'].should == 1450
       json_response['total_week_left_time'].should == 1850
     end
+
+    it "should with bonus time" do
+      bonus1 = Factory(:bonus, :child => @child1, :time => 15, :created_at => Time.now.ago(20.weeks))
+      bonus2 = Factory(:bonus, :child => @child1, :time => 15, :created_at => Time.now.ago(10.weeks))
+      bonus3 = Factory(:bonus, :child => @child1, :time => 15, :created_at => Time.now.ago(5.weeks))
+      get :sync, :child_id => @child1.id, :parent_id => @parent.id, :key => @game_application1.key, :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should be_false
+      json_response['game_day_left_time'].should == 580
+      json_response['game_week_left_time'].should == 980
+      json_response['total_day_left_time'].should == 1480
+      json_response['total_week_left_time'].should == 1880
+    end
   end
 end

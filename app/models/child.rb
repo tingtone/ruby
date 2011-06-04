@@ -27,7 +27,7 @@ class Child < ActiveRecord::Base
         rule_definition = rule_definitions.find_by_client_application_id_and_period(client_application.id, "#{period}")
         rule_time = rule_definition ? rule_definition.time : #{time}
         play_time = time_trackers.sum('time', :conditions => ["client_application_id = ? and created_at >= ?", client_application.id, Time.now.beginning_of_#{period}])
-        rule_time - play_time
+        rule_time - play_time + bonus_time
       end
     EOS
   end
@@ -38,8 +38,12 @@ class Child < ActiveRecord::Base
         rule_definition = rule_definitions.find_by_client_application_id_and_period(nil, "#{period}")
         total_time = rule_definition ? rule_definition.time : #{time}
         play_total_time = time_trackers.sum('time', :conditions => ["created_at >= ?", Time.now.beginning_of_day])
-        total_time - play_total_time
+        total_time - play_total_time + bonus_time
       end
     EOS
+  end
+
+  def bonus_time
+    @bonus_time ||= bonus.sum(:time, :conditions => ["created_at >= ?", Date.today.ago(Bonus::EXPIRE_WEEKS.weeks)])
   end
 end
