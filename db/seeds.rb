@@ -11,7 +11,7 @@ developer = Developer.create(:email => 'richard@kittypad.com', :password => 'ric
 game_application1 = developer.game_applications.create(:name => 'first app', :description => 'first app', :identifier => 'com.apple.identifier1')
 game_application2 = developer.game_applications.create(:name => 'second app', :description => 'second app', :identifier => 'com.apple.identifier2')
 
-[[:junior, 0, 999], [:senior, 1000, 9999], [:top, 1000, 999999999]].each do |name, min_score, max_score|
+[[:level_1, 0, 300], [:level_2, 301, 800], [:level_3, 801, 1500], [:level_4, 1501, 2500], [:level_5, 2501, 4000], [:level_6, 4001, 60000], [:level_7, 8001, 10000]].each do |name, min_score, max_score|
   Grade.create(:name => name, :min_score => min_score, :max_score => max_score)
 end
 
