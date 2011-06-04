@@ -38,6 +38,17 @@ describe Api::V1::ChildrenController do
     end
   end
 
+  context 'update' do
+    it "should success" do
+      child = Factory(:child, :parent => @parent)
+      put :update, :child => { :fullname => 'Update' }, :id => child.id, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
+    end
+  end
+
   context "index" do
     it "should get all children" do
       child1 = Factory(:child, :parent => @parent)
