@@ -1,14 +1,15 @@
 class Parent::AnalyticsController < Analytics::BaseController
   layout "parent"    
-  def index
-    @s = hello
-  end
-  
-  def show
+ 
+  def game
     @game_app = GameApplication.find(params[:id]) 
     @game_time_chart = get_chart(@game_app)
   end  
-  
+  def education
+    @edu_app = EducationApplication.find(params[:id]) 
+    @edu_time_chart = get_chart(@edu_app)
+  end  
+
   
   
   protected
@@ -18,7 +19,8 @@ class Parent::AnalyticsController < Analytics::BaseController
     show_data = []              
     data_days = game_app.time_trackers.map{|tt| tt.created_at.strftime("%m/%d")}
     #show last 14 days
-    0.upto(6).each do |day| 
+    0.upto(6).each do |day|
+      day = 6-day 
       this_day = day.days.ago(Time.now)
       day_str = this_day.strftime("%m/%d")
       if data_days.include?(day_str)

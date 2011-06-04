@@ -12,7 +12,12 @@ Server::Application.routes.draw do
     resources :game_applications
     resources :education_applications
     resources :registrations
-    resources :analytics
+    resources :analytics do
+      member do 
+        get :game
+        get :education
+      end
+    end
     resources :children do
       member do
         get :game
