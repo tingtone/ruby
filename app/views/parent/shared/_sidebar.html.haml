@@ -23,3 +23,7 @@
 
   - other_children.each do |child|
     %h3= link_to child.fullname, parent_root_path(:child_id => child.id), :class => 'child'
+
+  %h3 Social
+  %ul
+    %li= link_to "Top Played Education Application", parent_education_applications_path(:type => "most_played")

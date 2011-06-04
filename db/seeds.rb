@@ -45,3 +45,11 @@ education_application2 = developer.education_applications.create(:name => 'secon
 
 ParentClientApplication.create(:parent => parent, :client_application => education_application1)
 ParentClientApplication.create(:parent => parent, :client_application => education_application2)
+
+education_application1.time_trackers.create(:child => child1, :time => 30, :created_at => 2.days.ago)
+education_application1.time_trackers.create(:child => child1, :time => 20, :created_at => 4.days.ago)
+education_application1.time_trackers.create(:child => child1, :time => 50, :created_at => 5.days.ago)
+
+education_application2.time_trackers.create(:child => child2, :time => 10, :created_at => 1.days.ago)
+education_application2.time_trackers.create(:child => child2, :time => 30, :created_at => 3.days.ago)
+education_application2.time_trackers.create(:child => child2, :time => 40, :created_at => 5.days.ago)

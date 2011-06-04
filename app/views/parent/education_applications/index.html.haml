@@ -1,0 +1,5 @@
+%h3 Most Played Education Applications
+
+%ul
+  - @most_playeds.each do |most_played|
+    %li= link_to "#{most_played.client_application.name} (#{most_played.time})", '#'
