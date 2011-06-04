@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'inherited_resources'
 gem 'oauth'
 gem 'ruby-hmac', :require => 'hmac'
+gem 'whenever'
 
 group :development do
   gem 'thin'
