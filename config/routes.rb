@@ -15,7 +15,9 @@ Server::Application.routes.draw do
     resources :analytics do
       member do 
         get :game
+        get :game_top_5
         get :education
+        get :education_top_5
       end
     end
     resources :children do

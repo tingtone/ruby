@@ -8,11 +8,29 @@ class Parent::AnalyticsController < Analytics::BaseController
   def education
     @edu_app = EducationApplication.find(params[:id]) 
     @edu_time_chart = get_chart(@edu_app)
-  end  
+  end 
+  def game_top_5 
+    top_5_data = current_parent.game_applications.map{|app| {:name=>app.name,:time=>app.time_trackers.sum(:time)}}.sort{|a,b| a[:time] <=> b[:time]}.reverse[0..4]
+     @game_time_chart = get_top5_chart(top_5_data)
+  end 
+  def education_top_5 
+    top_5_data = current_parent.education_applications.map{|app| {:name=>app.name,:time=>app.time_trackers.sum(:time)}}.sort{|a,b| a[:time] <=> b[:time]}.reverse[0..4]
+    @edu_time_chart = get_top5_chart(top_5_data)
+  end 
 
-  
-  
   protected
+  def get_top5_chart(items)
+    data = [] 
+    xaxis = []  
+    show_data = []              
+     #show last 14 days
+     items.each do |item|
+       data  << { :name=>item[:name], :y=> item[:time]}  
+       xaxis << item[:name]
+     end     
+    show_data << {:type=>"column",:data=>data}
+    return column_line("Child Top 5","game_time",show_data,xaxis)
+  end 
   def get_chart(game_app)
     data = [] 
     xaxis = []  
@@ -33,7 +51,7 @@ class Parent::AnalyticsController < Analytics::BaseController
     end     
     show_data << {:type=>"column",:data=>data}
     return column_line("Child Time Tracker","game_time",show_data,xaxis)
-  end
+  end 
 
  
 end
