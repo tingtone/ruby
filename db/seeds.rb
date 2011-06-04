@@ -1,4 +1,5 @@
 MostPlayed.destroy_all
+MostDownload.destroy_all
 AgeGrade.destroy_all
 Child.destroy_all
 ParentClientApplication.destroy_all

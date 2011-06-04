@@ -1,4 +1,4 @@
-task :analytics => ['analytics:education_application:most_played', 'analytics:children:age_grades']
+task :analytics => ['analytics:education_application:most_played', 'analytics:education_application:most_download', 'analytics:children:age_grades']
 
 namespace :analytics do
   namespace :education_application do
@@ -7,6 +7,14 @@ namespace :analytics do
       results = EducationApplication.joins(:time_trackers).order('sum_time desc').limit(10).group(:client_application_id).sum(:time)
       results.each do |id, time|
         MostPlayed.create(:client_application => EducationApplication.find(id), :time => time)
+      end
+    end
+
+    desc "most download education applciations"
+    task :most_download => :environment do
+      results = ParentClientApplication.order('count_parent_id desc').limit(10).group(:client_application_id).count(:parent_id)
+      results.each do |id, amount|
+        MostDownload.create(:client_application_id => id, :amount => amount)
       end
     end
   end

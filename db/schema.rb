@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110604141940) do
+ActiveRecord::Schema.define(:version => 20110604143533) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -90,6 +90,13 @@ ActiveRecord::Schema.define(:version => 20110604141940) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number"
+  end
+
+  create_table "most_downloads", :force => true do |t|
+    t.integer  "client_application_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "most_playeds", :force => true do |t|

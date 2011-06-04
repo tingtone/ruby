@@ -1,4 +1,8 @@
 Server::Application.routes.draw do
+  get "most_plays/index"
+
+  get "most_downloads/index"
+
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
   devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations" }
 
@@ -27,6 +31,8 @@ Server::Application.routes.draw do
       end
     end
     resources :age_grades
+    resources :most_downloads
+    resources :most_plays
     #root :to => 'analytics#index'
     root :to => 'game_applications#index'
   end
