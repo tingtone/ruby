@@ -4,7 +4,7 @@ Server::Application.routes.draw do
   get "most_downloads/index"
 
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
-  devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations" }
+  devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords" }
 
   namespace :dev do
     resources :game_applications
@@ -44,6 +44,7 @@ Server::Application.routes.draw do
       resources :children, :only => [:create, :index, :show, :update]
       resources :time_trackers, :only => [:create]
       resources :score_trackers, :only => [:create]
+      resources :passwords, :only => [:create]
       match 'client_applications/sync' => 'client_applications#sync'
       match 'client_applications/kind' => 'client_applications#kind'
     end
