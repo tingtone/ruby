@@ -44,6 +44,30 @@ describe Api::V1::ParentSessionsController do
       children.last['time_summary']['total_day_left_time'].should == 1500
       children.last['time_summary']['game_week_left_time'].should == 900
       children.last['time_summary']['total_week_left_time'].should == 1900
+
+      rule_definitions = json_response['parent']['rule_definitions']
+      rule_definitions['game_day_time'].should == 30
+      rule_definitions['game_week_time'].should == 60
+      rule_definitions['total_day_time'].should == 120
+      rule_definitions['total_week_time'].should == 240
+    end
+
+    it "should get rule definitions for child and client application" do
+      Factory(:rule_definition, :child => @child1, :client_application => @client_application, :time => 40, :period => 'day')
+      Factory(:rule_definition, :child => @child1, :client_application => @client_application, :time => 80, :period => 'week')
+      Factory(:rule_definition, :child => @child1, :time => 140, :period => 'day')
+      Factory(:rule_definition, :child => @child1, :time => 280, :period => 'week')
+      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
+
+      children = json_response['parent']['children']
+      children.first['rule_definitions']['game_day_time'].should == 40
+      children.first['rule_definitions']['game_week_time'].should == 80
+      children.first['rule_definitions']['total_day_time'].should == 140
+      children.first['rule_definitions']['total_week_time'].should == 280
     end
 
     it "should add a new device" do

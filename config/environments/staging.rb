@@ -47,6 +47,11 @@ Server::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[KittyPad] ",
+    :sender_address => %{"kittypad" <noreply@kittypad.com>},
+    :exception_recipients => %w{flyerhzm@gmail.com}
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => "smtp.exmail.qq.com",

@@ -15,7 +15,10 @@ class Parent::ChildrenController < Parent::BaseController
       failure.html {
         load_rule_definitions
         flash[:error] = 'set rule definition failed'
-        render :action => :show
+        render :action => :game
+      }
+      success.html {
+        redirect_to :back
       }
     end
   end

@@ -1,3 +1,4 @@
+RuleDefinition.destroy_all
 MostPlayed.destroy_all
 MostDownload.destroy_all
 AgeGrade.destroy_all
