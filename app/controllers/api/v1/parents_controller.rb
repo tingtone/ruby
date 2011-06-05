@@ -11,6 +11,7 @@ class Api::V1::ParentsController < Api::V1::BaseController
         :parent => {
           :id => parent.id,
           :authentication_token => parent.authentication_token,
+          :rule_definitions => RuleDefinition.globals
         }
       }
     else
