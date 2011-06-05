@@ -43,5 +43,10 @@ module Server
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.middleware.use ExceptionNotifier,
+      :email_prefix => "[KittyPad] ",
+      :sender_address => %{"kittypad" <noreply@kittypad.com>},
+      :exception_recipients => %w{flyerhzm@gmail.com}
   end
 end
