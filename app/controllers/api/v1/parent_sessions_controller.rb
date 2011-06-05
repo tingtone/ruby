@@ -3,6 +3,7 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
     parent = Parent.find_by_email(params[:email])
     if parent && parent.valid_password?(params[:password])
       parent.add_client_application(current_client_application)
+      parent.add_device(params[:device_identifier])
       render :json => {
         :error => false,
         :client_application => {

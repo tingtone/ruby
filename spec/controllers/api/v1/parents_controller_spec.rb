@@ -7,7 +7,7 @@ describe Api::V1::ParentsController do
     end
 
     it "should success" do
-      post :create, :parent => {:email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent'}, :format => :json, :key => @client_application.key, :no_sign => true
+      post :create, :parent => {:email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent'}, :device => {:identifier => 'device-identifier'}, :format => :json, :key => @client_application.key, :no_sign => true
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
@@ -16,6 +16,8 @@ describe Api::V1::ParentsController do
       json_response['parent']['authentication_token'].should_not be_blank
 
       Parent.last.client_applications.should be_include(@client_application)
+      Parent.last.devices.should be_include(Device.last)
+      Device.last.identifier.should == 'device-identifier'
     end
 
     it "should fail" do

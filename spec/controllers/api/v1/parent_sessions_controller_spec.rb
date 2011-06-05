@@ -22,7 +22,7 @@ describe Api::V1::ParentSessionsController do
     end
 
     it "should success" do
-      post :create, :email => 'parent@test.com', :password => 'parent', :format => :json, :key => @client_application.key, :no_sign => true
+      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -46,10 +46,27 @@ describe Api::V1::ParentSessionsController do
       children.last['time_summary']['total_week_left_time'].should == 1900
     end
 
+    it "should add a new device" do
+      Device.count.should == 0
+      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+
+      response.should be_ok
+      Device.count.should == 1
+      Device.last.identifier.should == 'device-identifier'
+    end
+
+    it "should not add a new device if exist" do
+      Factory(:device, :identifier => 'device-identifier', :parent => @parent)
+      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+
+      response.should be_ok
+      Device.count.should == 1
+    end
+
     it "should not add new association for parent and existing client_application" do
       @parent.parent_client_applications.create(:client_application => @client_application)
       @parent.should have(1).client_applications
-      post :create, :email => 'parent@test.com', :password => 'parent', :format => :json, :key => @client_application.key, :no_sign => true
+      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
