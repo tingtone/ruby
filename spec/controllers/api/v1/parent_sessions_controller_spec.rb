@@ -51,16 +51,19 @@ describe Api::V1::ParentSessionsController do
       post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
 
       response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
       Device.count.should == 1
       Device.last.identifier.should == 'device-identifier'
     end
 
-    it "should not add a new device if exist" do
+    it "should login without email password" do
       Factory(:device, :identifier => 'device-identifier', :parent => @parent)
-      post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+      post :create, :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
 
       response.should be_ok
-      Device.count.should == 1
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
     end
 
     it "should not add new association for parent and existing client_application" do
