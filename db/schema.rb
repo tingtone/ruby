@@ -14,10 +14,10 @@ ActiveRecord::Schema.define(:version => 20110605074113) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
+    t.integer  "score",                          :default => 0
     t.integer  "child_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "score",                          :default => 0
     t.integer  "client_application_category_id"
   end
 
