@@ -1,4 +1,4 @@
 class Forum::BaseController < ApplicationController
-  layout 'dev'
+  layout 'forum'
 
 end
