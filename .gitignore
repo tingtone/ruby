@@ -6,3 +6,4 @@ config/database.yml
 public/stylesheets/*.css
 .sass-cache/
 .DS_Store
+public/.DS_Store
