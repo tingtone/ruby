@@ -50,6 +50,11 @@ Server::Application.routes.draw do
     end
   end
 
+  namespace :forum
+    #TODO
+    resources :app_centers
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
