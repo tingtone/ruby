@@ -5,3 +5,4 @@ tmp/
 config/database.yml
 public/stylesheets/*.css
 .sass-cache/
+.DS_Store
