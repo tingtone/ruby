@@ -50,7 +50,7 @@ Server::Application.routes.draw do
     end
   end
 
-  namespace :forum
+  namespace :forum do
     #TODO
     resources :app_centers
   end

@@ -19,7 +19,7 @@ class RuleDefinition < ActiveRecord::Base
   end
 
   def self.for_child_client_application(child, client_application)
-    results = {}
+    results = {:game_day_time => PERIODS[:day], :game_week_time => PERIODS[:week], :total_day_time => GLOBAL_PERIODS[:day], :total_week_time => GLOBAL_PERIODS[:week]}
     RuleDefinition.where(:child_id => child.id, :client_application_id => nil).each do |rule_definition|
       results[:"total_#{rule_definition.period}_time"] = rule_definition.time
     end
