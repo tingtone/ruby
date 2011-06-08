@@ -43,7 +43,7 @@ class ClientApplication < ActiveRecord::Base
   class << self
 
     def recommands(parent)
-       ClientApplication
+       #ClientApplication
     end
 
     def filter_list(params)
