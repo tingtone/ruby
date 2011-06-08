@@ -13,6 +13,8 @@ gem 'oauth'
 gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
+gem 'kaminari'
+
 
 group :development do
   gem 'thin'
