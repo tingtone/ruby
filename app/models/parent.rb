@@ -14,8 +14,12 @@ class Parent < ActiveRecord::Base
   has_many :education_applications, :through => :parent_client_applications, :source => :client_application, :conditions => ["client_applications.type = 'EducationApplication'"]
   has_many :rule_definitions
   has_many :devices
+  has_many :posts, :order => "#{Post.table_name}.created_at desc"
+  has_many :topics, :order => "#{Topic.table_name}.created_at desc"
+
 
   before_save :ensure_authentication_token
+
 
   def add_client_application(client_application)
     unless self.client_applications.include? client_application

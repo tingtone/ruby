@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110605074113) do
+ActiveRecord::Schema.define(:version => 20110609070129) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -90,6 +90,22 @@ ActiveRecord::Schema.define(:version => 20110605074113) do
     t.datetime "updated_at"
   end
 
+  create_table "forums", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "topics_count",     :default => 0
+    t.integer  "posts_count",      :default => 0
+    t.integer  "position",         :default => 0
+    t.text     "description_html"
+    t.string   "state",            :default => "public"
+    t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forums", ["permalink"], :name => "index_forums_on_permalink"
+  add_index "forums", ["position"], :name => "index_forums_on_position"
+
   create_table "grades", :force => true do |t|
     t.string   "name"
     t.integer  "min_score"
@@ -139,6 +155,20 @@ ActiveRecord::Schema.define(:version => 20110605074113) do
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true
   add_index "parents", ["reset_password_token"], :name => "index_parents_on_reset_password_token", :unique => true
 
+  create_table "posts", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "topic_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "forum_id"
+    t.text     "body_html"
+  end
+
+  add_index "posts", ["created_at", "forum_id"], :name => "index_posts_on_forum_id"
+  add_index "posts", ["created_at", "parent_id"], :name => "index_posts_on_parent_id"
+  add_index "posts", ["created_at", "topic_id"], :name => "index_posts_on_topic_id"
+
   create_table "rule_definitions", :force => true do |t|
     t.integer  "time"
     t.string   "period"
@@ -180,5 +210,25 @@ ActiveRecord::Schema.define(:version => 20110605074113) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "topics", :force => true do |t|
+    t.integer  "forum_id"
+    t.integer  "parent_id"
+    t.string   "title"
+    t.integer  "hits",            :default => 0
+    t.integer  "sticky",          :default => 0
+    t.integer  "posts_count",     :default => 0
+    t.boolean  "locked",          :default => false
+    t.integer  "last_post_id"
+    t.datetime "last_updated_at"
+    t.integer  "last_user_id"
+    t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics", ["forum_id", "permalink"], :name => "index_topics_on_forum_id_and_permalink"
+  add_index "topics", ["last_updated_at", "forum_id"], :name => "index_topics_on_forum_id_and_last_updated_at"
+  add_index "topics", ["sticky", "last_updated_at", "forum_id"], :name => "index_topics_on_sticky_and_last_updated_at"
 
 end

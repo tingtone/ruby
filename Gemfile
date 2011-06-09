@@ -14,6 +14,9 @@ gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'kaminari'
+gem 'permalink_fu'
+gem 'state_machine'
+gem 'cancan'
 
 
 group :development do
