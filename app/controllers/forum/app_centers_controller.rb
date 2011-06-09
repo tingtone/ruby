@@ -1,9 +1,10 @@
 class Forum::AppCentersController < Forum::BaseController
   #applications center for filter
-  #and recommands applications
+  #and recommends applications
 
   def current_parent_include_child
-    @current_parent = Parent.includes(:children).limit(1)
+    #for test
+    @current_parent = Parent.find(:first,:include=>:children)
     @current_parent
   end
 
@@ -11,10 +12,8 @@ class Forum::AppCentersController < Forum::BaseController
   def index
     #for filter apps
     @apps = ClientApplication.filters(params)
-    #for recommands
-    @recommands = ClientApplication.recommands(current_parent)
-
-    render :template => 'forum/app_centers/index'
+    #for recommend
+    @recommends = ClientApplication.recommends(current_parent)
   end
 
 
