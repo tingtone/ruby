@@ -53,6 +53,7 @@ Server::Application.routes.draw do
   namespace :forum do
     #TODO
     resources :app_centers
+    root :to => "forums#index"
   end
 
   # The priority is based upon order of creation:

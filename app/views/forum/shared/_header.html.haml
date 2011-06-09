@@ -1,0 +1,9 @@
+#account_navigation
+  %ul
+    - if parent_signed_in?
+      %li= link_to t('my_info'), edit_parent_registration_path
+      %li= link_to t('sign_out'), destroy_parent_session_path
+    - else
+      %li= link_to t('sign_in'), new_parent_session_path
+      %li= link_to t('sign_up'), new_parent_registration_path
+#global_navigation
