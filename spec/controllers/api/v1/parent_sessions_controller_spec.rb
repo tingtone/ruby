@@ -7,18 +7,8 @@ describe Api::V1::ParentSessionsController do
       @parent = Factory(:parent, :email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent')
       @child1 = Factory(:child, :parent => @parent)
       @child2 = Factory(:child, :parent => @parent)
-      Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 50)
-      Factory(:time_tracker, :child => @child2, :client_application => @client_application, :time => 100)
-
-      Factory(:rule_definition, :child => @child1, :client_application => @client_application, :time => 600, :period => 'day')
-      Factory(:rule_definition, :child => @child1, :client_application => @client_application, :time => 1000, :period => 'week')
-      Factory(:rule_definition, :child => @child1, :time => 1600, :period => 'day')
-      Factory(:rule_definition, :child => @child1, :time => 2000, :period => 'week')
-
-      Factory(:rule_definition, :child => @child2, :client_application => @client_application, :time => 600, :period => 'day')
-      Factory(:rule_definition, :child => @child2, :client_application => @client_application, :time => 1000, :period => 'week')
-      Factory(:rule_definition, :child => @child2, :time => 1600, :period => 'day')
-      Factory(:rule_definition, :child => @child2, :time => 2000, :period => 'week')
+      Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 5)
+      Factory(:time_tracker, :child => @child2, :client_application => @client_application, :time => 10)
     end
 
     it "should success" do
@@ -33,23 +23,34 @@ describe Api::V1::ParentSessionsController do
       Parent.last.client_applications.should be_include(@client_application)
 
       children = json_response['parent']['children']
-      children.first['child']['id'].should == @child1.id
-      children.first['time_summary']['game_day_left_time'].should == 550
-      children.first['time_summary']['total_day_left_time'].should == 1550
-      children.first['time_summary']['game_week_left_time'].should == 950
-      children.first['time_summary']['total_week_left_time'].should == 1950
+      children.first['id'].should == @child1.id
+      children.last['id'].should == @child2.id
 
-      children.last['child']['id'].should == @child2.id
-      children.last['time_summary']['game_day_left_time'].should == 500
-      children.last['time_summary']['total_day_left_time'].should == 1500
-      children.last['time_summary']['game_week_left_time'].should == 900
-      children.last['time_summary']['total_week_left_time'].should == 1900
+      time_summary = json_response['parent']['time_summary']
+      time_summary.first['game_day_left_time'].should == 25
+      time_summary.first['total_day_left_time'].should == 115
+      time_summary.first['game_week_left_time'].should == 55
+      time_summary.first['total_week_left_time'].should == 235
+      time_summary.first['child_id'].should == @child1.id
+
+      time_summary.last['game_day_left_time'].should == 20
+      time_summary.last['total_day_left_time'].should == 110
+      time_summary.last['game_week_left_time'].should == 50
+      time_summary.last['total_week_left_time'].should == 230
+      time_summary.last['child_id'].should == @child2.id
 
       rule_definitions = json_response['parent']['rule_definitions']
-      rule_definitions['game_day_time'].should == 30
-      rule_definitions['game_week_time'].should == 60
-      rule_definitions['total_day_time'].should == 120
-      rule_definitions['total_week_time'].should == 240
+      rule_definitions.first['game_day_time'].should == 30
+      rule_definitions.first['game_week_time'].should == 60
+      rule_definitions.first['total_day_time'].should == 120
+      rule_definitions.first['total_week_time'].should == 240
+      rule_definitions.first['child_id'].should == @child1.id
+
+      rule_definitions.last['game_day_time'].should == 30
+      rule_definitions.last['game_week_time'].should == 60
+      rule_definitions.last['total_day_time'].should == 120
+      rule_definitions.last['total_week_time'].should == 240
+      rule_definitions.last['child_id'].should == @child2.id
     end
 
     it "should get rule definitions for child and client application" do
@@ -63,11 +64,18 @@ describe Api::V1::ParentSessionsController do
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
 
-      children = json_response['parent']['children']
-      children.first['rule_definitions']['game_day_time'].should == 40
-      children.first['rule_definitions']['game_week_time'].should == 80
-      children.first['rule_definitions']['total_day_time'].should == 140
-      children.first['rule_definitions']['total_week_time'].should == 280
+      rule_definitions = json_response['parent']['rule_definitions']
+      rule_definitions.first['game_day_time'].should == 40
+      rule_definitions.first['game_week_time'].should == 80
+      rule_definitions.first['total_day_time'].should == 140
+      rule_definitions.first['total_week_time'].should == 280
+      rule_definitions.first['child_id'].should == @child1.id
+
+      rule_definitions.last['game_day_time'].should == 30
+      rule_definitions.last['game_week_time'].should == 60
+      rule_definitions.last['total_day_time'].should == 120
+      rule_definitions.last['total_week_time'].should == 240
+      rule_definitions.last['child_id'].should == @child2.id
     end
 
     it "should add a new device" do

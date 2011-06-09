@@ -61,4 +61,6 @@ Server::Application.configure do
     :password             => 'kittypad',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+
+  config.action_mailer.default_url_options = {:host => 'ec2-50-16-134-27.compute-1.amazonaws.com'}
 end

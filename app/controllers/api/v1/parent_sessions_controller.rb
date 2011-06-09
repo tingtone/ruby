@@ -19,14 +19,9 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
         :parent => {
           :id => parent.id,
           :authentication_token => parent.authentication_token,
-          :children => parent.children.collect {
-            |child| {
-              :child => child,
-              :time_summary => current_client_application.time_summary(child),
-              :rule_definitions => RuleDefinition.for_child_client_application(child, current_client_application)
-            }
-          },
-          :rule_definitions => RuleDefinition.globals
+          :children => parent.children,
+          :time_summary => parent.children.collect { |child| current_client_application.time_summary(child).merge(:child_id => child.id) },
+          :rule_definitions => parent.children.collect { |child| RuleDefinition.for_child_client_application(child, current_client_application).merge(:child_id => child.id) },
         }
       }
     else
