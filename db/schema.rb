@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110610040600) do
+ActiveRecord::Schema.define(:version => 20110610070731) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20110610040600) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "authentication_token"
+    t.integer  "posts_count",                           :default => 0
   end
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true

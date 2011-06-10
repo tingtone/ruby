@@ -5,19 +5,18 @@ class Parent
   #  - changes forum_id if you're an admin
   #
   def post(forum, attributes)
-    #attrs = attributes.to_hash.symbolize_keys
+    attrs = attributes.to_hash.symbolize_keys
     Topic.new(attributes) do |topic|
       topic.forum = forum
-      topic.user  = self
+      topic.parent  = self
       revise_topic topic, attributes, moderator_of?(forum)
     end
   end
 
   def reply(topic, body)
     topic.posts.build(:body => body).tap do |post|
-      post.site  = topic.site
       post.forum = topic.forum
-      post.user  = self
+      post.parent  = self
       post.save
     end
   end

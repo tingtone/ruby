@@ -17,19 +17,13 @@ class Topic < ActiveRecord::Base
   belongs_to :last_user, :class_name => "Parent"
   
   belongs_to :forum, :counter_cache => true
-  
-  # forum's site, set by callback
-  belongs_to :site, :counter_cache => true
 
   has_many :posts,       :order => "#{Post.table_name}.created_at", :dependent => :delete_all
   has_one  :recent_post, :order => "#{Post.table_name}.created_at DESC", :class_name => "Post"
   
   has_many :voices, :through => :posts, :source => :parent, :uniq => true
-  
-  #has_many :monitorships, :dependent => :delete_all
-  #has_many :monitoring_users, :through => :monitorships, :source => :parent, :conditions => {"#{Monitorship.table_name}.active" => true}
-  
-  validates_presence_of :parent_id, :site_id, :forum_id, :title
+
+  validates_presence_of :parent_id, :forum_id, :title
   validates_presence_of :body, :on => :create
 
   attr_accessor :body
@@ -63,7 +57,7 @@ class Topic < ActiveRecord::Base
     # these fields are not accessible to mass assignment
     if remaining_post = post.frozen? ? recent_post : post
       self.class.update_all(['last_updated_at = ?, last_user_id = ?, last_post_id = ?, posts_count = ?', 
-        remaining_post.created_at, remaining_post.user_id, remaining_post.id, posts.count], ['id = ?', id])
+        remaining_post.created_at, remaining_post.parent_id, remaining_post.id, posts.count], ['id = ?', id])
     else
       destroy
     end
@@ -75,7 +69,7 @@ class Topic < ActiveRecord::Base
 
 protected
   def create_initial_post
-    user.reply self, @body #unless locked?
+    parent.reply self, @body #unless locked?
     @body = nil
   end
   
