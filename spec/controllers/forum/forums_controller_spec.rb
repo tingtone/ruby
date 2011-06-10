@@ -22,14 +22,24 @@ describe Forum::ForumsController  do
     context "create a forum" do
       it "should can be create a forum" do
         post :create, :forum => { :name => 'Games', :description => 'Talk about something about games' }
-        response.should be_ok
-        @forum = Forum.find_by_name('Games')
-        @forum.permalink.should == "games"
+        response.response_code.should == 302
+        @forum = assigns[:forum]
+        @forum.permalink.should == "gamesw"
         @forum.position.should == 1
         @forum.description_html.should == "<p>Talk about something about games</p>"
-        @forum.state == 'public'
+        @forum.state.should == "public"
         
       end
+      
+      it "should can be update a forum" do
+        put :update, :forum =>{ :name => "Apps"}, :id => "games"
+
+        @forum = assigns[:forum]
+        @forum.permalink.should == "apps"
+        @forum.position.should  == 1
+      end
+      
+      
     end
     
     
