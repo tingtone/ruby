@@ -7,7 +7,16 @@ describe Forum do
   
   context 'show' do
     it "should show a forum" do
-      puts " --- #{@forum.inspect}"
+      pending "should got a forum object #{__FILE__}"
     end
   end
+  
+  context 'create' do
+    
+  end
+  
+  context 'update' do
+    
+  end
+  
 end
