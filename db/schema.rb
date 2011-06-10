@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609070129) do
+ActiveRecord::Schema.define(:version => 20110610070731) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(:version => 20110609070129) do
     t.integer  "number"
   end
 
+  create_table "moderatorships", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "forum_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "moderatorships", ["forum_id"], :name => "index_moderatorships_on_forum_id"
+  add_index "moderatorships", ["parent_id", "forum_id"], :name => "index_moderatorships_on_forum_id_and_parent_id"
+
   create_table "most_downloads", :force => true do |t|
     t.integer  "client_application_id"
     t.integer  "amount"
@@ -150,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20110609070129) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "authentication_token"
+    t.integer  "posts_count",                           :default => 0
   end
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true

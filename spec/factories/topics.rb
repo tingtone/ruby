@@ -6,12 +6,7 @@ Factory.define :topic do |t|
     t.sticky 0
     t.posts_count 0
     t.locked false
-    t.last_post_id  0
-    t.last_updated_at Time.now
-    t.last_user_id 0
-    t.permalink  ''
-    t.created_at Time.now
-    t.updated_at Time.now
+    #t.body "for test"
 end
 
 #    t.integer  "forum_id"
