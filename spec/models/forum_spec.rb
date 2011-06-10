@@ -3,20 +3,18 @@ require 'spec_helper'
 describe Forum do
   before do
     @forum = Factory(:forum)
+    @forum_two = Factory(:forum_two)
+    @parent = Factory(:parent)
   end
   
-  context 'show' do
-    it "should show a forum" do
-      pending "should got a forum object #{__FILE__}"
-    end
+  it "finds ordered forums" do
+    Forum.ordered_forums.should == [@forum, @forum_two]
   end
   
-  context 'create' do
-    
-  end
-  
-  context 'update' do
-    
+  it "can be set  Moderator for a formu user" do
+    @moderatorship = @forum.set_moderator(@parent)
+    @moderatorship.forum_id == 1
+    @moderatorship.parent_id == 1
   end
   
 end

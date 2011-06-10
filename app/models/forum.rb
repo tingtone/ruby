@@ -36,5 +36,7 @@ class Forum < ActiveRecord::Base
     name
   end
   
-  
+  def set_moderator user
+    Moderatorship.create(:parent_id => user.id, :forum_id => self.id)
+  end
 end
