@@ -8,16 +8,11 @@ class Forum::AppCentersController < Forum::BaseController
     @current_parent
   end
 
-
   def index
     #for filter apps
     @apps = ClientApplication.filters(params)
     #for recommend
     @recommends = ClientApplication.recommends(current_parent)
   end
-
-
-
-
 
 end
