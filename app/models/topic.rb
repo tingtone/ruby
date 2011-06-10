@@ -98,13 +98,13 @@ protected
   end
   
   def count_user_posts_for_counter_cache
-    @user_posts = posts.group_by { |p| p.user_id }
+    @user_posts = posts.group_by { |p| p.parent_id }
   end
   
   def update_cached_forum_and_user_counts
     Forum.update_all "posts_count = posts_count - #{posts_count}", ['id = ?', forum_id]
     @user_posts.each do |user_id, posts|
-      User.update_all "posts_count = posts_count - #{posts.size}", ['id = ?', user_id]
+      User.update_all "posts_count = posts_count - #{posts.size}", ['id = ?', parent_id]
     end
   end
 end

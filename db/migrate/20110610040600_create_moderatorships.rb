@@ -1,6 +1,6 @@
 class CreateModeratorships < ActiveRecord::Migration
    def self.up
-    create_table :ras do |t|
+    create_table :moderatorships do |t|
       t.integer  :parent_id
       t.integer  :forum_id
       t.timestamps
