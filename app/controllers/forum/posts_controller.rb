@@ -1,4 +1,4 @@
-class Forum::PostsController < ApplicationController
+class Forum::PostsController < Forum::BaseController
   before_filter :find_parents
   before_filter :find_post, :only => [:edit, :update, :destroy]
 
@@ -7,7 +7,7 @@ class Forum::PostsController < ApplicationController
   # /forums/1/posts
   # /forums/1/topics/1/posts
   def index
-    @posts = (@parent ? @parent.posts : current_site.posts).search(params[:q], :page => current_page)
+    @posts = (@parent ? @parent.posts : Post.limit(9) ).search(params[:q], :page => current_page)
     @users = @user ? {@user.id => @user} : Parent.index_from(@posts)
     respond_to do |format|
       format.html # index.html.erb
@@ -32,7 +32,7 @@ class Forum::PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.reply @topic, params[:post][:body]
+    @post = current_parent.reply @topic, params[:post][:body]
 
     respond_to do |format|
       if @post.new_record?

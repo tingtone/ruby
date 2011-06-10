@@ -1,4 +1,4 @@
-class Forum::TopicsController < ApplicationController
+class Forum::TopicsController < Forum::BaseController
   before_filter :find_forum
   before_filter :find_topic, :only => [:show, :edit, :update, :destroy]
 
@@ -22,7 +22,7 @@ class Forum::TopicsController < ApplicationController
           #current_user.seen!
           (session[:topics] ||= {})[@topic.id] = Time.now.utc
         end
-        @topic.hit! unless logged_in? && @topic.user_id == current_user.id
+        @topic.hit! unless logged_in? && @topic.parent_id == current_parent.id
         @posts = @topic.posts.paginate :page => current_page
         @post  = Post.new
       end
@@ -40,7 +40,7 @@ class Forum::TopicsController < ApplicationController
   end
 
   def create
-    @topic = current_user.post @forum, params[:topic]
+    @topic = current_parent.post(@forum, params[:topic])
 
     respond_to do |format|
       if @topic.new_record?
@@ -48,14 +48,14 @@ class Forum::TopicsController < ApplicationController
         format.xml  { render :xml  => @topic.errors, :status => :unprocessable_entity }
       else
         flash[:notice] = 'Topic was successfully created.'
-        format.html { redirect_to(forum_topic_path(@forum, @topic)) }
+        format.html { redirect_to(forum_forum_topic_path(@forum, @topic)) }
         format.xml  { render :xml  => @topic, :status => :created, :location => forum_topic_url(@forum, @topic) }
       end
     end
   end
 
   def update
-    current_user.revise @topic, params[:topic]
+    current_parent.revise @topic, params[:topic]
     respond_to do |format|
       if @topic.errors.empty?
         flash[:notice] = 'Topic was successfully updated.'

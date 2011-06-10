@@ -20,4 +20,5 @@ module Forum::ForumsHelper
     pluralize current_site.topics.to_a.sum { |t| t.voice_count }, 'voice'
   end
 
+
 end

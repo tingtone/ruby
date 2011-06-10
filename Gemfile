@@ -20,6 +20,7 @@ gem 'cancan'
 gem 'acts_as_list'
 gem 'bluecloth'
 gem 'RedCloth', :require => "redcloth"
+gem 'will_paginate', :git => "http://github.com/mislav/will_paginate.git", :branch => "rails3"
 
 
 
