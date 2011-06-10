@@ -35,7 +35,7 @@ class Parent < ActiveRecord::Base
 
 
   def moderator_of?(forum)
-    !!(admin? || Moderatorship.exists?(:parent_id => id, :forum_id => forum.id))
+    !!(admin? || Moderatorship.exists?(:parent_id => self.id, :forum_id => forum.id))
   end
 
   def admin?

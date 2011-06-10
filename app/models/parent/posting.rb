@@ -32,6 +32,12 @@ class Parent
     record
   end
 
+#  def seen!
+#    now = Time.now.utc
+#    self.class.update_all ['last_seen_at = ?', now], ['id = ?', id]
+#    write_attribute :last_seen_at, now
+#  end
+
 protected
   def revise_topic(topic, attributes, is_moderator)
     topic.title = attributes[:title] if attributes.key?(:title)
