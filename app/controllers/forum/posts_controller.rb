@@ -70,7 +70,7 @@ class Forum::PostsController < ApplicationController
 
 protected
   def find_parents
-    if params[:user_id]
+    if params[:parent_id]
       @parent = @user = Parent.find(params[:parent_id])
     elsif params[:forum_id]
       @parent = @forum = Forum.find_by_permalink(params[:forum_id])
