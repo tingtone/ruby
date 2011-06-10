@@ -8,7 +8,6 @@ describe ClientApplication do
     @app2 = Factory(:client_application)
   end
 
-  #use rake db:seed to create development data
   it "get recommends" do
     #for recommend
     @recommends = ClientApplication.recommends(nil)

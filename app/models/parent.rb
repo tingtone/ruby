@@ -32,4 +32,14 @@ class Parent < ActiveRecord::Base
       self.devices.create(:identifier => device_identifier)
     end
   end
+
+
+  def moderator_of?(forum)
+    !!(admin? || Moderatorship.exists?(:parent_id => id, :forum_id => forum.id))
+  end
+
+  def admin?
+    false
+  end
+
 end

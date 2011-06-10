@@ -4,8 +4,6 @@ class CreatePosts < ActiveRecord::Migration
       t.integer  :parent_id
       t.integer  :topic_id
       t.text     :body
-      t.datetime :created_at
-      t.datetime :updated_at
       t.integer  :forum_id
       t.text     :body_html
 
