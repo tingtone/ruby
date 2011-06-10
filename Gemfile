@@ -17,6 +17,10 @@ gem 'kaminari'
 gem 'permalink_fu'
 gem 'state_machine'
 gem 'cancan'
+gem 'acts_as_list'
+gem 'bluecloth'
+gem 'RedCloth', :require => "redcloth"
+
 
 
 group :development do

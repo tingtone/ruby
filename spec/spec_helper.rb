@@ -7,6 +7,25 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+module ControllerMacros
+  def login_admin
+    # before(:each) do
+    #      @request.env["devise.mapping"] = Devise.mappings[:admin]
+    #      sign_in Factory.create(:admin)
+    #    end
+  end
+
+  def login_parent
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:parent]
+      @parent = Factory.create(:parent)
+      sign_in @parent
+    end
+  end
+  
+end
+
+
 RSpec.configure do |config|
   config.mock_with :mocha
 
@@ -23,4 +42,8 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+  
+  config.extend ControllerMacros, :type => :controller
 end
+
+

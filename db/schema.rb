@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609070129) do
+ActiveRecord::Schema.define(:version => 20110610040600) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(:version => 20110609070129) do
     t.integer  "number"
   end
 
+  create_table "moderatorships", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "forum_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "moderatorships", ["forum_id"], :name => "index_moderatorships_on_forum_id"
+  add_index "moderatorships", ["parent_id", "forum_id"], :name => "index_moderatorships_on_forum_id_and_parent_id"
+
   create_table "most_downloads", :force => true do |t|
     t.integer  "client_application_id"
     t.integer  "amount"
@@ -168,6 +178,13 @@ ActiveRecord::Schema.define(:version => 20110609070129) do
   add_index "posts", ["created_at", "forum_id"], :name => "index_posts_on_forum_id"
   add_index "posts", ["created_at", "parent_id"], :name => "index_posts_on_parent_id"
   add_index "posts", ["created_at", "topic_id"], :name => "index_posts_on_topic_id"
+
+  create_table "ras", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "forum_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rule_definitions", :force => true do |t|
     t.integer  "time"

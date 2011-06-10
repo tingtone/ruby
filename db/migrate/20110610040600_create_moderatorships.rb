@@ -6,7 +6,7 @@ class CreateModeratorships < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index "moderatorships", ["parent_id", "forum_id"],  :name => "index_moderatorships_on_forum_id_and_parent_id"
+    add_index "moderatorships", ["parent_id", "forum_id"],  :name => "index_moderatorships_on_parent_id_and_forum_id"
     add_index "moderatorships", ["forum_id"],  :name => "index_moderatorships_on_forum_id"
 
   end

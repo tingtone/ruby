@@ -52,6 +52,7 @@ Server::Application.routes.draw do
 
   namespace :forum do
     #TODO
+    resources :forums
     root :to => "forums#index"
     resources :app_centers, :only => [:index]
   end
