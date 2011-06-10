@@ -8,10 +8,9 @@ class Forum::PostsController < ApplicationController
   # /forums/1/topics/1/posts
   def index
     @posts = (@parent ? @parent.posts : current_site.posts).search(params[:q], :page => current_page)
-    @users = @user ? {@user.id => @user} : User.index_from(@posts)
+    @users = @user ? {@user.id => @user} : Parent.index_from(@posts)
     respond_to do |format|
       format.html # index.html.erb
-      format.atom # index.atom.builder
       format.xml  { render :xml  => @posts }
     end
   end
@@ -29,7 +28,6 @@ class Forum::PostsController < ApplicationController
   def edit
     respond_to do |format|
       format.html # edit.html.erb
-      format.js
     end
   end
 
@@ -73,7 +71,7 @@ class Forum::PostsController < ApplicationController
 protected
   def find_parents
     if params[:user_id]
-      @parent = @user = User.find(params[:user_id])
+      @parent = @user = Parent.find(params[:parent_id])
     elsif params[:forum_id]
       @parent = @forum = Forum.find_by_permalink(params[:forum_id])
       @parent = @topic = @forum.topics.find_by_permalink(params[:topic_id]) if params[:topic_id]
@@ -82,7 +80,7 @@ protected
 
   def find_post
     post = @topic.posts.find(params[:id])
-    if post.user == current_user || current_user.admin?
+    if post.current_parent == current_parent || current_parent.admin?
       @post = post
     else
       raise ActiveRecord::RecordNotFound
