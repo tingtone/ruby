@@ -83,6 +83,6 @@ protected
   end
   
   def find_topic
-    @topic = @forum.topics.find_by_permalink(params[:id])
+    @topic = Topic.find_by_permalink(params[:id])
   end
 end
