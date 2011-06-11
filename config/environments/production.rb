@@ -47,6 +47,8 @@ Server::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.action_mailer.default_url_options = {:host => 'http://api.kittypad.com'}
+
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[KittyPad] ",
     :sender_address => %{"kittypad" <noreply@kittypad.com>},
