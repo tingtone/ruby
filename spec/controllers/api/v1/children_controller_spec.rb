@@ -48,19 +48,4 @@ describe Api::V1::ChildrenController do
       json_response['error'].should == false
     end
   end
-
-  context "index" do
-    it "should get all children" do
-      child1 = Factory(:child, :parent => @parent)
-      child2 = Factory(:child, :parent => @parent)
-      get :index, :parent_id => @parent.id, :format => 'json', :no_sign => true
-
-      response.should be_ok
-      json_response = ActiveSupport::JSON.decode response.body
-      json_response['error'].should == false
-      children = json_response['children']
-      children.first['fullname'].should == child1.fullname
-      children.last['fullname'].should == child2.fullname
-    end
-  end
 end
