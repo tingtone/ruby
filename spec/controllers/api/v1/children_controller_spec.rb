@@ -19,6 +19,19 @@ describe Api::V1::ChildrenController do
       children.last['birthday'].should == 1262275200
     end
 
+    it "should success with rule_definitions" do
+      child = Factory(:child, :parent => @parent)
+      client_application = Factory(:client_application)
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
+
+      RuleDefinition.find_all_by_child_id(Child.last.id).size.should == 4
+      RuleDefinition.find_all_by_client_application_id(client_application.id).size.should == 2
+    end
+
     it "should fail for validation" do
       post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
