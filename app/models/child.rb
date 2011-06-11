@@ -1,6 +1,6 @@
 class Child < ActiveRecord::Base
   validates_presence_of :fullname, :gender, :birthday
-  belongs_to :parent
+  belongs_to :parent, :touch => :children_updated_at
   belongs_to :grade
   has_many :time_trackers
   has_many :score_trackers
