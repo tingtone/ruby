@@ -9,5 +9,5 @@ public/stylesheets/*.css
 public/.DS_Store
 .idea/*.*
 db/schema.rb
-public/system
+public/uploads
 

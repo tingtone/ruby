@@ -25,6 +25,7 @@ after "deploy:update_code", "config:init"
 namespace :config do
   task :init do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/uploads #{release_path}/config/uploads"
   end
 end
 
