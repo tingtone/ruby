@@ -13,6 +13,7 @@ gem 'oauth'
 gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
+gem 'paperclip'
 
 group :development do
   gem 'thin'

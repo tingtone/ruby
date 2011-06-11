@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110611080048) do
+ActiveRecord::Schema.define(:version => 20110611095120) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -66,6 +66,10 @@ ActiveRecord::Schema.define(:version => 20110611080048) do
     t.integer  "start_age"
     t.integer  "end_age"
     t.string   "app_store_url"
+    t.string   "screenshot_file_name"
+    t.string   "screenshot_content_type"
+    t.integer  "screenshot_file_size"
+    t.datetime "screenshot_updated_at"
   end
 
   create_table "developers", :force => true do |t|
