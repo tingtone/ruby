@@ -57,7 +57,6 @@ Server::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => "smtp.exmail.qq.com",
-    :port                 => 587,
     :domain               => 'kittypad.com',
     :user_name            => 'noreply@kittypad.com',
     :password             => 'kittypad',
