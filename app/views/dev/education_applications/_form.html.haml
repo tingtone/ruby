@@ -10,7 +10,7 @@
     = form.input :app_store_url
 
   - if @education_application.key.present?
-    = form.input :key, :input_html => {:disabled => true}
-    = form.input :secret, :input_html => {:disabled => true}
+    = form.input :key, :input_html => {:readonly => true}
+    = form.input :secret, :input_html => {:readonly => true}
 
   .buttons= form.button :submit
