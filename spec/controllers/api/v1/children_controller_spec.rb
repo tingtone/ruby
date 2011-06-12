@@ -20,7 +20,6 @@ describe Api::V1::ChildrenController do
     end
 
     it "should success with rule_definitions" do
-      child = Factory(:child, :parent => @parent)
       client_application = Factory(:client_application)
       post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
@@ -59,6 +58,17 @@ describe Api::V1::ChildrenController do
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
+    end
+
+    it "should update rule definition" do
+      child = Factory(:child, :parent => @parent)
+      client_application = Factory(:client_application)
+
+      put :update, :id => child.id, :child => { :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'day').time.should == 30
+      child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'week').time.should == 60
+      child.rule_definitions.find_by_client_application_id_and_period(nil, 'day').time.should == 60
+      child.rule_definitions.find_by_client_application_id_and_period(nil, 'week').time.should == 120
     end
   end
 end
