@@ -13,9 +13,6 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
       parent.add_device(params[:device_identifier])
       result = {
         :error => false,
-        :client_application => {
-          :type => current_client_application.type
-        },
         :parent => {
           :id => parent.id,
           :authentication_token => parent.authentication_token,
