@@ -29,4 +29,4 @@ namespace :analytics do
       end
     end
   end
-and
+end
