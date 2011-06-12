@@ -46,6 +46,6 @@ class Child < ActiveRecord::Base
   end
 
   def bonus_time
-    @bonus_time ||= bonus.sum(:time, :conditions => ["created_at >= ?", Date.today.ago(Bonus::EXPIRE_WEEKS.weeks)])
+    @bonus_time ||= bonus.sum(:time, :conditions => ["expired_on >= ?", Date.today])
   end
 end

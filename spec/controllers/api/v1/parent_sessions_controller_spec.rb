@@ -10,6 +10,10 @@ describe Api::V1::ParentSessionsController do
       @parent.update_attribute(:children_updated_at, Time.now.ago(1.day))
       Factory(:time_tracker, :child => @child1, :client_application => @client_application, :time => 5)
       Factory(:time_tracker, :child => @child2, :client_application => @client_application, :time => 10)
+      @bonus1 = Factory(:bonus, :child => @child1, :expired_on => Date.today.since(10.weeks), :created_at => Time.now.ago(3.days), :updated_at => Time.now.ago(3.days))
+      @bonus2 = Factory(:bonus, :child => @child1, :expired_on => Date.today.since(11.weeks), :created_at => Time.now.ago(2.days), :updated_at => Time.now.ago(2.days))
+      @bonus3 = Factory(:bonus, :child => @child2, :expired_on => Date.today.since(12.weeks), :created_at => Time.now.ago(1.day), :updated_at => Time.now.ago(1.day))
+      @parent.update_attribute(:bonus_updated_at, Time.now.ago(1.day))
     end
 
     context "without timestamp" do
@@ -28,16 +32,16 @@ describe Api::V1::ParentSessionsController do
         children.last['id'].should == @child2.id
 
         time_summary = json_response['parent']['time_summary']
-        time_summary.first['game_day_left_time'].should == 25
-        time_summary.first['total_day_left_time'].should == 115
-        time_summary.first['game_week_left_time'].should == 55
-        time_summary.first['total_week_left_time'].should == 235
+        time_summary.first['game_day_left_time'].should == 55
+        time_summary.first['total_day_left_time'].should == 145
+        time_summary.first['game_week_left_time'].should == 85
+        time_summary.first['total_week_left_time'].should == 265
         time_summary.first['child_id'].should == @child1.id
 
-        time_summary.last['game_day_left_time'].should == 20
-        time_summary.last['total_day_left_time'].should == 110
-        time_summary.last['game_week_left_time'].should == 50
-        time_summary.last['total_week_left_time'].should == 230
+        time_summary.last['game_day_left_time'].should == 35
+        time_summary.last['total_day_left_time'].should == 125
+        time_summary.last['game_week_left_time'].should == 65
+        time_summary.last['total_week_left_time'].should == 245
         time_summary.last['child_id'].should == @child2.id
 
         rule_definitions = json_response['parent']['rule_definitions']
@@ -52,6 +56,15 @@ describe Api::V1::ParentSessionsController do
         rule_definitions.last['total_day_time'].should == 120
         rule_definitions.last['total_week_time'].should == 240
         rule_definitions.last['child_id'].should == @child2.id
+
+        bonus = json_response['parent']['bonus']
+        bonus.first['time'].should == 15
+        bonus.first['expired_on'].should == @bonus1.expired_on.to_date.to_time.to_i
+        bonus.first['child_id'].should == @child1.id
+
+        bonus.last['time'].should == 15
+        bonus.last['expired_on'].should == @bonus3.expired_on.to_date.to_time.to_i
+        bonus.last['child_id'].should == @child2.id
       end
 
       it "should get rule definitions for child and client application" do
@@ -174,6 +187,32 @@ describe Api::V1::ParentSessionsController do
         rule_definitions.last['total_day_time'].should == 120
         rule_definitions.last['total_week_time'].should == 240
         rule_definitions.last['child_id'].should == @child2.id
+      end
+
+      it "should without bonus" do
+        post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :timestamp => Time.now.utc.ago(12.hours).to_i, :key => @client_application.key, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        json_response['error'].should == false
+        json_response['parent']['bonus'].should be_nil
+      end
+
+      it "should with bonus" do
+        post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :timestamp => Time.now.utc.ago(2.days).to_i, :key => @client_application.key, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        json_response['error'].should == false
+
+        bonus = json_response['parent']['bonus']
+        bonus.first['time'].should == 15
+        bonus.first['expired_on'].should == @bonus1.expired_on.to_date.to_time.to_i
+        bonus.first['child_id'].should == @child1.id
+
+        bonus.last['time'].should == 15
+        bonus.last['expired_on'].should == @bonus3.expired_on.to_date.to_time.to_i
+        bonus.last['child_id'].should == @child2.id
       end
     end
   end

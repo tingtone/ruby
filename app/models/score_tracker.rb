@@ -26,7 +26,7 @@ class ScoreTracker < ActiveRecord::Base
         if achievement.grade != new_grade
           self.upgrade = true
           achievement.grade = new_grade
-          child.bonus.create(:time => Bonus::TIME)
+          child.bonus.create
         end
         achievement.save
       else
