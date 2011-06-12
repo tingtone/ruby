@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110611095120) do
+ActiveRecord::Schema.define(:version => 20110612052437) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -42,6 +42,10 @@ ActiveRecord::Schema.define(:version => 20110611095120) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "client_application_categories", :force => true do |t|

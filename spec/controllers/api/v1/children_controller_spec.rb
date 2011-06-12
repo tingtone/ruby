@@ -31,6 +31,14 @@ describe Api::V1::ChildrenController do
       RuleDefinition.find_all_by_client_application_id(client_application.id).size.should == 2
     end
 
+    it "should upload avatar for child" do
+      client_application = Factory(:client_application)
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :avatar => File.new(Rails.root.join('public/images/rails.png')) }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+    end
+
     it "should fail for validation" do
       post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 

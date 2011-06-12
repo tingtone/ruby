@@ -9,6 +9,8 @@ class Child < ActiveRecord::Base
   has_many :bonus
   accepts_nested_attributes_for :rule_definitions
 
+  has_attached_file :avatar, :styles => {:default => '180x180'}
+
   def as_json(options={})
     {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday.to_time.to_i}
   end
