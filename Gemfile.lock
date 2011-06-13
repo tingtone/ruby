@@ -1,14 +1,6 @@
-GIT
-  remote: http://github.com/mislav/will_paginate.git
-  revision: b1a5beeec9f56ecbe3594fcdca76d92b6767ce50
-  branch: rails3
-  specs:
-    will_paginate (3.0.pre3)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.7)
     ZenTest (4.5.0)
     aaronh-chronic (0.3.9)
     abstract (1.0.0)
@@ -38,15 +30,16 @@ GEM
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
     activesupport (3.0.7)
-    acts_as_list (0.1.2)
-    arel (2.0.9)
+    addressable (2.2.4)
+    arel (2.0.10)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     autotest-rails (4.1.0)
       ZenTest
-    awesome_print (0.3.2)
+    awesome_print (0.4.0)
     bcrypt-ruby (2.1.4)
-    bluecloth (2.1.0)
+    bson (1.3.1)
+    bson_ext (1.3.1)
     builder (2.1.2)
     cancan (1.6.5)
     capistrano (2.6.0)
@@ -58,8 +51,8 @@ GEM
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
     chunky_png (1.2.0)
-    compass (0.11.1)
-      chunky_png (~> 1.1)
+    compass (0.11.3)
+      chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
     daemons (1.1.3)
@@ -72,19 +65,28 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     eventmachine (0.12.10)
-    exception_notification (2.4.0)
+    exception_notification (2.4.1)
     factory_girl (1.3.3)
     factory_girl_rails (1.0.1)
       factory_girl (~> 1.3)
       railties (>= 3.0.0)
+    faraday (0.6.1)
+      addressable (~> 2.2.4)
+      multipart-post (~> 1.1.0)
+      rack (< 2, >= 1.1.0)
     fssm (0.2.7)
-    haml (3.1.1)
+    git (1.2.5)
+    haml (3.1.2)
     has_scope (0.5.0)
-    highline (1.6.1)
+    highline (1.6.2)
     i18n (0.5.0)
     inherited_resources (1.2.2)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
+    jeweler (1.6.2)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
     kaminari (0.12.4)
       rails (>= 3.0.0)
     mail (2.2.19)
@@ -94,7 +96,27 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     mocha (0.9.12)
+    mongo (1.3.1)
+      bson (>= 1.3.1)
+    mongoid (2.0.2)
+      activemodel (~> 3.0)
+      mongo (~> 1.3)
+      tzinfo (~> 0.3.22)
+    mongoid-paperclip (0.0.4)
+      paperclip (~> 2.3.6)
+    mongoid_acts_as_tree (0.1.8)
+      bson
+      bson (>= 0.20.1)
+      bson_ext
+      jeweler
+      mongoid
+      mongoid (>= 2.0.0)
+      shoulda
+    multi_json (1.0.3)
+    multi_xml (0.2.2)
+    multipart-post (1.1.2)
     mysql2 (0.2.7)
+    net-ldap (0.2.2)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -102,13 +124,56 @@ GEM
     net-ssh (2.1.4)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    nokogiri (1.4.4)
+    oa-basic (0.2.6)
+      oa-core (= 0.2.6)
+      rest-client (~> 1.6.0)
+    oa-core (0.2.6)
+    oa-enterprise (0.2.6)
+      addressable (= 2.2.4)
+      net-ldap (~> 0.2.2)
+      nokogiri (~> 1.4.2)
+      oa-core (= 0.2.6)
+      pyu-ruby-sasl (~> 0.0.3.1)
+      rubyntlm (~> 0.1.1)
+    oa-more (0.2.6)
+      multi_json (~> 1.0.0)
+      oa-core (= 0.2.6)
+      rest-client (~> 1.6.0)
+    oa-oauth (0.2.6)
+      faraday (~> 0.6.1)
+      multi_json (~> 1.0.0)
+      multi_xml (~> 0.2.2)
+      oa-core (= 0.2.6)
+      oauth (~> 0.4.0)
+      oauth2 (~> 0.4.1)
+    oa-openid (0.2.6)
+      oa-core (= 0.2.6)
+      rack-openid (~> 1.3.1)
+      ruby-openid-apps-discovery (~> 1.2.0)
     oauth (0.4.4)
-    orm_adapter (0.0.4)
-    permalink_fu (1.0.0)
+    oauth2 (0.4.1)
+      faraday (~> 0.6.1)
+      multi_json (>= 0.0.5)
+    omniauth (0.2.6)
+      oa-basic (= 0.2.6)
+      oa-core (= 0.2.6)
+      oa-enterprise (= 0.2.6)
+      oa-more (= 0.2.6)
+      oa-oauth (= 0.2.6)
+      oa-openid (= 0.2.6)
+    orm_adapter (0.0.5)
+    paperclip (2.3.11)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
     polyglot (0.3.1)
-    rack (1.2.2)
+    pyu-ruby-sasl (0.0.3.3)
+    rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
+    rack-openid (1.3.1)
+      rack (>= 1.1.0)
+      ruby-openid (>= 2.1.8)
     rack-test (0.5.7)
       rack (>= 1.0)
     rails (3.0.7)
@@ -124,7 +189,7 @@ GEM
       activesupport (= 3.0.7)
       rake (>= 0.8.7)
       thor (~> 0.14.4)
-    rake (0.8.7)
+    rake (0.9.2)
     remarkable (4.0.0.alpha4)
       rspec (>= 2.0.0.alpha11)
     remarkable_activemodel (4.0.0.alpha4)
@@ -135,20 +200,29 @@ GEM
       remarkable_activemodel (~> 4.0.0.alpha4)
       rspec (>= 2.0.0.alpha11)
     responders (0.6.4)
-    rspec (2.6.0.rc6)
-      rspec-core (= 2.6.0.rc6)
-      rspec-expectations (= 2.6.0.rc6)
-      rspec-mocks (= 2.6.0.rc6)
-    rspec-core (2.6.0.rc6)
-    rspec-expectations (2.6.0.rc6)
+    rest-client (1.6.3)
+      mime-types (>= 1.16)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.6.0.rc6)
-    rspec-rails (2.2.0)
-      rails (~> 3.0.0)
-      rspec (~> 2.2)
+    rspec-mocks (2.6.0)
+    rspec-rails (2.6.1)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.6.0)
     ruby-hmac (0.4.0)
-    sass (3.1.1)
-    simple_form (1.3.1)
+    ruby-openid (2.1.8)
+    ruby-openid-apps-discovery (1.2.0)
+      ruby-openid (>= 2.1.7)
+    rubyntlm (0.1.1)
+    sass (3.1.2)
+    shoulda (2.11.3)
+    simple_form (1.4.0)
     state_machine (1.0.1)
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -169,13 +243,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth
   ZenTest
-  acts_as_list
   autotest
   autotest-rails
   awesome_print
-  bluecloth
+  bson_ext
   cancan
   capistrano
   capistrano-ext
@@ -188,9 +260,12 @@ DEPENDENCIES
   inherited_resources
   kaminari
   mocha
+  mongoid
+  mongoid-paperclip
+  mongoid_acts_as_tree
   mysql2 (= 0.2.7)
   oauth
-  permalink_fu
+  omniauth
   rails (= 3.0.7)
   remarkable_activerecord (= 4.0.0.alpha4)
   rspec
@@ -201,4 +276,3 @@ DEPENDENCIES
   thin
   watchr
   whenever
-  will_paginate!

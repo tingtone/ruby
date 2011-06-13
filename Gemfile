@@ -14,13 +14,19 @@ gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'kaminari'
-gem 'permalink_fu'
+
 gem 'state_machine'
+
+
+
+
+# for forums
+gem 'mongoid'
+gem 'bson_ext'
 gem 'cancan'
-gem 'acts_as_list'
-gem 'bluecloth'
-gem 'RedCloth', :require => "redcloth"
-gem 'will_paginate', :git => "http://github.com/mislav/will_paginate.git", :branch => "rails3"
+gem 'mongoid_acts_as_tree'
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'omniauth'
 
 
 
