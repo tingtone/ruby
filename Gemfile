@@ -13,12 +13,6 @@ gem 'oauth'
 gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
-gem 'kaminari'
-
-gem 'state_machine'
-
-
-
 
 # for forums
 gem 'mongoid'
@@ -27,7 +21,8 @@ gem 'cancan'
 gem 'mongoid_acts_as_tree'
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'omniauth'
-
+gem 'kaminari'
+gem 'state_machine'
 
 
 group :development do
