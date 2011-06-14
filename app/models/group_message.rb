@@ -1,4 +1,4 @@
-class Post
+class GroupMessage
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
@@ -6,10 +6,8 @@ class Post
   cache
   
   #fields
+  field :title
   field :content
   
   referenced_in :forum_user
-  referenced_in :topic
-  referenced_in :forum
-
 end

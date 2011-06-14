@@ -5,7 +5,8 @@ Server::Application.routes.draw do
 
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
   devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords" }
-
+  devise_for :forum_users, :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations' }
+  
   namespace :dev do
     resources :game_applications
     resources :education_applications
@@ -55,7 +56,9 @@ Server::Application.routes.draw do
     resources :forums do
       resources :topics
     end
-    resources :posts
+    resources :topics do
+      resources :posts
+    end
     
     root :to => "forums#index"
     resources :app_centers, :only => [:index]

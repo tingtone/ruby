@@ -1,0 +1,81 @@
+class ForumUser
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Paranoia
+  
+  cache
+  
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable
+  
+  #fields
+  field :name
+  field :from_pd,    :type => Boolean, :default => false
+  field :ban,        :type => Boolean, :default => false
+  field :country_id
+  field :state_id
+  field :city_id
+  field :posts_count, :type => Integer, :default => 0
+  
+  field :roles_mask, :type => Fixnum, :default => 0
+  
+  references_many :topics
+  
+  # Setting Moderator for Forum
+  references_and_referenced_in_many :forums
+  
+  # forum user can monitor topics
+  references_and_referenced_in_many :topics
+  
+  embeds_many :messages
+  references_many :group_messages
+  
+  validates_presence_of   :name
+  validates_presence_of   :email
+  validates_uniqueness_of :name,  :case_sensitive => false
+  validates_uniqueness_of :email, :case_sensitive => false
+  
+  attr_accessible :name, :email, :password, :password_confirmation, :roles_mask,
+                   :remember_me, :authentication_token, :confirmation_token
+  
+  ROLES = [:guest, :developer, :admin]
+  
+  scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
+  
+  def admin?
+    ForumUser.all.any? ? (self == ForumUser.first || role?(:admin)) : true
+  end
+
+  def role=(role)
+    self.roles_mask = ROLES.index(role)
+    Rails.logger.warn("SET ROLES TO #{self.roles_mask} FOR #{self.inspect}")
+  end
+
+  # return user's role as symbol.
+  def role
+    ROLES[roles_mask].to_sym
+  end
+
+  # Ask if the user has at least a specific role.
+  #   @user.role?('admin')
+  def role?(role)
+    self.roles_mask >= ROLES.index(role.to_sym)
+  end
+  
+  # check group messages when login
+  def check_group_messages
+    group_ids = GroupMessage.all.map(&:id)
+    private_msg_ids = self.messages.map(&:group_message_id).compact
+    group_ids.each do |gmsg_id|
+      unless private_msg_ids.include? gmsg_id
+        unread_message = self.messages.create({group_message_id: gmsg_id})
+        self.messages << unread_message
+      end
+    end
+  end
+  
+  def group_msg gmsg_id
+    GroupMessage.find(gmsg_id).cache
+  end
+  
+end

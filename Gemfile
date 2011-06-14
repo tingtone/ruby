@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.8'
 gem 'mysql2', '0.2.7'
 gem 'capistrano'
 gem 'capistrano-ext'
@@ -14,7 +14,7 @@ gem 'ruby-hmac', :require => 'hmac'
 gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
 
-# for forums
+# ======================for forums
 gem 'mongoid'
 gem 'bson_ext'
 gem 'cancan'
@@ -22,8 +22,8 @@ gem 'mongoid_acts_as_tree'
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'omniauth'
 gem 'kaminari'
+gem 'mongoid_slug'
 gem 'state_machine'
-
 
 group :development do
   gem 'thin'
