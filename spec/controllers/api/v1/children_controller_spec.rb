@@ -19,6 +19,26 @@ describe Api::V1::ChildrenController do
       children.last['birthday'].should == 1262275200
     end
 
+    it "should success with rule_definitions" do
+      client_application = Factory(:client_application)
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
+
+      RuleDefinition.find_all_by_child_id(Child.last.id).size.should == 4
+      RuleDefinition.find_all_by_client_application_id(client_application.id).size.should == 2
+    end
+
+    it "should upload avatar for child" do
+      client_application = Factory(:client_application)
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :avatar => File.new(Rails.root.join('public/images/rails.png')) }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+    end
+
     it "should fail for validation" do
       post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
@@ -47,20 +67,16 @@ describe Api::V1::ChildrenController do
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
     end
-  end
 
-  context "index" do
-    it "should get all children" do
-      child1 = Factory(:child, :parent => @parent)
-      child2 = Factory(:child, :parent => @parent)
-      get :index, :parent_id => @parent.id, :format => 'json', :no_sign => true
+    it "should update rule definition" do
+      child = Factory(:child, :parent => @parent)
+      client_application = Factory(:client_application)
 
-      response.should be_ok
-      json_response = ActiveSupport::JSON.decode response.body
-      json_response['error'].should == false
-      children = json_response['children']
-      children.first['fullname'].should == child1.fullname
-      children.last['fullname'].should == child2.fullname
+      put :update, :id => child.id, :child => { :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'day').time.should == 30
+      child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'week').time.should == 60
+      child.rule_definitions.find_by_client_application_id_and_period(nil, 'day').time.should == 60
+      child.rule_definitions.find_by_client_application_id_and_period(nil, 'week').time.should == 120
     end
   end
 end

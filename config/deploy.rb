@@ -2,6 +2,9 @@ set :stages, %w(staging production)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+require "whenever/capistrano"
 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'rvm/capistrano'
@@ -29,9 +32,14 @@ task :init_db do
   run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
 end
 
+namespace :config do
+  task :init do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/uploads #{release_path}/public/uploads"
+  end
+end
 
-namespace :deploy do
-
+namespace :passenger do
   desc "Start Passenger Application"
   task :start, :roles => :app do
     #init_db

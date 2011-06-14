@@ -36,6 +36,10 @@ describe Api::V1::ScoreTrackersController do
       post :create, :score => 100, :child_id => @child.id, :key => @education_application.key, :no_sign => true
       response.should be_ok
 
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
+      json_response['messages'].should == ["good job, you got 15 minutes more game time each day."]
+
       achievement = Achievement.last
       achievement.child.should == @child
       achievement.client_application_category.should == @math

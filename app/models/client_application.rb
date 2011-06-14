@@ -17,6 +17,7 @@ class ClientApplication < ActiveRecord::Base
 
   before_create :generate_keys
 
+  has_attached_file :screenshot, :styles => {:default => "100x100>"}
 
   def as_json(options={})
     {:id => id, :name => name}

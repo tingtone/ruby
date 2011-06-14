@@ -5,7 +5,8 @@ Server::Application.routes.draw do
 
   devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
   devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords" }
-
+  devise_for :forum_users, :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations' }
+  
   namespace :dev do
     resources :game_applications
     resources :education_applications
@@ -41,11 +42,10 @@ Server::Application.routes.draw do
     namespace :v1 do
       resources :parents, :only => [:create]
       resources :parent_sessions, :only => [:create]
-      resources :children, :only => [:create, :index, :show, :update]
+      resources :children, :only => [:create, :update]
       resources :time_trackers, :only => [:create]
       resources :score_trackers, :only => [:create]
       resources :passwords, :only => [:create]
-      match 'client_applications/sync' => 'client_applications#sync'
       match 'client_applications/kind' => 'client_applications#kind'
     end
   end
@@ -55,7 +55,9 @@ Server::Application.routes.draw do
     resources :forums do
       resources :topics
     end
-    resources :posts
+    resources :topics do
+      resources :posts
+    end
     
     root :to => "forums#index"
     resources :app_centers, :only => [:index]

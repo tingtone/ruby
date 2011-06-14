@@ -1,42 +1,25 @@
-class Forum < ActiveRecord::Base
-  
-  formats_attributes :description
-  
-  acts_as_list
+class Forum
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Paranoia
+  include Mongoid::Acts::Tree
 
-  validates :name, :presence => true,  :uniqueness => true
   
-  belongs_to :parent
+  cache
   
-  has_permalink :name
+  #fields
+  field :name
+  field :description
+  field :topics_count, :type => Integer, :default => 0
+  field :posts_count,  :type => Integer, :default => 0
+  field :position,     :type => Integer, :default => 0
+  field :state,        :type => String,  :default => "public"
   
-  attr_readonly :posts_count, :topics_count
-
-  has_many :topics, :order => "#{Topic.table_name}.sticky desc, #{Topic.table_name}.last_updated_at desc", :dependent => :delete_all
-
-  has_many :recent_topics, :class_name => 'Topic', :include => [:parent], :order => "#{Topic.table_name}.last_updated_at DESC"
-  has_one  :recent_topic,  :class_name => 'Topic', :order => "#{Topic.table_name}.last_updated_at DESC"
-
-  has_many :posts,       :order => "#{Post.table_name}.created_at DESC", :dependent => :delete_all
-  has_one  :recent_post, :order => "#{Post.table_name}.created_at DESC", :class_name => 'Post'
-
-  has_many :moderatorships, :dependent => :delete_all
-  has_many :moderators, :through => :moderatorships, :source => :parent
-
-  # oh has_finder i eagerly await thee
-  def self.ordered_forums
-    order("position asc")
-  end
+  acts_as_tree
+  references_many :topics
+  references_many :posts
   
-  def to_param
-    permalink
-  end
-
-  def to_s
-    name
-  end
+  # Setting Moderator for Forum
+  references_and_referenced_in_many :forum_users
   
-  def set_moderator user
-    Moderatorship.create(:parent_id => user.id, :forum_id => self.id)
-  end
 end
