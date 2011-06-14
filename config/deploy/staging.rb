@@ -5,5 +5,5 @@ set :branch, "feature/forum"
 set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
 
 set :user, 'deploy'
-set :use_sudo,    true
+set :use_sudo,    false
 set :deploy_via, :copy

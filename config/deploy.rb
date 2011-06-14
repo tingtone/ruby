@@ -22,21 +22,25 @@ set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
 role :web, "#{domain}"
 role :app, "#{domain}"
 
-#task :staging do
-#  set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
-#  after('deploy:symlink', 'cruise_control:build')
-#end
+current_release = "/home/deploy/sites/kittypad.com/staging/releases/20110613071351"
 
-namespace :passenger do
+desc "init db"
+task :init_db do
+  run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
+end
+
+
+namespace :deploy do
 
   desc "Start Passenger Application"
   task :start, :roles => :app do
-    run "touch #{release_path}/tmp/restart.txt"
+    #init_db
+    run "touch #{current_release}/tmp/restart.txt"
   end
 
   desc "Restart Passenger Application"
   task :restart, :roles => :app do
-    run "touch #{release_path}/tmp/restart.txt"
+    run "touch #{current_release}/tmp/restart.txt"
   end
 
 end
@@ -44,12 +48,13 @@ end
 namespace :logs do
   desc "tail -f production.log"
   task :watch do
-    stream("tail -f #{release_path}/log/production.log")
+    stream("tail -f #{current_release}/log/production.log")
   end
 end
 
 
-puts "deploy to #{release_path}"
+#puts "deploy to #{release_path}"
+
 
 
 #step by step
