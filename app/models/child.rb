@@ -1,6 +1,6 @@
 class Child < ActiveRecord::Base
   validates_presence_of :fullname, :gender, :birthday
-  belongs_to :parent
+  belongs_to :parent, :touch => :children_updated_at
   belongs_to :grade
   has_many :time_trackers
   has_many :score_trackers
@@ -8,6 +8,8 @@ class Child < ActiveRecord::Base
   has_many :achievements
   has_many :bonus
   accepts_nested_attributes_for :rule_definitions
+
+  has_attached_file :avatar, :styles => {:default => '180x180'}
 
   def as_json(options={})
     {:id => id, :fullname => fullname, :gender => gender, :birthday => birthday.to_time.to_i}
@@ -44,7 +46,7 @@ class Child < ActiveRecord::Base
   end
 
   def bonus_time
-    @bonus_time ||= bonus.sum(:time, :conditions => ["created_at >= ?", Date.today.ago(Bonus::EXPIRE_WEEKS.weeks)])
+    @bonus_time ||= bonus.sum(:time, :conditions => ["expired_on >= ?", Date.today])
   end
 
 

@@ -42,11 +42,10 @@ Server::Application.routes.draw do
     namespace :v1 do
       resources :parents, :only => [:create]
       resources :parent_sessions, :only => [:create]
-      resources :children, :only => [:create, :index, :show, :update]
+      resources :children, :only => [:create, :update]
       resources :time_trackers, :only => [:create]
       resources :score_trackers, :only => [:create]
       resources :passwords, :only => [:create]
-      match 'client_applications/sync' => 'client_applications#sync'
       match 'client_applications/kind' => 'client_applications#kind'
     end
   end

@@ -14,6 +14,9 @@ class RuleDefinition < ActiveRecord::Base
   validates_presence_of :time, :period
   validates_numericality_of :time
 
+  after_save :update_parent_timestamp
+  after_destroy :update_parent_timestamp
+
   def self.globals
     {:game_day_time => PERIODS[:day], :game_week_time => PERIODS[:week], :total_day_time => GLOBAL_PERIODS[:day], :total_week_time => GLOBAL_PERIODS[:week]}
   end
@@ -37,4 +40,9 @@ class RuleDefinition < ActiveRecord::Base
       write_attribute(:time, PERIODS[self.period.to_sym]) unless self.time
     end
   end
+
+  protected
+    def update_parent_timestamp
+      child.parent.update_attribute(:rule_definitions_updated_at, self.updated_at)
+    end
 end

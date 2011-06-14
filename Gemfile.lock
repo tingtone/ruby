@@ -74,7 +74,6 @@ GEM
       addressable (~> 2.2.4)
       multipart-post (~> 1.1.0)
       rack (< 2, >= 1.1.0)
-    fast-stemmer (1.0.0)
     fssm (0.2.7)
     git (1.2.5)
     haml (3.1.2)
@@ -113,10 +112,6 @@ GEM
       mongoid
       mongoid (>= 2.0.0)
       shoulda
-    mongoid_search (0.2.6)
-      bson_ext (~> 1.2)
-      fast-stemmer (~> 1.0.0)
-      mongoid (~> 2.0.0)
     mongoid_slug (0.8.0)
       mongoid (~> 2.0)
       stringex (~> 1.2)
@@ -240,7 +235,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.27)
+    tzinfo (0.3.28)
     warden (1.0.4)
       rack (>= 1.0)
     watchr (0.7)
@@ -272,11 +267,11 @@ DEPENDENCIES
   mongoid
   mongoid-paperclip
   mongoid_acts_as_tree
-  mongoid_search
   mongoid_slug
   mysql2 (= 0.2.7)
   oauth
   omniauth
+  paperclip
   rails (= 3.0.8)
   remarkable_activerecord (= 4.0.0.alpha4)
   rspec

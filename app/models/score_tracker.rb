@@ -7,6 +7,8 @@ class ScoreTracker < ActiveRecord::Base
   before_save :check_score_count
   after_save :add_score
 
+  attr_accessor :upgrade
+
   protected
     def check_score_count
       sum = ScoreTracker.sum(:score, :conditions => {:child_id => child.id, :client_application_id => client_application.id})
@@ -22,8 +24,9 @@ class ScoreTracker < ActiveRecord::Base
         achievement.score += score
         new_grade = Grade.by_score(achievement.score).first
         if achievement.grade != new_grade
+          self.upgrade = true
           achievement.grade = new_grade
-          child.bonus.create(:time => Bonus::TIME)
+          child.bonus.create
         end
         achievement.save
       else
