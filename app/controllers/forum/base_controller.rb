@@ -3,19 +3,16 @@ class Forum::BaseController < ApplicationController
   include ApplicationHelper
 
   layout 'forum'
-
-  helper_method :current_page
-  before_filter :set_language
-  before_filter :authenticate_parent!
-
-
-
-  def current_page
-    @page ||= params[:page].blank? ? 1 : params[:page].to_i
+  
+  # == Display a flash if CanCan doesn't allow access
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "Access denied!"
+    redirect_to forum_root_url
   end
-
-  def set_language
-    I18n.locale = :en || I18n.default_locale
+  
+ 
+  def current_user
+    current_forum_user if forum_user_signed_in?
   end
 
 
