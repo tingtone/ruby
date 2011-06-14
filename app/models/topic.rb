@@ -27,5 +27,6 @@ class Topic
   # forum user can monitor topics
   references_and_referenced_in_many :forum_users
 
+  paginates_per 30
 
 end
