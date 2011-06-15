@@ -2,7 +2,6 @@ class Forum::BlackListsController < Forum::BaseController
   #applications center for filter
   #and recommends applications
   layout "message"
-  before_filter :require_login_forum
 
   def index
     @blacklist = FBlackList.list(current_user,params)

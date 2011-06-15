@@ -33,15 +33,15 @@ class Message
 
   class << self
 
-    def inbox(user, params, page_size=20, sorted="created_at desc")
+    def inbox(user, params, page_size=10)
       if user
-        return Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+        return Message.where(recipient_id: user.id).and(recipient_deleted: false).desc(:created_at).page(params[:page]||1).per(page_size)
       end
     end
 
-    def outbox(user, params, page_size=20, sorted="created_at desc")
+    def outbox(user, params, page_size=10)
       if user
-        return Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+        return Message.where(sender_id: user.id).and(sender_deleted: false).desc(:created_at).page(params[:page]||1).per(page_size)
       end
     end
 

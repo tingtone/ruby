@@ -7,12 +7,40 @@
     <% end %>
 
     <div>
-      <%= simple_form_for :message, :url => forum_messages_path do |f| %>
+     <!-- <%= simple_form_for :message, :url => forum_messages_path do |f| %>
         <%= f.input :recipient %>
         <%= f.input :subject %>
         <%= f.input :body %>
         <%= f.submit 'Send' %>
- 
-     <% end %>
+     <% end %> -->
+
+
+      <form accept-charset="UTF-8" action="/forum/messages" class="simple_form message" method="post">
+
+        <div style="margin:0;padding:0;display:inline">
+           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+        </div>
+
+        <div class="input string required">
+          <label class="string required" for="message_recipient">
+         Recipient
+          </label>
+          <input class="string required" id="message_recipient" name="message[recipient]" required="required" size="50" type="text" />
+        </div>
+        <div class="input string required">
+          <label class="string required" for="message_subject"> Subject</label>
+          <input class="string required" id="message_subject" name="message[subject]" required="required" size="50" type="text" />
+        </div>
+        <div class="input string required">
+           <label class="string required" for="message_body">Body</label>
+           <textarea class="string required" id="message_body" name="message[body]" required="required"></textarea>
+        </div>
+        <div>
+           <label class="string required" for="message_body">group message</label>
+           <input type="checkbox" name="group" />
+        </div>
+
+        <input id="message_submit" name="commit" type="submit" value="Send" />
+      </form>
     </div>
 <% end %>

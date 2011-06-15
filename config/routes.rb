@@ -66,13 +66,16 @@ Server::Application.routes.draw do
     resources :searches
     root :to => "forums#index"
     resources :app_centers, :only => [:index]
-    resources :messages #do
-#      collection do
-#        post :send_message
-#      end
-#    end
+    resources :messages do
+      member do
+        #get :view
+        post :reply
+      end
+    end
     resources :black_lists
   end
+
+  #match ':messages/:view/:id/'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
