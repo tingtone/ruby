@@ -29,15 +29,13 @@ class Message
 
 
   class << self
-
     def inbox(user, params, page_size=20, sorted="created_at desc")
-      ms = Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
-      ms
+      Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+
     end
 
     def outbox(user, params, page_size=20, sorted="created_at desc")
-      ms = Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
-      ms
+      Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
     end
 
     def drops(user, ids, box="inbox")
@@ -51,7 +49,6 @@ class Message
     def last_group_message(user)
       Message.where(sender_id: user.id).max(:group_message_id)
     end
-
   end
 
 end
