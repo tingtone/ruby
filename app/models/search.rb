@@ -6,6 +6,7 @@ class Search
 
   #fields
   field :keywords
+  field :typee
   
   
 end

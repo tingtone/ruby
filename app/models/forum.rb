@@ -35,9 +35,14 @@ class Forum
   class << self
     def search(keywords, typee)
       if typee == 'Topic'
-        @topics = Topic.where(title: /.*#{keywords}?/i)
+        @topic_titles = Topic.where(title: /.*#{keywords}?/i)
+        @topic_contents = Topic.where(content: /.*#{keywords}?/i)
         @posts  = Post.where(content: /.*#{keywords}?/i)
-        
+        results = []
+        results << @topic_titles unless @topic_titles.blank?
+        results << @topic_contents unless @topic_contents.blank?
+        results << @posts unless @topics.blank?
+        return results
       else
         #Search Apps
       end
