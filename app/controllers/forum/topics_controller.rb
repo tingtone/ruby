@@ -3,7 +3,8 @@ class Forum::TopicsController < Forum::BaseController
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
   def index
-    @topics = @forum.topics.page params[:page]
+    @sticky_topics = @forum.sticky_topics
+    @common_topics = Kaminari.paginate_array(@forum.common_topics).page(params[:page]).per(2)
   end
   
   def new
@@ -17,6 +18,8 @@ class Forum::TopicsController < Forum::BaseController
   def show
     @topic = Topic.find params[:id]
     @author = ForumUser.find @topic.forum_user_id
+    @posts = @topic.posts.page params[:page]
+    @post = @topic.posts.new
   end
   
   def create

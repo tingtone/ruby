@@ -1,7 +1,7 @@
 - content_for :title do
   Topic Show
 
-%div
+#topic
   %p 
     %label Author:
     = @author.name
@@ -9,3 +9,28 @@
     %h3= @topic.title
   %p
     = @topic.content
+
+%hr
+%h4 Comments
+
+#comment
+  - @posts.each do |post|
+    %p= post.forum_user.name
+    %p= post.content
+    %h4 relpies
+    %p
+      - post.children.each do |p|
+        %p= p.forum_user.name
+        %p= p.content
+    - unless @topic.locked?
+      %p
+        = render :partial =>'reply_post', :locals => { :post => post }
+      %hr
+  
+  - if @topic.locked?
+    %h4 Comment be closed.
+  - else
+    - simple_form_for @post, :url => forum_topic_posts_path(@topic) do |form|
+      = form.input :topic_id, :as => :hidden, :label_html => { :value => "#{params[:id]}" }
+      = form.input :content, :as => :text
+      .buttons= form.submit 'Reply'

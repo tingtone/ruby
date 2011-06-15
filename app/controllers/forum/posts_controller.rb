@@ -1,91 +1,50 @@
 class Forum::PostsController < Forum::BaseController
-  load_and_authorize_resource
+  # load_and_authorize_resource
+  before_filter :find_forum_and_topic, :only => [:create, :update, :reply]
   
-  # before_filter :find_parents
-  #   before_filter :find_post, :only => [:edit, :update, :destroy]
-  # 
-  #   # /posts
-  #   # /users/1/posts
-  #   # /forums/1/posts
-  #   # /forums/1/topics/1/posts
-  #   def index
-  #     @posts = (@parent ? @parent.posts : Post.limit(9) ).search(params[:q], :page => current_page)
-  #     @users = @user ? {@user.id => @user} : Parent.index_from(@posts)
-  #     respond_to do |format|
-  #       format.html # index.html.erb
-  #       format.xml  { render :xml  => @posts }
-  #     end
-  #   end
-  # 
-  #   def show
-  #     respond_to do |format|
-  #       format.html { redirect_to forum_topic_path(@forum, @topic) }
-  #       format.xml  do
-  #         find_post
-  #         render :xml  => @post
-  #       end
-  #     end
-  #   end
-  # 
-  #   def edit
-  #     respond_to do |format|
-  #       format.html # edit.html.erb
-  #     end
-  #   end
-  # 
-  #   def create
-  #     @post = current_parent.reply @topic, params[:post][:body]
-  # 
-  #     respond_to do |format|
-  #       if @post.new_record?
-  #         format.html { redirect_to forum_topic_path(@forum, @topic) }
-  #         format.xml  { render :xml  => @post.errors, :status => :unprocessable_entity }
-  #       else
-  #         flash[:notice] = 'Post was successfully created.'
-  #         format.html { redirect_to(forum_topic_post_path(@forum, @topic, @post, :anchor => dom_id(@post))) }
-  #         format.xml  { render :xml  => @post, :status => :created, :location => forum_topic_post_url(@forum, @topic, @post) }
-  #       end
-  #     end
-  #   end
-  # 
-  #   def update
-  #     respond_to do |format|
-  #       if @post.update_attributes(params[:post])
-  #         flash[:notice] = 'Post was successfully updated.'
-  #         format.html { redirect_to(forum_topic_path(@forum, @topic, :anchor => dom_id(@post))) }
-  #         format.xml  { head :ok }
-  #       else
-  #         format.html { render :action => "edit" }
-  #         format.xml  { render :xml  => @post.errors, :status => :unprocessable_entity }
-  #       end
-  #     end
-  #   end
-  # 
-  #   def destroy
-  #     @post.destroy
-  # 
-  #     respond_to do |format|
-  #       format.html { redirect_to(forum_topic_path(@forum, @topic)) }
-  #       format.xml  { head :ok }
-  #     end
-  #   end
-  # 
-  # protected
-  #   def find_parents
-  #     if params[:parent_id]
-  #       @parent = @user = Parent.find(params[:parent_id])
-  #     elsif params[:forum_id]
-  #       @parent = @forum = Forum.find_by_permalink(params[:forum_id])
-  #       @parent = @topic = @forum.topics.find_by_permalink(params[:topic_id]) if params[:topic_id]
-  #     end
-  #   end
-  # 
-  #   def find_post
-  #     post = @topic.posts.find(params[:id])
-  #     if post.current_parent == current_parent || current_parent.admin?
-  #       @post = post
-  #     else
-  #       raise ActiveRecord::RecordNotFound
-  #     end
-  #   end
+  def create
+    @post = Post.new params[:post]
+    @post.forum_user_id = current_user.id
+    @post.forum_id = @forum.id
+    if @post.save
+      flash[:notice] = "Reply Successfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    else
+      flash[:error] = "Reply UnSuccessfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    end
+  end
+  
+  def update
+    @post = Post.find params[:id]
+    if @post.update_attributes params[:post]
+      @post.update_attributes(:forum_user_id => current_user.id, :forum_id => @forum.id)
+      flash[:notice] = "Reply Update Successfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    else
+      flash[:error] = "Reply Update UnSuccessfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    end
+  end
+  
+  def reply
+    @post = Post.find params[:id]
+    @reply_post = @topic.posts.new params[:post]
+    @reply_post.forum_user_id = current_user.id
+    @reply_post.forum_id = @forum.id
+    if @reply_post.save
+      @post.children << @reply_post
+      flash[:notice] = "Reply Successfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    else
+      flash[:error] = "Reply UnSuccessfully."
+      redirect_to forum_forum_topic_path(@forum, @topic)
+    end
+  end
+  
+  private
+    def find_forum_and_topic
+      @topic = Topic.find params[:post][:topic_id]
+      @forum = @topic.forum
+    end
 end

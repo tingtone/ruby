@@ -14,6 +14,7 @@ class Topic
   field :locked,       :type => Boolean, :default => false
   field :posts_count,  :type => Integer, :default => 0
   field :state,        :type => String,  :default => "new"
+  field :position,     :type => Integer, :default => 0
 
   field :last_post_id
   field :last_updated_at, :type => DateTime
@@ -27,6 +28,7 @@ class Topic
   # forum user can monitor topics
   references_and_referenced_in_many :forum_users
 
-  paginates_per 30
+  paginates_per 2
+
 
 end
