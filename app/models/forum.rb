@@ -22,4 +22,6 @@ class Forum
   # Setting Moderator for Forum
   references_and_referenced_in_many :forum_users
   
+  scope :ordered_forums, all.asc(:position)
+  
 end

@@ -18,7 +18,7 @@
   <body>
     <div id='overlay' class="ui-widget-content"></div>
     <div id="banner">
-      <%= render :partial => '/layouts/banner' %>
+      <%= render :partial => '/layouts/forums/banner' %>
     </div>
 
     <div id="session">
@@ -26,8 +26,8 @@
           <%= render '/layouts/forums/forum_menu' %>
         </ul>
         <ul class="hmenu" style='float: right;'>
-          <%= render 'devise/menu/registration_items' %>
-          <%= render 'devise/menu/login_items' %>
+          <%= render 'forum/menu/registration_items' %>
+          <%= render 'forum/menu/login_items' %>
           <%= render '/layouts/forums/search' %>
         </ul>
     </div>

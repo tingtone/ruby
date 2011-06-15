@@ -1,0 +1,14 @@
+- content_for :title do
+  Topic Index
+
+%div
+
+  - @topics.each do |topic|
+    %p
+      = link_to topic.title, forum_forum_topic_path(@forum, topic)
+    %p
+      = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+
+%div
+  = link_to "Create Topic", new_forum_forum_topic_path(@forum)
+ 

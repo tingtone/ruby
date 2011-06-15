@@ -1,0 +1,9 @@
+<% if forum_user_signed_in? %>
+  <li>
+  <em><%= link_to(current_forum_user.name, '#') %></em>
+  </li>
+<% else %>
+  <li>
+  <%= link_to("sign_up", new_forum_user_registration_path)  %>
+  </li>
+<% end %>

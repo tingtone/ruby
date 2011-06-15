@@ -1,0 +1,11 @@
+- content_for :title do
+  Topic Show
+
+%div
+  %p 
+    %label Author:
+    = @author.name
+  %p
+    %h3= @topic.title
+  %p
+    = @topic.content
