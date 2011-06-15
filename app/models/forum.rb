@@ -24,4 +24,11 @@ class Forum
   
   scope :ordered_forums, all.asc(:position)
   
+  def sticky_topics
+    topics.asc(:position).select{|t| t if t.sticky == 1}
+  end
+  
+  def common_topics
+    topics.select{|t| t if t.sticky == 0}
+  end
 end

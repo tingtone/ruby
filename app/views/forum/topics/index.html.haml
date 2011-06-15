@@ -2,12 +2,21 @@
   Topic Index
 
 %div
-
-  - @topics.each do |topic|
-    %p
-      = link_to topic.title, forum_forum_topic_path(@forum, topic)
-    %p
-      = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+  #sticky
+    %h4 Sticky Topics
+    - @sticky_topics.each do |topic|
+      %p
+        = link_to topic.title, forum_forum_topic_path(@forum, topic)
+      %p
+        = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+  #common
+    %hr
+    - @common_topics.each do |topic|
+      %p
+        = link_to topic.title, forum_forum_topic_path(@forum, topic)
+      %p
+        = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+    = paginate @common_topics, :outer_window => 3
 
 %div
   = link_to "Create Topic", new_forum_forum_topic_path(@forum)

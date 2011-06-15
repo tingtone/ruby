@@ -56,7 +56,11 @@ Server::Application.routes.draw do
       resources :topics
     end
     resources :topics do
-      resources :posts
+      resources :posts do
+        member do
+          post :reply
+        end
+      end
     end
     
     root :to => "forums#index"

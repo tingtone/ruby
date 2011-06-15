@@ -31,7 +31,6 @@ class Message
     self.save!
   end
 
-
   class << self
 
     def inbox(user, params, page_size=20, sorted="created_at desc")
@@ -42,8 +41,7 @@ class Message
 
     def outbox(user, params, page_size=20, sorted="created_at desc")
       if user
-        ms = Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
-        ms
+        return Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
       end
     end
 
@@ -62,7 +60,6 @@ class Message
         Message.where(sender_id: user.id).max(:group_message_id)
       end
     end
-
   end
 
 end
