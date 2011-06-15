@@ -1,8 +1,7 @@
 class Forum::MessagesController < Forum::BaseController
-  #applications center for filter
-  #and recommends applications
+  before_filter :authenticate_forum_user!, :only => [:create, :update]
+
   layout "message"
-  #before_filter :require_login_forum
 
   def index
     if params['box'] == "outbox"

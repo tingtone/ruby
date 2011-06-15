@@ -43,12 +43,13 @@ class Ability
       end
 
       can :manage, Post do |post, session_posts|
-        unldess post.new_record?
-        expire = comment.updated_at+CONSTANTS['max_time_to_edit_new_comments'].to_i.minutes
-        begin
-          session_posts.detect{|p| p[0].eql?(post.id.to_s) } && (Time.now < expire)
-        rescue
-          false
+        unless post.new_record?
+          expire = post.updated_at+CONSTANTS['max_time_to_edit_new_comments'].to_i.minutes
+          begin
+            session_posts.detect{|p| p[0].eql?(post.id.to_s) } && (Time.now < expire)
+          rescue
+            false
+          end
         end
       end
     end
