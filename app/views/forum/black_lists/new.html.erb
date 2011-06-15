@@ -1,0 +1,30 @@
+<% content_for :content do %>
+
+    <% if flash[:error] %>
+        <div class="error">
+          flash[:error]
+        </div>
+    <% end %>
+      <%=debug current_forum_user.inspect %>
+    <div>
+      <form id="new_message_form" method="post" action="/forum/messages">
+
+        <div>
+          recipient: <input name="recipient" type="text" value="edison" maxlength="50"/>
+        </div>
+
+        <div>
+          subject: <input name="subject" type="text" maxlength="50"/>
+        </div>
+
+        <div>
+          message:
+          <textarea name="body" rows="3" cols="20">
+          </textarea>
+        </div>
+        <div>
+          <input type="submit" value="send"/>
+        </div>
+      </form>
+    </div>
+<% end %>

@@ -1,0 +1,5 @@
+<% content_for :content do %>
+  <h5>Mail Content</h5>
+  <div><%=@message.sender.name %> to <%=@message.recipient.name%>,<%=@message.subject%></div>
+  <div><%=@message.body%></div>
+<% end %>

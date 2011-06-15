@@ -17,14 +17,15 @@ class GroupMessage
     def syn_message(user)
       if user
         group_id = Message.last_group_message(user)
-        puts "group_id" , group_id
         group_id = defaut_group if not group_id
 
         #default just recently message 10
         gms = GroupMessage.where({'_id' => {'$gt' => group_id}}).order("created_at desc").limit(10)
-        puts "gms.length",gms.length
+
         gms.each do |group|
-          group.sender.send_message(user, group.subject, group.body,group)
+          if group.sender
+            group.sender.send_message(user, group.subject, group.body,group)
+          end
         end
         true
       else

@@ -80,8 +80,9 @@ class ForumUser
     ms.recipient = reciever
     ms.subject = subject
     ms.body = body
-    ms.group_message = group if group
+    ms.group_message_id = group.id if group
     self.messages << ms
+    ms.save!
     ms
   end
 
