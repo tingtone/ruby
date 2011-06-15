@@ -63,6 +63,7 @@ Server::Application.routes.draw do
       end
     end
 
+    resources :searches
     root :to => "forums#index"
     resources :app_centers, :only => [:index]
     resources :messages #do

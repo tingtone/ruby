@@ -13,8 +13,7 @@ class FBlackList
   class << self
 
     def list(user, params, page_size=20, sorted="created_at desc")
-      ms = FBlackList.where(user_id: user.id).order(sorted).page(params[:page]||1).per(page_size)
-      ms
+      FBlackList.where(user_id: user.id).order(sorted).page(params[:page]||1).per(page_size)
     end
 
   end

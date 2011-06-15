@@ -31,4 +31,16 @@ class Forum
   def common_topics
     topics.select{|t| t if t.sticky == 0}
   end
+  
+  class << self
+    def search(keywords, typee)
+      if typee == 'Topic'
+        @topics = Topic.where(title: /.*#{keywords}?/i)
+        @posts  = Post.where(content: /.*#{keywords}?/i)
+        
+      else
+        #Search Apps
+      end
+    end
+  end
 end
