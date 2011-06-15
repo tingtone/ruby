@@ -17,6 +17,10 @@ class Message
 
   referenced_in :group_message
 
+  validates_presence_of :subject
+  validates_presence_of :body
+  validates_presence_of :sender
+  validates_presence_of :recipient
 
   def delete(user)
     if user == self.sender
@@ -28,24 +32,33 @@ class Message
   end
 
   class << self
+
     def inbox(user, params, page_size=20, sorted="created_at desc")
-      Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+      if user
+        return Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+      end
     end
 
     def outbox(user, params, page_size=20, sorted="created_at desc")
-      Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+      if user
+        return Message.where(sender_id: user.id).and(sender_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
+      end
     end
 
     def drops(user, ids, box="inbox")
-      if box == "inbox"
-        Message.all_in(_id: ids).and(recipient_id: user.id).update_all(recipient_deleted: true)
-      elsif box == "outbox"
-        Message.all_in(_id: ids).and(sender_id: user.id).update_all(sender_deleted: true)
+      if user
+        if box == "inbox"
+          Message.all_in(_id: ids).and(recipient_id: user.id).update_all(recipient_deleted: true)
+        elsif box == "outbox"
+          Message.all_in(_id: ids).and(sender_id: user.id).update_all(sender_deleted: true)
+        end
       end
     end
 
     def last_group_message(user)
-      Message.where(sender_id: user.id).max(:group_message_id)
+      if user
+        Message.where(sender_id: user.id).max(:group_message_id)
+      end
     end
   end
 

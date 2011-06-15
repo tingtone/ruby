@@ -9,6 +9,4 @@ class Forum::BaseController < ApplicationController
     redirect_to forum_root_url
   end
 
-
-
 end
