@@ -63,6 +63,12 @@ class ForumUser
     self.roles_mask >= ROLES.index(role.to_sym)
   end
   
+  #------------------------------------topics
+  def topics
+    Topic.where(forum_user_id: self.id)
+  end
+  
+  
   #------------------------------------messages
   # check group messages when login
   def check_group_messages

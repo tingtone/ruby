@@ -2,5 +2,6 @@
   %li.hmenu
     - simple_form_for :search, :url => forum_searches_path do |form|
       = form.input :keywords, :label => false, :input_html => {:value => "#{params[:keywords]}"}
-      = form.input :typee, :collection => ['Topic', 'App'], :label => false, :selected => "#{params[:typee]}", :include_blank => false
+      = form.input :typee, :collection => Search::SEARCH_TYPE, :label => false, :selected => "#{params[:typee]}", :include_blank => false
+
       = form.submit "Search"

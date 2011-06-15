@@ -8,5 +8,5 @@ class Search
   field :keywords
   field :typee
   
-  
+  SEARCH_TYPE = %w|Topic User App|
 end
