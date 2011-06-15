@@ -17,8 +17,8 @@ class Forum::TopicsController < Forum::BaseController
   
   def show
     @topic = Topic.find params[:id]
-    @author = ForumUser.find @topic.forum_user_id
-    @posts = @topic.posts.page params[:page]
+    @author = ForumUser.find(@topic.forum_user_id)
+    @posts = @topic.posts.page(params[:page]).per(20)
     @post = @topic.posts.new
   end
   

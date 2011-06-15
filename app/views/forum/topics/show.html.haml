@@ -26,7 +26,8 @@
       %p
         = render :partial =>'reply_post', :locals => { :post => post }
       %hr
-  
+  = paginate @posts, :outer_window => 3
+
   - if @topic.locked?
     %h4 Comment be closed.
   - else
