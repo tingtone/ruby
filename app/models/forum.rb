@@ -34,15 +34,19 @@ class Forum
   
   class << self
     def search(keywords, typee)
-      if typee == 'Topic'
+      case typee
+      when 'Topic'
         @topic_titles = Topic.where(title: /.*#{keywords}?/i)
         @topic_contents = Topic.where(content: /.*#{keywords}?/i)
         @posts  = Post.where(content: /.*#{keywords}?/i)
         results = []
         results << @topic_titles unless @topic_titles.blank?
         results << @topic_contents unless @topic_contents.blank?
-        results << @posts unless @topics.blank?
+        results << @posts unless @posts.blank?
         return results
+      when "Author"
+        @author = ForumUser.first(conditions: {name: keywords})
+        return @author.try(:topics)
       else
         #Search Apps
       end

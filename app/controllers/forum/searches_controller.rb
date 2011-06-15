@@ -4,7 +4,7 @@ class Forum::SearchesController < Forum::BaseController
     keywords = params[:keywords]
     typee = params[:typee]
     sr = Forum.search(keywords, typee)
-    @search_results = Kaminari.paginate_array(sr.flatten!).page params[:page] unless sr.blank?
+    @search_results = Kaminari.paginate_array(sr.flatten.uniq).page params[:page] unless sr.blank?
   end
   
   def create
