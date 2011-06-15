@@ -1,6 +1,4 @@
 class Forum::BaseController < ApplicationController
-  include Parent::BaseHelper
-  include ApplicationHelper
 
   layout 'forum'
   
