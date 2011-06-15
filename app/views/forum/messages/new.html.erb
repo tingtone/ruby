@@ -5,7 +5,7 @@
           flash[:error]
         </div>
     <% end %>
-
+      <%=debug current_forum_user.inspect %>
     <div>
       <form id="new_message_form" method="post" action="/forum/messages">
 

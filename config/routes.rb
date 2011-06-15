@@ -3,10 +3,10 @@ Server::Application.routes.draw do
 
   get "most_downloads/index"
 
-  devise_for :developers,  :path => 'dev',    :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
-  devise_for :parents,     :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords" }
-  devise_for :forum_users, :path => 'forum',  :controllers => { :sessions => "forum/sessions", :registrations => 'forum/registrations' }
-  
+  devise_for :developers, :path => 'dev', :controllers => {:sessions => "dev/sessions", :registrations => "dev/registrations"}
+  devise_for :parents, :path => 'parent', :controllers => {:sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords"}
+  devise_for :forum_users, :path => 'forum', :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations'}
+
   namespace :dev do
     resources :game_applications
     resources :education_applications
@@ -62,10 +62,15 @@ Server::Application.routes.draw do
         end
       end
     end
-    
+
     root :to => "forums#index"
     resources :app_centers, :only => [:index]
-    resources :messages
+    resources :messages #do
+#      collection do
+#        post :send_message
+#      end
+#    end
+    resources :black_lists
   end
 
   # The priority is based upon order of creation:

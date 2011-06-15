@@ -1,31 +1,21 @@
-class Forum::MessagesController < Forum::BaseController
+class Forum::BlackListsController < Forum::BaseController
   #applications center for filter
   #and recommends applications
   layout "message"
-  #before_filter :require_login_forum
+  before_filter :require_login_forum
 
   def index
-    if params['box'] == "outbox"
-      @messages = Message.outbox(current_user,params)
-    else
-      @messages = Message.inbox(current_user,params)
-    end
-
+    @blacklist = FBlackList.list(current_user,params)
   end
 
   def new
     #
   end
 
-
-  def show
-
-  end
-
   def create
-    @recipient = ForumUser.first(conditions: {name: params[:recipient]})
-    if @recipient
-      if current_user.send_message(@recipient,params["subject"],params["body"])
+    @sender = ForumUser.first(conditions: {name: params[:username]})
+    if @sender
+      if current_user.add_black_list(@sender)
         flash[:notice] = "Topic Create Successfully."
         redirect_to "/forum/messages"
       else

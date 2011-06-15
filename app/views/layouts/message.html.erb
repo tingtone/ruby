@@ -32,8 +32,12 @@
             <div class="sub">
              <h4><a href="/forum/messages/new">Send Mail</a></h4>
              <ul>
-              <li class="cur">Inbox</li>
-              <li>Outbox</li>
+              <li <% if not params['box'] or params['box'] == "inbox" %>class="cur" <% end %> >
+                <a href="/forum/messages?box=inbox">Inbox</a>
+              </li>
+              <li <% if params['box'] == "outbox" %>class="cur" <% end %> >
+                <a href="/forum/messages?box=outbox">Outbox</a>
+              </li>
              </ul>
             </div>
             <div class="sub">
