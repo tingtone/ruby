@@ -27,14 +27,14 @@ class Forum::MessagesController < Forum::BaseController
     if @recipient
       if current_user.send_message(@recipient,params["subject"],params["body"])
         flash[:notice] = "Topic Create Successfully."
-        redirect_to "/forum/messages"
+        redirect_to forum_messages_path
       else
         flash[:error] = "Topic Create UnSuccessfully."
-        redirect_to "/forum/messages/new"
+        redirect_to new_forum_message_path
       end
     else
       flash[:error] = "Topic Create UnSuccessfully.Recipent not exist!"
-      redirect_to "/forum/messages/new"
+      redirect_to new_forum_message_path
     end
   end
 
