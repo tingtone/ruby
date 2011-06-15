@@ -13,7 +13,7 @@ class Forum::BaseController < ApplicationController
   end
 
   def current_user
-    current_forum_user if forum_user_signed_in?
+    @current_user = current_forum_user if forum_user_signed_in?
   end
 
 end

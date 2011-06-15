@@ -23,9 +23,9 @@ class Forum::MessagesController < Forum::BaseController
   end
 
   def create
-    @recipient = ForumUser.first(conditions: {name: params[:recipient]})
+    @recipient = ForumUser.first(conditions: {name: params[:message][:recipient]})
     if @recipient
-      if current_user.send_message(@recipient,params["subject"],params["body"])
+      if current_user.send_message(@recipient,params[:message][:subject],params[:message][:body])
         flash[:notice] = "Topic Create Successfully."
         redirect_to forum_messages_path
       else
