@@ -27,8 +27,9 @@ class ForumUser
   # forum user can monitor topics
   references_and_referenced_in_many :topics
   
-  embeds_many :messages
+  references_many :messages
   references_many :group_messages
+  references_many :black_lists
   
   validates_presence_of   :name
   validates_presence_of   :email
@@ -64,18 +65,33 @@ class ForumUser
   
   # check group messages when login
   def check_group_messages
-    group_ids = GroupMessage.all.map(&:id)
-    private_msg_ids = self.messages.map(&:group_message_id).compact
-    group_ids.each do |gmsg_id|
-      unless private_msg_ids.include? gmsg_id
-        unread_message = self.messages.create({group_message_id: gmsg_id})
-        self.messages << unread_message
-      end
-    end
+    GroupMessage.syn_message(self)
   end
-  
-  def group_msg gmsg_id
-    GroupMessage.find(gmsg_id).cache
+
+  def send_message(reciever,subject,body,group=nil)
+    ms = Message.new
+    ms.recipient = reciever
+    ms.subject = subject
+    ms.body = body
+    ms.group_message = group if group
+    self.messages << ms
+    ms
   end
-  
+
+  def send_group_message(subject,body)
+    gms = GroupMessage.new(subject: subject,body: body)
+    gms.sender = self
+    gms.save!
+    gms
+  end
+
+  def add_black_list(user)
+    bl = FBlackList.new(user: self,black: user)
+    bl.save!
+  end
+
+  def black?(user)
+    FBlackList.exists?(conditions: {user_id: self.id,black_id: user.id})
+  end
+
 end
