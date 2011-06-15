@@ -27,11 +27,9 @@ class Message
     self.save!
   end
 
-
   class << self
     def inbox(user, params, page_size=20, sorted="created_at desc")
       Message.where(recipient_id: user.id).and(recipient_deleted: false).order(sorted).page(params[:page]||1).per(page_size)
-
     end
 
     def outbox(user, params, page_size=20, sorted="created_at desc")
