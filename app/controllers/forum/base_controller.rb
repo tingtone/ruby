@@ -9,7 +9,12 @@ class Forum::BaseController < ApplicationController
     flash[:alert] = "Access denied!"
     redirect_to forum_root_url
   end
-  
+
+  def require_login_forum
+    if not forum_user_signed_in?
+      redirect_to new_forum_user_session_path
+    end
+  end
  
   def current_user
     current_forum_user if forum_user_signed_in?

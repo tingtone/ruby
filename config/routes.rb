@@ -61,6 +61,7 @@ Server::Application.routes.draw do
     
     root :to => "forums#index"
     resources :app_centers, :only => [:index]
+    resources :messages
   end
 
   # The priority is based upon order of creation:

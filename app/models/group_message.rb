@@ -10,6 +10,9 @@ class GroupMessage
 
   referenced_in :sender, :class_name => "ForumUser", :null=> true, :foreign_key => "sender_id"
 
+  validates_presence_of :subject
+  validates_presence_of :body
+
   class << self
     def syn_message(user)
       if user
