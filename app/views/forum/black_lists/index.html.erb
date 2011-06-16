@@ -1,4 +1,5 @@
 <% content_for :content do %>
+<div><a href="/forum/black_lists/new">Add black List</a></div>
 <div class="charts">
   <div class="charts-bd">
     <div class="charts-bd-top"></div>
@@ -6,16 +7,18 @@
       <form>
         <table>
           <thead>
-          <td class="lab">from</td>
-          <td class="lab">subject</td>
+          <td class="lab">user</td>
           <td class="lab">date</td>
+          <td class="lab">delete</td>
           </thead>
-          <% if @messages %>
-              <% for message in @messages %>
+          <% if @blacklists %>
+              <% for user in @blacklists %>
               <tr>
-                <td class="lab"><%=message.sender.name%></td>
-                <td class="lab"><%=message.subject%></td>
-                <td class="lab"><%=message.created_at.to_s(:db) %></td>
+                <td class="lab"><%=user.black.name%></td>
+                <td class="lab"><%=user.created_at.to_s(:db) %></td>
+                <td class="lab">
+                  <%= link_to "Destroy", forum_black_list_path(user), :remote => true, :method => :delete, :confirm => "Are you sure?" %>
+                </td>
               </tr>
               <tr>
                 <td class="line" colspan="2"></td>
@@ -32,8 +35,8 @@
 </div>
 
 <div>
-  <% if @messages %>
-      <%= paginate @messages %>
+  <% if @blacklists %>
+      <%= paginate @blacklists %>
   <% end %>
 </div>
 

@@ -1,0 +1,10 @@
+<div>
+    hi <%= @account.name %>:
+</div>
+
+<div>
+  <% for m in @messages%>
+    from:<%=m.sender.name%>,subject:<%=m.subject%>
+  <% end %>
+  <a href="<%=@url%>" target="_blank">please click here checkout :) </a>
+</div>

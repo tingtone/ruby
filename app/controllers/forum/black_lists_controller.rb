@@ -4,7 +4,7 @@ class Forum::BlackListsController < Forum::BaseController
   layout "message"
 
   def index
-    @blacklist = FBlackList.list(current_user,params)
+    @blacklists = FBlackList.list(current_user,params)
   end
 
   def new
@@ -12,19 +12,30 @@ class Forum::BlackListsController < Forum::BaseController
   end
 
   def create
-    @sender = ForumUser.first(conditions: {name: params[:username]})
+    @sender = ForumUser.first(conditions: {name: params[:black_list][:black]})
     if @sender
-      if current_user.add_black_list(@sender)
+      success,error = current_user.add_black_list(@sender)
+      if success
         flash[:notice] = "Topic Create Successfully."
-        redirect_to "/forum/messages"
+        redirect_to "/forum/black_lists"
       else
-        flash[:error] = "Topic Create UnSuccessfully."
-        redirect_to "/forum/messages/new"
+        flash[:error] = "Topic Create UnSuccessfully.#{error}"
+        redirect_to "/forum/black_lists/new"
       end
     else
-      flash[:error] = "Topic Create UnSuccessfully.Recipent not exist!"
-      redirect_to "/forum/messages/new"
+      flash[:error] = "Topic Create UnSuccessfully. black user  not exist!"
+      redirect_to "/forum/black_lists/new"
     end
+  end
+
+  def destroy
+    if params[:id]
+      fbl = FBlackList.first(conditions: {_id: params[:id]})
+      if fbl.user == current_user
+        fbl.destroy! unless fbl.destroyed?
+      end
+    end
+    redirect_to :action=>:index
   end
 
 end

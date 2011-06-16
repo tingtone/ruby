@@ -2,7 +2,7 @@
 
     <% if flash[:error] %>
         <div class="error">
-           <%= flash[:error] %>
+          flash[:error]
         </div>
     <% end %>
 
@@ -14,7 +14,7 @@
         <%= f.submit 'Send' %>
      <% end %> -->
 
-
+      <h2>Reply</h2>
       <form accept-charset="UTF-8" action="/forum/messages" class="simple_form message" method="post">
 
         <div style="margin:0;padding:0;display:inline">
@@ -25,7 +25,7 @@
           <label class="string required" for="message_recipient">
          Recipient
           </label>
-          <input class="string required" id="message_recipient" name="message[recipient]" required="required" size="50" type="text" />
+          <input class="string required" id="message_recipient" name="message[recipient]" required="required" size="50" type="text" value="<%=@message.sender.name%>" />
         </div>
         <div class="input string required">
           <label class="string required" for="message_subject"> Subject</label>
@@ -33,7 +33,10 @@
         </div>
         <div class="input string required">
            <label class="string required" for="message_body">Body</label>
-           <textarea class="string required" id="message_body" name="message[body]" required="required"></textarea>
+           <textarea class="string required" id="message_body" name="message[body]" required="required">
+             -------------reply--------------
+             <%=@message.body %>
+            </textarea>
         </div>
         <div>
            <label class="string required" for="message_body">group message</label>
