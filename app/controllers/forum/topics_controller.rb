@@ -53,8 +53,7 @@ class Forum::TopicsController < Forum::BaseController
   
   def destroy
     @topic = Topic.find params[:id]
-    if @topic.delete
-      @topic.destroy_posts
+    if @topic.destory
       flash[:notice] = "Delete is Successfully."
       redirect_to forum_forum_topics_path(@forum)
     end
