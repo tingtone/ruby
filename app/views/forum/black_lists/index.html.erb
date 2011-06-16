@@ -17,7 +17,7 @@
                 <td class="lab"><%=user.black.name%></td>
                 <td class="lab"><%=user.created_at.to_s(:db) %></td>
                 <td class="lab">
-                  <%= link_to "Destroy", forum_black_list_path(user), :remote => true, :method => :delete, :confirm => "Are you sure?" %>
+                  <%= link_to "Destroy", forum_black_list_path(user), :method => :delete, :confirm => "Are you sure?" %>
                 </td>
               </tr>
               <tr>

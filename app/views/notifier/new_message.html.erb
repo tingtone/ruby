@@ -3,8 +3,6 @@
 </div>
 
 <div>
-  <% for m in @messages%>
-    from:<%=m.sender.name%>,subject:<%=m.subject%>
-  <% end %>
+  from:<%=@message.sender.name%>,subject:<%=@message.subject%>
   <a href="<%=@url%>" target="_blank">please click here checkout :) </a>
 </div>

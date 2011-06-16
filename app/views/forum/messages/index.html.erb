@@ -6,6 +6,7 @@
       <form>
         <table>
           <thead>
+           <td class="lab">read</td>
           <td class="lab">from</td>
           <td class="lab">subject</td>
           <td class="lab">date</td>
@@ -14,6 +15,7 @@
           <% if @messages %>
               <% for message in @messages %>
               <tr>
+                <td class="lab"><%if message.read?%>R<% else %>U<% end %></td>
                 <td class="lab"><%=message.sender.name%></td>
                 <td class="lab"><a href="/forum/messages/<%=message.id%>"><%=message.subject%></a></td>
                 <td class="lab"><%=message.created_at.to_s(:db) %></td>

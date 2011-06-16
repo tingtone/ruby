@@ -1,21 +1,18 @@
 class Notifier < ActionMailer::Base
-  default :from => "noreply@kittypad.com"
-  smtp_settings :address=> "noreply@kittypad.com", :user_name=>"noreply@kittypad.com", \
-      :password=>"abc"
+  default :from => "nonreply@kittypad.com"
 
-  def new_message(recipient, url, messages)
+  def new_message(recipient, url, message)
     @account = recipient
-    @messages = messages
+    @message = message
     @url = url
-    mail(:to => recipient.email)
+    mail(:to => recipient.email,:subject=>message.subject)
   end
 
-  def new_group_message(recipient, url, groups)
+  def new_group_message(recipient, url, group)
     @account = recipient
-    @groups = groups
+    @group = group
     @url = url
-    mail(:to => recipient.email)
+    mail(:to => recipient.email,:subject=>@group.subject)
   end
-
 
 end

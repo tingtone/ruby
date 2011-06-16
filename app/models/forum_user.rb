@@ -82,17 +82,25 @@ class ForumUser
     end
     ms = Message.new
     ms.recipient = reciever
+    ms.sender = self
     ms.subject = subject
     ms.body = body
+    ms.created_at = Time.now
     ms.group_message_id = group.id if group
-    self.messages << ms
+    Rails.logger.add(1,group.id) if group
+    Rails.logger.add(1,group.created_at.to_s(:db)) if group
     ms.save!
+    self.messages << ms
+
+    #group read on open mail so not  send group message
+    Notifier.new_message(self,"http://localhost/",ms).deliver unless group
     ms
   end
 
   def send_group_message(subject,body)
     gms = GroupMessage.new(subject: subject,body: body)
     gms.sender = self
+    gms.created_at = Time.now
     gms.save!
     gms
   end

@@ -26,8 +26,8 @@ class Forum::MessagesController < Forum::BaseController
 
   def show
     @message = Message.first(conditions: {_id: params["id"]})
+    @message.read
   end
-
 
   def create
     @recipient = ForumUser.first(conditions: {name: params[:message][:recipient]})
@@ -48,6 +48,14 @@ class Forum::MessagesController < Forum::BaseController
       flash[:error] = "Topic Create UnSuccessfully.Recipent not exist!"
       redirect_to new_forum_message_path
     end
+  end
+
+  def destroy
+    if params[:id]
+      m = Message.first(conditions: {_id: params[:id]})
+      m.delete(current_user,params['box']||"inbox")
+    end
+    redirect_to :action=>:index
   end
 
 end
