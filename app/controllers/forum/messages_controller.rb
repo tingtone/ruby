@@ -20,24 +20,28 @@ class Forum::MessagesController < Forum::BaseController
     #
   end
 
+  def reply
+    @message = Message.first(conditions: {_id: params["id"]})
+  end
 
   def show
     @message = Message.first(conditions: {_id: params["id"]})
   end
 
+
   def create
     @recipient = ForumUser.first(conditions: {name: params[:message][:recipient]})
     if @recipient
       if params[:group]
-        ms = current_user.send_group_message(params[:message][:subject],params[:message][:body])
+        ms,error = current_user.send_group_message(params[:message][:subject],params[:message][:body])
       else
-        ms = current_user.send_message(@recipient,params[:message][:subject],params[:message][:body])
+        ms,error = current_user.send_message(@recipient,params[:message][:subject],params[:message][:body])
       end
       if ms
         flash[:notice] = "Topic Create Successfully."
         redirect_to forum_messages_path
       else
-        flash[:error] = "Topic Create UnSuccessfully."
+        flash[:error] = "Topic Create UnSuccessfully.#{error}"
         redirect_to new_forum_message_path
       end
     else

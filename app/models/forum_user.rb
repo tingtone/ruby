@@ -76,6 +76,9 @@ class ForumUser
   end
 
   def send_message(reciever,subject,body,group=nil)
+    if reciever.black?(self) and not group
+      return false,"you are in blacklist"
+    end
     ms = Message.new
     ms.recipient = reciever
     ms.subject = subject
@@ -94,12 +97,17 @@ class ForumUser
   end
 
   def add_black_list(user)
-    bl = FBlackList.new(user: self,black: user)
-    bl.save!
+    if not self.black?(user)
+      bl = FBlackList.new(user: self,black: user)
+      return bl.save!
+    else
+      return false,"user have added in black_list"
+    end
   end
 
   def black?(user)
-    FBlackList.exists?(conditions: {user_id: self.id,black_id: user.id})
+    #exits has problem
+    FBlackList.count(conditions: {user_id: self.id,black_id: user.id}) > 0
   end
 
 end

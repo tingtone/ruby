@@ -2,4 +2,5 @@
   <h5>Mail Content</h5>
   <div><%=@message.sender.name %> to <%=@message.recipient.name%>,<%=@message.subject%></div>
   <div><%=@message.body%></div>
+  <a href="/forum/messages/<%=@message.id%>/reply">reply</a>
 <% end %>

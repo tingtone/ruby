@@ -69,7 +69,7 @@ Server::Application.routes.draw do
     resources :messages do
       member do
         #get :view
-        post :reply
+        get :reply
       end
     end
     resources :black_lists

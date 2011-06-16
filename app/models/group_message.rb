@@ -27,6 +27,11 @@ class GroupMessage
             group.sender.send_message(user, group.subject, group.body,group)
           end
         end
+
+        if gms.length > 0
+          Notifier.new_group_message(user,gms).deliver
+        end
+
         true
       else
         false #not have new group message
