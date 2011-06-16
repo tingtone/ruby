@@ -36,7 +36,7 @@ class ForumUser
   validates_uniqueness_of :name,  :case_sensitive => false
   validates_uniqueness_of :email, :case_sensitive => false
   
-  attr_accessible :name, :email, :password, :password_confirmation, :roles_mask,
+  attr_accessible :name, :email, :password, :password_confirmation, 
                    :remember_me, :authentication_token, :confirmation_token
   
   #------------------------------------------roles

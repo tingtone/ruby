@@ -1,6 +1,8 @@
 class Forum::BaseController < ApplicationController
   include Forum::BaseHelper
   layout 'forum'
+  before_filter :current_or_guest_user
+
 
   protected
   
@@ -10,8 +12,6 @@ class Forum::BaseController < ApplicationController
       redirect_to forum_root_url
     end
 
-    def current_user
-      current_forum_user if forum_user_signed_in?
-    end
+    
 
 end
