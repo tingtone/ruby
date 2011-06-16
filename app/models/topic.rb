@@ -1,7 +1,5 @@
 class Topic
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
+  include Shared::Mongoid
 
   cache
 

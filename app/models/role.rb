@@ -1,9 +1,9 @@
-class City
+class Role
   include Shared::Mongoid
   
-  cache
   
   #fields
   field :name
-  referenced_in :state
+  
+  references_and_referenced_in_many :roles
 end
