@@ -15,6 +15,9 @@ class Message
   referenced_in :sender, :class_name => "ForumUser", :null=> true, :foreign_key => "sender_id"
   referenced_in :recipient, :class_name => "ForumUser", :null=> true, :foreign_key => "recipient_id"
 
+  index :sender
+  index :reipient
+
   referenced_in :group_message
 
   validates_presence_of :subject
@@ -22,11 +25,22 @@ class Message
   validates_presence_of :sender
   validates_presence_of :recipient
 
-  def delete(user)
-    if user == self.sender
-      self.sender_deleted = true
-    else
+  def read?
+     self.read_at != nil
+  end
+
+  def read
+    unless read?
+      self.read_at = Time.now
+      self.save!
+    end
+  end
+
+  def delete(user,box="inbox")
+    if user == self.recipient and box=="inbox"
       self.recipient_deleted = true
+    elsif user == self.sender and box=="outbox"
+      self.sender_deleted = true
     end
     self.save!
   end
@@ -57,7 +71,8 @@ class Message
 
     def last_group_message(user)
       if user
-        Message.where(sender_id: user.id).max(:group_message_id)
+        #Message.where(sender_id: user.id).max(:group_message_id)
+        return Message.where(recipient_id: user.id).and({'group_message_id'=> {'$ne'=>nil}}).max("created_at")
       end
     end
   end
