@@ -25,10 +25,11 @@ gem 'omniauth'
 gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
-# gem 'cancan-permits'
-# gem 'roles_mongoid'
+gem 'cancan-permits'
 
-group :development do
+gem 'cancan-rest-links'
+
+group :development do 
   gem 'thin'
   gem 'awesome_print', :require => 'ap'
 end

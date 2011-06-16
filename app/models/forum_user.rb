@@ -1,7 +1,5 @@
 class ForumUser
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
+  include Shared::Mongoid
   
   cache
   
@@ -17,7 +15,7 @@ class ForumUser
   field :city_id
   field :posts_count, :type => Integer, :default => 0
   
-  field :roles_mask, :type => Fixnum, :default => 0
+  # field :roles_mask, :type => Fixnum, :default => 0
   
   references_many :topics
   
@@ -39,29 +37,30 @@ class ForumUser
   attr_accessible :name, :email, :password, :password_confirmation, :roles_mask,
                    :remember_me, :authentication_token, :confirmation_token
   
-  ROLES = [:guest, :developer, :admin]
-  
-  scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
-  
-  def admin?
-    ForumUser.all.any? ? (self == ForumUser.first || role?(:admin)) : true
-  end
-
-  def role=(role)
-    self.roles_mask = ROLES.index(role)
-    Rails.logger.warn("SET ROLES TO #{self.roles_mask} FOR #{self.inspect}")
-  end
-
-  # return user's role as symbol.
-  def role
-    ROLES[roles_mask].to_sym
-  end
-
-  # Ask if the user has at least a specific role.
-  #   @user.role?('admin')
-  def role?(role)
-    self.roles_mask >= ROLES.index(role.to_sym)
-  end
+  #------------------------------------------roles
+  # ROLES = [:guest, :developer, :admin]
+  #   
+  #   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
+  #   
+  #   def admin?
+  #     ForumUser.all.any? ? (self == ForumUser.first || role?(:admin)) : true
+  #   end
+  # 
+  #   def role=(role)
+  #     self.roles_mask = ROLES.index(role)
+  #     Rails.logger.warn("SET ROLES TO #{self.roles_mask} FOR #{self.inspect}")
+  #   end
+  # 
+  #   # return user's role as symbol.
+  #   def role
+  #     ROLES[roles_mask].to_sym
+  #   end
+  # 
+  #   # Ask if the user has at least a specific role.
+  #   #   @user.role?('admin')
+  #   def role?(role)
+  #     self.roles_mask >= ROLES.index(role.to_sym)
+  #   end
   
   #------------------------------------topics
   def topics

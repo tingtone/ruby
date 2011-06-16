@@ -1,7 +1,5 @@
 class FBlackList
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
+  include Shared::Mongoid
 
   referenced_in :black, :class_name => "ForumUser", :foreign_key => "black_id"
   referenced_in :user, :class_name => "ForumUser", :foreign_key => "user_id"

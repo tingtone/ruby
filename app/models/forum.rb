@@ -1,10 +1,7 @@
 class Forum
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-  include Mongoid::Acts::Tree
+  include Shared::Mongoid
+  include Shared::Mongoid::ActTree
 
-  
   cache
   
   #fields
@@ -15,7 +12,6 @@ class Forum
   field :position,     :type => Integer, :default => 0
   field :state,        :type => String,  :default => "public"
   
-  acts_as_tree
   references_many :topics
   references_many :posts
   

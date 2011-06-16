@@ -1,6 +1,5 @@
 class State
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include Shared::Mongoid
   
   cache
   

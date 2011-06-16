@@ -1,9 +1,7 @@
 class Post
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-  include Mongoid::Acts::Tree
-  
+  include Shared::Mongoid
+  include Shared::Mongoid::ActTree
+
   cache
   
   #fields
@@ -13,6 +11,6 @@ class Post
   referenced_in :topic
   referenced_in :forum
   
-  acts_as_tree
+
   
 end
