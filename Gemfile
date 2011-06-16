@@ -25,6 +25,8 @@ gem 'omniauth'
 gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
+# gem 'cancan-permits'
+# gem 'roles_mongoid'
 
 group :development do
   gem 'thin'

@@ -28,7 +28,12 @@ class Topic
   # forum user can monitor topics
   references_and_referenced_in_many :forum_users
 
-  paginates_per 2
+  paginates_per 20
 
+  def destroy_posts
+    self.posts.each do |post|
+      post.delete
+    end
+  end
 
 end

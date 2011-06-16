@@ -8,7 +8,8 @@ development:
     layout:            forum
     copyright:         KittyPad Inc. All rights reserved.
     copyright_url:     http://www.kittypad.com
-    meta_description:  "education, educational, fun, games, kids, preschool, toddler, ipad, apple, app store, iphone, elementary school, math, english, music, drawing, kittypad, pad, apps, applications"
+    meta_keywords:  "education, educational, fun, games, kids, preschool, toddler, ipad, apple, app store, iphone, elementary school, math, english, music, drawing, kittypad, pad, apps, applications"
+    meta_description:  "KittyPad's parents forum is a platform for parents to learn more about children's education through Ipad. Parents can discuss and share their experience in raising, educating and connecting with their children in KittyPad's parents forum. Besides, parents can find the best educational applications here."
     registration_from: 'noreply@kittypad.com'
     admin_notification_address: 'admin@kittypad.com'
     registration_from: 'test@kittypad.com'

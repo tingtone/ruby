@@ -1,6 +1,6 @@
 class Forum::TopicsController < Forum::BaseController
   before_filter :authenticate_forum_user!, :only => [:new, :edit, :create, :update]
-  load_and_authorize_resource
+  # load_and_authorize_resource
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
   
@@ -47,6 +47,15 @@ class Forum::TopicsController < Forum::BaseController
       redirect_to forum_forum_topics_path(@forum)
     else
       flash[:notice] = "Topic Update UnSuccessfully."
+      redirect_to forum_forum_topics_path(@forum)
+    end
+  end
+  
+  def destroy
+    @topic = Topic.find params[:id]
+    if @topic.delete
+      @topic.destroy_posts
+      flash[:notice] = "Delete is Successfully."
       redirect_to forum_forum_topics_path(@forum)
     end
   end
