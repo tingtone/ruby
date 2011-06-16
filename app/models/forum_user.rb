@@ -19,6 +19,8 @@ class ForumUser
   
   references_many :topics
   
+  references_and_referenced_in_many :roles
+  
   # Setting Moderator for Forum
   references_and_referenced_in_many :forums
   
