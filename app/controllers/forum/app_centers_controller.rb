@@ -1,6 +1,7 @@
 class Forum::AppCentersController < Forum::BaseController
   #applications center for filter
   #and recommends applications
+  layout "message"
 
   def current_parent_include_child
     #for test

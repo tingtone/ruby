@@ -9,8 +9,10 @@ class Forum::MessagesController < Forum::BaseController
     end
 
     if params['box'] == "outbox"
+      session[:message_box] = "outbox"
       @messages = Message.outbox(current_user,params)
     else
+      session[:message_box] = "inbox"
       @messages = Message.inbox(current_user,params)
     end
 
@@ -25,6 +27,7 @@ class Forum::MessagesController < Forum::BaseController
   end
 
   def show
+    params[:message_box] = session[:message_box] || "inbox"
     @message = Message.first(conditions: {_id: params["id"]})
     @message.read
   end
@@ -53,9 +56,9 @@ class Forum::MessagesController < Forum::BaseController
   def destroy
     if params[:id]
       m = Message.first(conditions: {_id: params[:id]})
-      m.delete(current_user,params['box']||"inbox")
+      m.delete(current_user,session[:message_box]||"inbox")
     end
-    redirect_to :action=>:index
+    redirect_to :action=>:index, :params => "?box=#{session[:message_box]||"inbox"}"
   end
 
 end

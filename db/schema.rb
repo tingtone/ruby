@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110610070731) do
+ActiveRecord::Schema.define(:version => 20110612080120) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
     t.integer  "time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "expired_on"
   end
 
   create_table "children", :force => true do |t|
@@ -42,6 +43,10 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "client_application_categories", :force => true do |t|
@@ -63,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
     t.integer  "rating"
     t.string   "identifier"
     t.integer  "max_score",                      :default => 0
+    t.integer  "start_age"
+    t.integer  "end_age"
+    t.string   "app_store_url"
+    t.string   "screenshot_file_name"
+    t.string   "screenshot_content_type"
+    t.integer  "screenshot_file_size"
+    t.datetime "screenshot_updated_at"
   end
 
   create_table "developers", :force => true do |t|
@@ -147,12 +159,12 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
   end
 
   create_table "parents", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                      :default => "", :null => false
+    t.string   "encrypted_password",          :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                              :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -160,7 +172,10 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "authentication_token"
-    t.integer  "posts_count",                           :default => 0
+    t.integer  "posts_count",                                :default => 0
+    t.datetime "children_updated_at"
+    t.datetime "rule_definitions_updated_at"
+    t.datetime "bonus_updated_at"
   end
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true
@@ -179,13 +194,6 @@ ActiveRecord::Schema.define(:version => 20110610070731) do
   add_index "posts", ["created_at", "forum_id"], :name => "index_posts_on_forum_id"
   add_index "posts", ["created_at", "parent_id"], :name => "index_posts_on_parent_id"
   add_index "posts", ["created_at", "topic_id"], :name => "index_posts_on_topic_id"
-
-  create_table "ras", :force => true do |t|
-    t.integer  "parent_id"
-    t.integer  "forum_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "rule_definitions", :force => true do |t|
     t.integer  "time"
