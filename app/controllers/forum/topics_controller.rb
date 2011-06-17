@@ -12,8 +12,6 @@ class Forum::TopicsController < Forum::BaseController
   load_and_authorize_resource
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
-  
-  
   def index
     @sticky_topics = @forum.sticky_topics
     @common_topics = Kaminari.paginate_array(@forum.common_topics).page(params[:page]).per(2)
@@ -32,6 +30,7 @@ class Forum::TopicsController < Forum::BaseController
     @author = ForumUser.find(@topic.forum_user_id)
     @posts = @topic.posts.page(params[:page]).per(20)
     @post = @topic.posts.new
+    @topic.hits_record
   end
   
   def create

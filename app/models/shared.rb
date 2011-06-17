@@ -32,7 +32,10 @@ module Shared
     end#ClassMethods
 
     module InstanceMethods
-      #TODO
+      # 点击率
+      def hits_record
+        inc(:hits, 1)
+      end #hits_record
     end#module InstanceMethods
 
 
