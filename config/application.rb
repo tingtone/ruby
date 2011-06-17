@@ -9,6 +9,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 module Server
   class Application < Rails::Application
     config.generators do |g|
+      g.orm :active_record
       g.template_engine :haml
       g.test_framework :rspec, :fixture => false, :views => false
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'

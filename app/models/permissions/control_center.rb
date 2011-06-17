@@ -20,8 +20,6 @@ class ContorlCenter
         DeveloperPerm.got_permissions
       elsif forum_user.has_role? :guest
         GuestPerm.got_permissions
-      else
-        AnyBody.got_permissions
       end
     end
 

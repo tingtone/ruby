@@ -9,6 +9,8 @@
 
 class GuestPerm
   def self.got_permissions
-    
+    # can :read, [Forum, Topic, Post]
+    can :read, [Forum]
+    can :create, Post
   end
 end
