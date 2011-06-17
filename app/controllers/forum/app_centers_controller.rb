@@ -16,4 +16,13 @@ class Forum::AppCentersController < Forum::BaseController
     @recommends = ClientApplication.recommends(current_parent)
   end
 
+  def click
+    #click app game
+    if params[:id]
+      @app = ClientApplication.find(params[:id])
+      @app.click
+    end
+    render :text => "true"
+  end
+
 end

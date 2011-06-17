@@ -41,6 +41,12 @@ class ClientApplication < ActiveRecord::Base
     end
   end
 
+  def click
+    self.click_times ||= 0
+    self.click_times += 1
+    self.save
+  end
+
   class << self
 
     def recommends(parent, limit=5, default_order="created_at desc")
