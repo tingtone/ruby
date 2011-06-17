@@ -3,7 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/
 config/database.yml
-public/stylesheets/*.css
+#public/stylesheets/*.css
 .sass-cache/
 .DS_Store
 public/.DS_Store
