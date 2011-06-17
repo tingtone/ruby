@@ -26,7 +26,6 @@ gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
 gem 'cancan-permits'
-
 gem 'cancan-rest-links'
 
 group :development do 
