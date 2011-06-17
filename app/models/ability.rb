@@ -11,15 +11,19 @@ class Ability
   include CanCan::Ability
   
   # Called by cancan with the current_forum_user or current_user or nil if
-  # no ForumUser signed in. If so, we create a new ForumUser object which can be
-  # identified as an anonymous ForumUser by calling new_record? on it.
-  # if ForumUser.new_record? is true this means the session belongs to a not
+  # no ForumUser signed in. If so, we use guest_user
+  # if guest_user, this means the session belongs to a not
   # signed in ForumUser.
+  # Look: https://github.com/plataformatec/devise/wiki/How-To:-Create-a-guest-user
+  
   def initialize(forum_user)
-    forum_user ||= ForumUser.where(name: /guest/).first  # guest ForumUser
+    forum_user ||= guest_user
     Permissions::ContorlCenter.dispatch(self, forum_user)
   end
 
+  def guest_user
+    ForumUser.where(name: /guest/).first # guest ForumUser
+  end #guest_user
 
 end#Ability
 
