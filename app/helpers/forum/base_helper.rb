@@ -1,3 +1,12 @@
+# 
+#  base_helper.rb
+#  ruby
+#  
+#  Created by Zhang Alex on 2011-06-17.
+#  Copyright 2011 __KittyPad.com__. All rights reserved.
+# 
+
+
 module Forum::BaseHelper
   def current_or_guest_user
     if current_user
