@@ -7,8 +7,9 @@
 # 
 
 
-class ParentPerm
-  def self.got_permissions
+class Permissions::ParentPerm
+  
+  def self.got_permissions current_ability
     
   end
 end

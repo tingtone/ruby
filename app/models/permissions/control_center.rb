@@ -7,19 +7,26 @@
 # 
 
 
-class ContorlCenter
+class Permissions::ContorlCenter
   
   class << self
 
-    def dispatch forum_user
+    def dispatch(current_ability, forum_user)
       if forum_user.has_role? :admin
-        AdminPerm.got_permissions
+        Rails.logger.debug("----------------->   dispatch admin")
+        AdminPerm.got_permissions current_ability
       elsif forum_user.has_role? :parent
-        ParentPerm.got_permissions
+        Rails.logger.debug("----------------->   dispatch parent")
+        ParentPerm.got_permissions current_ability
       elsif forum_user.has_role? :developer
-        DeveloperPerm.got_permissions
+        Rails.logger.debug("----------------->   dispatch developer")
+        DeveloperPerm.got_permissions current_ability
       elsif forum_user.has_role? :guest
-        GuestPerm.got_permissions
+        Rails.logger.debug("----------------->   dispatch guest")
+        GuestPerm.got_permissions current_ability
+      else
+        Rails.logger.debug("----------------->   dispatch Any Body")
+        current_ability.can :read, [Forum,Topic, Post]
       end
     end
 

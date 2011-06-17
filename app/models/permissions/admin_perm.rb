@@ -7,8 +7,9 @@
 # 
 
 
-class AdminPerm
-  def self.got_permissions
-    can :manage, :all  # Admin is god
+class Permissions::AdminPerm
+  
+  def self.got_permissions current_ability
+    current_ability.can :manage, :all  # Admin is god
   end
 end

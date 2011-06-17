@@ -12,7 +12,6 @@ class Forum::BaseController < ApplicationController
   layout 'forum'
   before_filter :current_or_guest_user
 
-
   protected
   
     # == Display a flash if CanCan doesn't allow access
@@ -20,7 +19,5 @@ class Forum::BaseController < ApplicationController
       flash[:alert] = "Access denied!"
       redirect_to forum_root_url
     end
-
-    
 
 end

@@ -7,8 +7,9 @@
 # 
 
 
-class DeveloperPerm
-  def self.got_permissions
+class Permissions::DeveloperPerm
+  
+  def self.got_permissions current_ability
     
   end
 end

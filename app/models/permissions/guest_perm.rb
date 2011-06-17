@@ -7,10 +7,11 @@
 # 
 
 
-class GuestPerm
-  def self.got_permissions
+class Permissions::GuestPerm
+  
+  def self.got_permissions current_ability
     # can :read, [Forum, Topic, Post]
-    can :read, [Forum]
-    can :create, Post
+    current_ability.can :read, [Forum,Topic, Post]
+    current_ability.can :create, Post
   end
 end
