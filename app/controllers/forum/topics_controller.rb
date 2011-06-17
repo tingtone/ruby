@@ -1,3 +1,12 @@
+# 
+#  topics_controller.rb
+#  ruby
+#  
+#  Created by Zhang Alex on 2011-06-17.
+#  Copyright 2011 __KittyPad.com__. All rights reserved.
+# 
+
+
 class Forum::TopicsController < Forum::BaseController
   before_filter :authenticate_forum_user!, :only => [:new, :edit, :create, :update]
   # load_and_authorize_resource

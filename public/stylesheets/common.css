@@ -1,0 +1,61 @@
+/* 
+    Document   : common
+    Created on : 2011-06-13, 15:07:30
+    Author     : myth_lyz
+   
+*/
+body{background:url(../images/bac.png) repeat left top;}
+.wrap{width:989px;margin:0 auto;background:#fff;border-left:1px solid #858686;border-right:1px solid #858686;}
+.header{background:url(../images/bac-h.png) repeat left top;height:89px;}
+.header .logo{padding-left:30px;padding-top:18px;float:left;}
+.header .las{float:right;padding-right:30px;}
+.header .login{padding-top:45px;}
+.login .signin{padding-left:20px;background:url(../images/key.png) no-repeat 0 0;display:block;text-decoration:underline;}
+
+.content{border-bottom:1px solid #e8e7e7;}
+.content .left{width:263px;float:left;background:#f2f2f2;}
+.board{background:url(../images/board.png) no-repeat center top;height:54px;border-right:1px solid #dcdcdc}
+.mykids{font-family:helvetica Neue;}
+.mykids h2{font-size:18px;text-align:center;border-right:1px solid #dcdcdc;padding-top:10px;}
+.mykids h3{background:url(../images/h3.png) repeat-x 0 0;height:34px;line-height:34px;border-right:1px solid #dcdcdc;position:relative}
+.mykids .trends h3{background-image:url(../images/green.gif);}
+.mykids h3 span{padding-left:33px;}
+.mykids h3 span.cur{padding-left:33px;background:url(../images/p.png) no-repeat 10px 2px;}
+.mykids .trends h3 span{background:url(../images/icon1.gif) no-repeat 30px -2px;padding-left:60px;}
+.mykids h3 em{position:absolute;display:block;width:8px;height:10px;background:url(../images/tog.gif) -8px 0;top:12px;right:6px;cursor:pointer}
+.mykids h3 em.cur{background-position:0 0;}
+
+.mykids h4{padding-left:33px;border-right:1px solid #dcdcdc;height:30px;line-height:30px;}
+.mykids li{padding-left:33px;height:29px;border-right:1px solid #dcdcdc;}
+.mykids li.cur{border-right:0;background:url(../images/cur.gif) 0 0 no-repeat;padding-top:4px;height:25px;}
+.mykids .trends li{padding-top:5px;height:24px;background:url(../images/rt.png) no-repeat center bottom;}
+
+.content .right{width:726px;float:right;background:#fff;font-family:helvetica Neue;}
+.right-t{background:url(../images/rt.png) no-repeat center center;height:2px;}
+.charts{padding:51px 0 0 80px;}
+.tc{display:block;float:left;height:29px;background:url(../images/charts.png) 0 0 no-repeat;width:99px;line-height:29px;color:black;text-align:center;}
+.cs{display:block;float:left;height:29px;background:url(../images/charts.png) -99px 0 no-repeat;width:82px;line-height:29px;color:black;text-align:center;}
+.charts-hd{padding-bottom:8px;}
+.charts-bd-top{background:url(../images/yt.png) 0 0 no-repeat;width:566px;height:5px;}
+.charts-bd-mid{background:url(../images/ym.png) 0px 0 repeat-x;width:564px;height:178px;border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;}
+.charts-bd-mid form{border-left:1px solid #fff;border-right:1px solid #fff;height:178px;}
+.charts-bd-mid table{margin:15px;width:530px;}
+td.line{background:url(../images/line.gif) 0 0 repeat-x;height:2px;width:100%}
+td.lab{padding-left:15px;padding-bottom:15px;padding-top:15px;width:78px;}
+td.input{padding-left:30px;}
+td.input input{border:0;background:url(../images/input.png) no-repeat 0 0;height:34px;width:140px;padding-left:5px;}
+td.smt{text-align:center;padding-top:15px;}
+.charts-bd-btm{background:url(../images/yb.png) 0 0 no-repeat;width:566px;height:8px;}
+
+.footer{height:147px;background:url(../images/ft.gif) 0 0 repeat-x;font-family:helvetica Neue;}
+.ft-list{float:left;margin-left:55px;width:90px;margin-top:18px;}
+.ft-list h4{color:#6eac1e;font-size:16px;padding-bottom:8px;}
+.ft-list li a{color:#999;}
+.ft-list li a:hover{color:#333}
+.ft-right{float:right;margin-right:35px;margin-top:18px;}
+.ft-right .share{padding-left:21px;margin-bottom:30px;}
+.ft-right .share a{float:left;display:block;text-align:right;width:24px;height:24px;background:url(../images/s.png) no-repeat 0 0;margin-left:27px;}
+.ft-right .share a.a2{background-position:-24px 0}
+.ft-right .share a.a3{background-position:-48px 0}
+.ft-right p{text-align:right;color:#999;}
+
