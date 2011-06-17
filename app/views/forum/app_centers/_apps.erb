@@ -1,0 +1,27 @@
+<h4>Applications</h4>
+
+<div style="float: left; display: inline">
+  <form id="app_filter_form" method="GET" action="/forum/app_centers">
+    <ul>
+      <li><a href="/forum/app_centers">All</a></li>
+      <li>
+           <h5>rating</h5>
+           <select name="rating" size="3" id="select" onclick="document.getElementById('app_filter_form').submit();">
+               <% for rating in GameApplication::RATINGS %>
+                  <option <% if params["rating"]==rating %>selected="selected" <%end%>value="<%=rating%>"><%=rating%></option>
+                <% end %>
+           </select>
+      </li>
+    </ul>
+  </form>
+</div>
+
+<div style="float: left; display: inline">
+    <ul>
+      <%= render :partial => "forum/app_centers/app",:collection => @apps %>
+    </ul>
+</div>
+
+<div>
+  <%= paginate @apps %>
+</div>
