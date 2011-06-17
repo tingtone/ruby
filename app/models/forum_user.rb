@@ -1,3 +1,12 @@
+# 
+#  forum_user.rb
+#  ruby
+#  
+#  Created by Zhang Alex on 2011-06-17.
+#  Copyright 2011 __KittyPad.com__. All rights reserved.
+# 
+
+
 class ForumUser
   include Shared::Mongoid
   
@@ -40,29 +49,10 @@ class ForumUser
                    :remember_me, :authentication_token, :confirmation_token
   
   #------------------------------------------roles
-  # ROLES = [:guest, :developer, :admin]
-  #   
-  #   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
-  #   
-  #   def admin?
-  #     ForumUser.all.any? ? (self == ForumUser.first || role?(:admin)) : true
-  #   end
-  # 
-  #   def role=(role)
-  #     self.roles_mask = ROLES.index(role)
-  #     Rails.logger.warn("SET ROLES TO #{self.roles_mask} FOR #{self.inspect}")
-  #   end
-  # 
-  #   # return user's role as symbol.
-  #   def role
-  #     ROLES[roles_mask].to_sym
-  #   end
-  # 
-  #   # Ask if the user has at least a specific role.
-  #   #   @user.role?('admin')
-  #   def role?(role)
-  #     self.roles_mask >= ROLES.index(role.to_sym)
-  #   end
+  
+  def has_role?(role_sym)
+    roles.any? { |r| r.name.underscore.to_sym == role_sym }
+  end
   
   #------------------------------------topics
   def topics

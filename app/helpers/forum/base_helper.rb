@@ -17,7 +17,7 @@ module Forum::BaseHelper
   def guest_user
     guest_user_num = rand(9999)
     guest_user_id = session[:guest_user_id] ||= ForumUser.create(name: "guest#{guest_user_num}", email: "guest#{guest_user_num}@email.com", password: '123456').id
-    ForumUser.find(guest_user_id)
+    @guest_user = ForumUser.find(guest_user_id)
   end
   
   def current_user

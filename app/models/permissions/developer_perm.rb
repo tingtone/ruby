@@ -1,5 +1,5 @@
 # 
-#  forum_users_controller.rb
+#  developer_perm.rb
 #  ruby
 #  
 #  Created by Zhang Alex on 2011-06-17.
@@ -7,6 +7,8 @@
 # 
 
 
-class Forum::ForumUsersController < Forum::BaseController
-
+class DeveloperPerm
+  def self.got_permissions
+    
+  end
 end
