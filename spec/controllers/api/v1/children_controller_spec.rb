@@ -66,6 +66,15 @@ describe Api::V1::ChildrenController do
       json_response['error'].should == false
     end
 
+    it "should upload avatar for child" do
+      child = Factory(:child, :parent => @parent)
+      put :update, :child => { :fullname => 'Update', :avatar => File.new(Rails.root.join('public/images/rails.png')) }, :id => child.id, :parent_id => @parent.id, :format => 'json', :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['child']['avatar_url'].should =~ %r|http://localhost:3000/uploads/children/avatars/\d{3}/\d{3}/\d{3}/rails_default.png|
+    end
+
     it "should update rule definition" do
       child = Factory(:child, :parent => @parent)
       client_application = Factory(:client_application)

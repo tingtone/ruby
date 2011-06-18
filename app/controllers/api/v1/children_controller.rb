@@ -13,7 +13,7 @@ class Api::V1::ChildrenController < Api::V1::BaseController
   def update
     child = current_parent.children.find(params[:id])
     if child.update_attributes(params[:child])
-      render :json => {:error => false}
+      render :json => {:error => false, :child => child}
     else
       render :json => {:error => true, :messages => child.errors.full_messages}
     end
