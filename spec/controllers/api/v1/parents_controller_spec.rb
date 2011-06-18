@@ -13,7 +13,6 @@ describe Api::V1::ParentsController do
       json_response['error'].should == false
       json_response['parent']['id'].should_not be_blank
       json_response['parent']['authentication_token'].should_not be_blank
-      json_response['parent']['client_salt'].should_not be_blank
       json_response['parent']['client_encrypted_password'].should_not be_blank
 
       Parent.last.client_applications.should be_include(@client_application)
