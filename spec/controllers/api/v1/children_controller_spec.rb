@@ -8,20 +8,20 @@ describe Api::V1::ChildrenController do
   context 'create' do
     it "should success" do
       child = Factory(:child, :parent => @parent)
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'boy', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
       child = json_response['child']
       child['fullname'].should == 'Child'
-      child['gender'].should == 'male'
+      child['gender'].should == 'boy'
       child['birthday'].should == 1262275200
     end
 
     it "should success with rule_definitions" do
       client_application = Factory(:client_application)
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30}, "3" => {:period => 'week', :time => 60}} }, :parent_id => @parent.id, :key => client_application.key, :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'boy', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30}, "3" => {:period => 'week', :time => 60}} }, :parent_id => @parent.id, :key => client_application.key, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -33,7 +33,7 @@ describe Api::V1::ChildrenController do
 
     it "should upload avatar for child" do
       client_application = Factory(:client_application)
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :avatar => File.new(Rails.root.join('public/images/rails.png')) }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'boy', :birthday => '1262275200', :avatar => File.new(Rails.root.join('public/images/rails.png')) }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -41,7 +41,7 @@ describe Api::V1::ChildrenController do
     end
 
     it "should fail for validation" do
-      post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'boy', :birthday => '1262275200' }, :parent_id => @parent.id, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -50,7 +50,7 @@ describe Api::V1::ChildrenController do
     end
 
     it "should fail for wrong parent_token" do
-      post :create, :child => { :gender => 'male', :birthday => '1262275200' }, :parent_id => -1, :format => 'json', :no_sign => true
+      post :create, :child => { :gender => 'boy', :birthday => '1262275200' }, :parent_id => -1, :format => 'json', :no_sign => true
 
       response.response_code.should == 200
       json_response = ActiveSupport::JSON.decode response.body
