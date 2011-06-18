@@ -13,10 +13,10 @@ describe Api::V1::ChildrenController do
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-      children = json_response['children']
-      children.first['fullname'].should == child.fullname
-      children.last['fullname'].should == 'Child'
-      children.last['birthday'].should == 1262275200
+      child = json_response['child']
+      child['fullname'].should == 'Child'
+      child['gender'].should == 'male'
+      child['birthday'].should == 1262275200
     end
 
     it "should success with rule_definitions" do
