@@ -145,6 +145,14 @@ describe Api::V1::ParentSessionsController do
         json_response = ActiveSupport::JSON.decode response.body
         json_response['error'].should == true
       end
+
+      it "should check email and password even if there is a device identifier" do
+        post :create, :email => 'parent@test.com', :password => 'wrong', :device_identifier => 'device-identifier', :format => :json, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        json_response['error'].should == true
+      end
     end
 
     context "with timestamp" do

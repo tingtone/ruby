@@ -1,12 +1,15 @@
 class Api::V1::ParentSessionsController < Api::V1::BaseController
   def create
-    device = Device.find_by_identifier(params[:device_identifier])
-    if device
-      parent = device.parent
-      result = true
-    elsif
+    if params[:email] && params[:password]
       parent = Parent.find_by_email(params[:email])
       result = parent && parent.valid_password?(params[:password])
+    else
+      if device = Device.find_by_identifier(params[:device_identifier])
+        parent = device.parent
+        result = true
+      else
+        result = false
+      end
     end
     if result
       parent.add_client_application(current_client_application)
