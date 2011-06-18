@@ -24,6 +24,7 @@ describe Api::V1::ParentSessionsController do
         json_response = ActiveSupport::JSON.decode response.body
         json_response['error'].should == false
         json_response['parent']['id'].should_not be_blank
+        json_response['parent']['email'].should == "parent@test.com"
         json_response['parent']['authentication_token'].should_not be_blank
         Parent.last.client_applications.should be_include(@client_application)
 
