@@ -21,7 +21,7 @@ describe Api::V1::ChildrenController do
 
     it "should success with rule_definitions" do
       client_application = Factory(:client_application)
-      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      post :create, :child => { :fullname => 'Child', :gender => 'male', :birthday => '1262275200', :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30}, "3" => {:period => 'week', :time => 60}} }, :parent_id => @parent.id, :key => client_application.key, :format => 'json', :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
@@ -82,7 +82,7 @@ describe Api::V1::ChildrenController do
       child = Factory(:child, :parent => @parent)
       client_application = Factory(:client_application)
 
-      put :update, :id => child.id, :child => { :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30, :client_application_id => client_application.id}, "3" => {:period => 'week', :time => 60, :client_application_id => client_application.id}} }, :parent_id => @parent.id, :format => 'json', :no_sign => true
+      put :update, :id => child.id, :child => { :rule_definitions_attributes => {"0" => {:period => 'day', :time => 60}, "1" => {:period => 'week', :time => 120}, "2" => {:period => 'day', :time => 30}, "3" => {:period => 'week', :time => 60}} }, :parent_id => @parent.id, :key => client_application.key, :format => 'json', :no_sign => true
       child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'day').time.should == 30
       child.rule_definitions.find_by_client_application_id_and_period(client_application.id, 'week').time.should == 60
       child.rule_definitions.find_by_client_application_id_and_period(nil, 'day').time.should == 60
