@@ -103,6 +103,18 @@ describe Api::V1::ParentSessionsController do
         Device.last.identifier.should == 'device-identifier'
       end
 
+      it "should get global rule definitions" do
+        post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        rule_definitions = json_response['parent']['global_rule_definitions']
+        rule_definitions['game_day_time'].should == 30
+        rule_definitions['game_week_time'].should == 60
+        rule_definitions['total_day_time'].should == 120
+        rule_definitions['total_week_time'].should == 240
+      end
+
       it "should login without email password" do
         Factory(:device, :identifier => 'device-identifier', :parent => @parent)
         post :create, :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true

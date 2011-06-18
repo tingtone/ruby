@@ -19,7 +19,7 @@ describe Api::V1::ParentsController do
       Parent.last.devices.should be_include(Device.last)
       Device.last.identifier.should == 'device-identifier'
 
-      rule_definitions = json_response['parent']['rule_definitions']
+      rule_definitions = json_response['parent']['global_rule_definitions']
       rule_definitions['game_day_time'].should == 30
       rule_definitions['game_week_time'].should == 60
       rule_definitions['total_day_time'].should == 120
