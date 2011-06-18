@@ -5,12 +5,10 @@ class Api::V1::ParentsController < Api::V1::BaseController
       parent.add_client_application(current_client_application)
       render :json => {
         :error => false,
-        :client_application => {
-          :type => current_client_application.type
-        },
         :parent => {
           :id => parent.id,
           :email => parent.email,
+          :client_salt => parent.client_salt,
           :client_encrypted_password => parent.client_encrypted_password,
           :authentication_token => parent.authentication_token,
           :global_rule_definitions => RuleDefinition.globals

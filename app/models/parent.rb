@@ -1,4 +1,6 @@
 class Parent < ActiveRecord::Base
+  include OAuth::Helper
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -33,7 +35,8 @@ class Parent < ActiveRecord::Base
   protected
     def set_client_encrypted_password
       if self.password
-        self.client_encrypted_password = Digest::MD5.hexdigest(self.password)
+        self.client_salt = generate_key(16)
+        self.client_encrypted_password = Base64.encode64(HMAC::SHA1.digest(self.client_salt, self.password)).chomp.gsub(/\n/,'').gsub('+', ' ')
       end
     end
 end
