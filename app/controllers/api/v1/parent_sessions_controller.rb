@@ -16,6 +16,7 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
         :parent => {
           :id => parent.id,
           :email => parent.email,
+          :client_encrypted_password => parent.client_encrypted_password,
           :authentication_token => parent.authentication_token,
           :time_summary => parent.children.collect { |child| current_client_application.time_summary(child).merge(:child_id => child.id) }
         }

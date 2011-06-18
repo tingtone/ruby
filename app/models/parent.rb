@@ -16,6 +16,7 @@ class Parent < ActiveRecord::Base
   has_many :devices
 
   before_save :ensure_authentication_token
+  before_save :set_client_encrypted_password
 
   def add_client_application(client_application)
     unless self.client_applications.include? client_application
@@ -28,4 +29,11 @@ class Parent < ActiveRecord::Base
       self.devices.create(:identifier => device_identifier)
     end
   end
+
+  protected
+    def set_client_encrypted_password
+      if self.password
+        self.client_encrypted_password = Digest::MD5.hexdigest(self.password)
+      end
+    end
 end
