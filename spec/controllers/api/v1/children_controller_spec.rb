@@ -34,6 +34,7 @@ describe Api::V1::ChildrenController do
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
+      json_response['child']['avatar_url'].should =~ %r|http://localhost:3000/uploads/children/avatars/\d{3}/\d{3}/\d{3}/rails_default.png|
     end
 
     it "should fail for validation" do
