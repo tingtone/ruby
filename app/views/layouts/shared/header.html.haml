@@ -1,8 +1,0 @@
-.logo
-    %h1= image_tag('logo.png')
-  .sign
-    / before sign in
-    - if forum_user_signed_in?
-      = render '/layouts/forums/signed_in'
-    - else
-      = render '/layouts/forums/signed_up'
