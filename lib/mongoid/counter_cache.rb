@@ -1,5 +1,5 @@
 # 
-#  mongoid_count_cache.rb
+#  lib/mongoid/counter_cache.rb
 #  ruby
 #  
 #  Created by Zhang Alex on 2011-06-17.
