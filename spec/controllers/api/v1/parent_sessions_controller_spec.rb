@@ -24,6 +24,8 @@ describe Api::V1::ParentSessionsController do
         json_response = ActiveSupport::JSON.decode response.body
         json_response['error'].should == false
         json_response['parent']['id'].should_not be_blank
+        json_response['parent']['email'].should be_blank
+        json_response['parent']['client_encrypted_password'].should be_blank
         json_response['parent']['authentication_token'].should_not be_blank
         Parent.last.client_applications.should be_include(@client_application)
 
@@ -103,6 +105,18 @@ describe Api::V1::ParentSessionsController do
         Device.last.identifier.should == 'device-identifier'
       end
 
+      it "should get global rule definitions" do
+        post :create, :email => 'parent@test.com', :password => 'parent', :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        rule_definitions = json_response['parent']['global_rule_definitions']
+        rule_definitions['game_day_time'].should == 30
+        rule_definitions['game_week_time'].should == 60
+        rule_definitions['total_day_time'].should == 120
+        rule_definitions['total_week_time'].should == 240
+      end
+
       it "should login without email password" do
         Factory(:device, :identifier => 'device-identifier', :parent => @parent)
         post :create, :device_identifier => 'device-identifier', :format => :json, :key => @client_application.key, :no_sign => true
@@ -110,6 +124,8 @@ describe Api::V1::ParentSessionsController do
         response.should be_ok
         json_response = ActiveSupport::JSON.decode response.body
         json_response['error'].should == false
+        json_response['parent']['email'].should_not be_blank
+        json_response['parent']['client_encrypted_password'].should_not be_blank
       end
 
       it "should not add new association for parent and existing client_application" do
@@ -126,6 +142,14 @@ describe Api::V1::ParentSessionsController do
 
       it "should fail" do
         post :create, :email => 'parent@test.com', :password => 'wrong', :format => :json, :no_sign => true
+
+        response.should be_ok
+        json_response = ActiveSupport::JSON.decode response.body
+        json_response['error'].should == true
+      end
+
+      it "should check email and password even if there is a device identifier" do
+        post :create, :email => 'parent@test.com', :password => 'wrong', :device_identifier => 'device-identifier', :format => :json, :no_sign => true
 
         response.should be_ok
         json_response = ActiveSupport::JSON.decode response.body
