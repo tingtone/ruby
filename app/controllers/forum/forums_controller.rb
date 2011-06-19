@@ -25,4 +25,8 @@ class Forum::ForumsController < Forum::BaseController
     update!{ forum_forums_path }
   end
   
+  # def about
+  #     
+  #   end #about
+  
 end

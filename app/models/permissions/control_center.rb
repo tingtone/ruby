@@ -27,6 +27,8 @@ class Permissions::ContorlCenter
       else
         Rails.logger.debug("----------------->   dispatch Any Body")
         current_ability.can :read, [Forum,Topic, Post]
+        current_ability.can :about, Forum
+        
       end
     end
 

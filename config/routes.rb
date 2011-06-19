@@ -1,4 +1,7 @@
 Server::Application.routes.draw do
+  root :to => "forum/forums#index"
+  match "/about(.:format)" => 'forum/forums#about', :as => :about
+  
   get "most_plays/index"
 
   get "most_downloads/index"
