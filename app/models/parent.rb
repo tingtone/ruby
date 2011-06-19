@@ -1,3 +1,5 @@
+require 'hmac-sha1'
+
 class Parent < ActiveRecord::Base
   include OAuth::Helper
 

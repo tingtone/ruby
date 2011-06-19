@@ -7,8 +7,6 @@ class Api::V1::ParentsController < Api::V1::BaseController
         :error => false,
         :parent => {
           :id => parent.id,
-          :email => parent.email,
-          :client_encrypted_password => parent.client_encrypted_password,
           :authentication_token => parent.authentication_token,
           :global_rule_definitions => RuleDefinition.globals
         }
