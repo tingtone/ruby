@@ -18,14 +18,7 @@
     = csrf_meta_tag
   %body
     .header.cf
-      .logo
-        %h1= image_tag('logo.png')
-      .sign
-        / before sign in
-        - if forum_user_signed_in?
-          = render '/layouts/forums/signed_in'
-        - else
-          = render '/layouts/forums/signed_up'
+      = render '/layouts/shared/header'
 
     .nav
       %ul.nav-ul.cf
@@ -48,4 +41,4 @@
       = yield
 
     .footer
-      = render '/layouts/forums/footer'
+      = render '/layouts/shared/footer'
