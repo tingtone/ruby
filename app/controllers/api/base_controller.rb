@@ -54,6 +54,8 @@ class Api::BaseController < ApplicationController
           request.raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
+        # remove child avatar
+        raw_params.sub!(/child\[avatar\]=.*?&/, '')
         string = "#{request.path}+#{current_client_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         cal = sign(string, current_client_application.secret)
         cal == signature
