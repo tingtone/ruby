@@ -1,0 +1,12 @@
+<h4>Recommends</h4>
+<ul>
+<% for app in @recommends  %>
+  <li>
+    <div><hr/></div>
+    <div>name:<%=app.name%></div>
+    <div>description:<%=app.description%></div>
+    <div>max_score:<%=app.max_score%></div>
+    <div>rating:<%=app.rating%></div>
+  </li>
+<% end %>
+</ul>

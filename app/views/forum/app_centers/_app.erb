@@ -1,0 +1,12 @@
+<li>
+  <div>
+    <hr/>
+  </div>
+  <div>description:<%= app.description %></div>
+  <div>max_score:<%= app.max_score %></div>
+  <div>rating:<%= app.rating %></div>
+  <div>screen shot:<%= image_tag app.screenshot.url %></div>
+  <div>form <%= app.start_age %> to <%= app.end_age %> age</div>
+  <div>click times: <%= app.click_times %>  </div>
+  <div>app store url: <a href="javascript:click_app('<%= app.app_store_url %>','<%=click_forum_app_center_path(app)%>')"><%= app.app_store_url %> game center</a> </div>
+</li>

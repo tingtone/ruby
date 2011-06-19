@@ -1,0 +1,27 @@
+# allow_dynamic_fields: true
+# parameterize_keys: true
+# persist_in_safe_mode: true
+# raise_not_found_error: true
+# reconnect_time: 3
+# use_object_ids: true
+
+development:
+  host: localhost
+  database: kittypad_development
+
+test:
+  host: localhost
+  database: kittypad_test
+
+# set these environment variables on your prod server
+production:
+  host: <%= ENV['MONGOID_HOST'] %>
+  port: <%= ENV['MONGOID_PORT'] %>
+  username: <%= ENV['MONGOID_USERNAME'] %>
+  password: <%= ENV['MONGOID_PASSWORD'] %>
+  database: <%= ENV['MONGOID_DATABASE'] %>
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019

@@ -1,0 +1,27 @@
+- content_for :title do
+  Topic Index
+
+%div
+  #sticky
+    %h4 Sticky Topics
+    - @sticky_topics.each do |topic|
+      %p
+        = link_to topic.title, forum_forum_topic_path(@forum, topic)
+      %p
+        = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+        |
+        = link_to 'Destory', forum_forum_topic_path(@forum, topic), :method => :delete, :confirm => "Are you sure?"
+  #common
+    %hr
+    - @common_topics.each do |topic|
+      %p
+        = link_to topic.title, forum_forum_topic_path(@forum, topic)
+      %p
+        = link_to "Edit", edit_forum_forum_topic_path(@forum, topic)
+        |
+        = link_to 'Destory', forum_forum_topic_path(@forum, topic), :method => :delete, :confirm => "Are you sure?"
+    = paginate @common_topics, :outer_window => 3
+
+%div
+  = link_to "Create Topic", new_forum_forum_topic_path(@forum)
+ 

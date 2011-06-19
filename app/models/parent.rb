@@ -21,8 +21,11 @@ class Parent < ActiveRecord::Base
   has_many :rule_definitions
   has_many :devices
 
+
+
   before_save :ensure_authentication_token
   before_save :set_client_encrypted_password
+
 
   def add_client_application(client_application)
     unless self.client_applications.include? client_application

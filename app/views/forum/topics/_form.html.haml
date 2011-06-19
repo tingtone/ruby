@@ -1,0 +1,12 @@
+- simple_form_for [:forum, @topic] do |form|
+  = form.input :forum_id, :as => :hidden, :input_html => { :value => "#{params[:forum_id]}" } 
+  = form.input :title
+  = form.input :content, :as => :text
+  %p
+    = form.input :sticky, :as => :boolean
+    = form.input :position, :hint => "Only Sticky Topics"
+  %p
+    = form.input :locked, :as => :boolean
+
+
+  .buttons= form.button :submit

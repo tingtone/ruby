@@ -8,22 +8,29 @@ require "whenever/capistrano"
 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'rvm/capistrano'
+
+before :deploy do
+  unless exists?(:deploy_to)
+    raise "Please invoke me like `cap stage deploy` where stage is production/staging"
+  end
+end
+
 set :rvm_ruby_string, 'ruby-1.9.2-p180@kittypad/server'
 set :rvm_type, :user
 
 set :application, "kittypad_server"
-set :repository,  "git@github.com:kittypad/ruby.git"
+set :domain,      "ec2-50-16-134-27.compute-1.amazonaws.com"
+set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
 
-set :scm, :git
-set :deploy_via, :remote_cache
-set :user, 'deploy'
-set :use_sudo, false
+role :web, "#{domain}"
+role :app, "#{domain}"
 
-role :web, "ec2-50-16-134-27.compute-1.amazonaws.com"
-role :app, "ec2-50-16-134-27.compute-1.amazonaws.com"
-role :db,  "ec2-50-16-134-27.compute-1.amazonaws.com", :primary => true
+current_release = "/home/deploy/sites/kittypad.com/staging/releases/20110613071351"
 
-after "deploy:update_code", "config:init"
+desc "init db"
+task :init_db do
+  run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
+end
 
 namespace :config do
   task :init do
@@ -32,12 +39,36 @@ namespace :config do
   end
 end
 
-namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    migrate
-    cleanup
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+namespace :passenger do
+  desc "Start Passenger Application"
+  task :start, :roles => :app do
+    #init_db
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+  desc "Restart Passenger Application"
+  task :restart, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+end
+
+namespace :logs do
+  desc "tail -f production.log"
+  task :watch do
+    stream("tail -f #{current_release}/log/production.log")
   end
 end
+
+
+#puts "deploy to #{release_path}"
+
+
+
+#step by step
+#cap deploy:setup
+#cap deploy:check
+#cap deploy
+
+
+

@@ -1,0 +1,16 @@
+<% content_for :content do %>
+
+    <% if flash[:error] %>
+        <div class="error">
+          <%= flash[:error] %>
+        </div>
+    <% end %>
+
+    <div>
+    <%= simple_form_for :black_list, :url => forum_black_lists_path do |f| %>
+              <%= f.input :black %>
+              <%= f.submit 'Add' %>
+    <% end %>
+
+    </div>
+<% end %>

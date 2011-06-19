@@ -1,0 +1,12 @@
+- content_for :title do
+  Home - 
+
+%div
+  - @forums.each do |forum|
+    %p
+      = link_to forum.name,  forum_forum_topics_path(forum)
+      |
+      = forum.position
+      |
+      = link_to 'Edit', edit_forum_forum_path(forum)
+ 

@@ -1,0 +1,16 @@
+<% content_for :content do %>
+<script type="text/javascript">
+  function click_app(app_store_url,click){
+     $.get(click,function(data){
+        window.location = app_store_url;
+     });
+     //show waiting ......
+  }
+</script>
+
+<h2>App Center</h2>
+<div>
+    <div style="float: left; display: inline"> <%= render :partial => "forum/app_centers/apps" %> </div>
+    <div style="float: left; display: inline"> <%= render :partial => "forum/app_centers/recs" %> </div>
+</div>
+<% end %>
