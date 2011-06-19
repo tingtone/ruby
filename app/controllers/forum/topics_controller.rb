@@ -9,7 +9,7 @@
 
 class Forum::TopicsController < Forum::BaseController
   # before_filter :authenticate_forum_user!, :only => [:new, :edit, :create, :update]
-  load_and_authorize_resource
+  # load_and_authorize_resource
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
   def index

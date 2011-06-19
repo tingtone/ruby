@@ -22,11 +22,13 @@ class ForumUser
   field :country_id
   field :state_id
   field :city_id
+  field :topics_count, :type => Integer, :default => 0
   field :posts_count, :type => Integer, :default => 0
   
   # field :roles_mask, :type => Fixnum, :default => 0
   
   references_many :topics
+  references_many :posts
   
   references_and_referenced_in_many :roles
   

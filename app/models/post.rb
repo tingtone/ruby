@@ -10,7 +10,9 @@
 class Post
   include Shared::Mongoid
   include Shared::Mongoid::ActTree
-
+  include Mongoid::CounterCache
+  counter_cache name: :forum, inverse_of: :posts
+  counter_cache name: :forum_user, inverse_of: :posts
   cache
   
   #fields
@@ -19,7 +21,5 @@ class Post
   referenced_in :forum_user
   referenced_in :topic
   referenced_in :forum
-  
-
   
 end

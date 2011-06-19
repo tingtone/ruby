@@ -9,6 +9,9 @@
 
 class Topic
   include Shared::Mongoid
+  include Mongoid::CounterCache
+  counter_cache name: :forum, inverse_of: :topics
+  counter_cache name: :forum_user, inverse_of: :topics
 
   cache
 

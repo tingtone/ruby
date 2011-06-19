@@ -8,7 +8,7 @@
 
 class Forum::PostsController < Forum::BaseController
   # before_filter :authenticate_forum_user!, :only => [:create, :update, :reply]
-  load_and_authorize_resource
+  # load_and_authorize_resource
   before_filter :find_forum_and_topic, :only => [:create, :update, :reply]
   
   
