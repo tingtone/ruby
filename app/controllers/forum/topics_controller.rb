@@ -15,6 +15,7 @@ class Forum::TopicsController < Forum::BaseController
   def index
     @sticky_topics = @forum.sticky_topics
     @common_topics = Kaminari.paginate_array(@forum.common_topics).page(params[:page]).per(2)
+    @forum.hits_record
   end
   
   def new

@@ -20,6 +20,8 @@ class Forum
   field :posts_count,  :type => Integer, :default => 0
   field :position,     :type => Integer, :default => 0
   field :state,        :type => String,  :default => "public"
+  field :hits,         :type => Integer, :default => 0
+  
   
   references_many :topics
   references_many :posts
