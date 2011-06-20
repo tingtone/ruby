@@ -17,13 +17,14 @@ class ForumUser
   
   #fields
   field :name
-  field :from_pd,    :type => Boolean, :default => false
-  field :ban,        :type => Boolean, :default => false
+  field :from_pad,    :type => Boolean, :default => false
+  field :ban,         :type => Boolean, :default => false
   field :country_id
   field :state_id
   field :city_id
   field :topics_count, :type => Integer, :default => 0
-  field :posts_count, :type => Integer, :default => 0
+  field :posts_count,  :type => Integer, :default => 0
+  field :from_dev,     :type => Boolean, :default => false
   
   # field :roles_mask, :type => Fixnum, :default => 0
   
@@ -61,6 +62,15 @@ class ForumUser
     Topic.where(forum_user_id: self.id)
   end
   
+  
+  # -------------------------------------sync accounts
+  def self.sync_account_to_parents forum_user
+    name = forum_user[:name]
+    email = forum_user[:email]
+    password = forum_user[:password]
+    parent = Parent.new(name: name, email: email, password: password, from_forum: true)
+    parent.save
+  end #self.sync_account_to_parents
   
   #------------------------------------messages
   # check group messages when login

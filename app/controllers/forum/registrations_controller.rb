@@ -10,15 +10,20 @@
 class Forum::RegistrationsController < Devise::RegistrationsController
   layout 'forum'
 
+  def create
+    super
+    ForumUser.sync_account_to_parents(params[:forum_user])
+  end #new
+
   def after_sign_up_path_for(resource)
-     forum_root_path
-   end
+    root_path
+  end
 
-   def after_update_path_for(resource)
-     forum_root_path
-   end
+  def after_update_path_for(resource)
+    root_path
+  end
 
-   def after_sign_up_path_for(resource)
-     new_forum_user_session_path
-   end
+  def after_sign_up_path_for(resource)
+    new_forum_user_session_path
+  end
 end

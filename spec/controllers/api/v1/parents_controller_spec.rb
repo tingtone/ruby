@@ -16,7 +16,16 @@ describe Api::V1::ParentsController do
 
       Parent.last.client_applications.should be_include(@client_application)
       Parent.last.devices.should be_include(Device.last)
+      Parent.last.name.should_not == 'parentsss'
+      Parent.last.name.should == 'parent'
+      
       Device.last.identifier.should == 'device-identifier'
+
+
+      ForumUser.last.name.should == 'parent'
+      ForumUser.last.email.should == 'parent@test.com'
+      ForumUser.last.from_pad.should == true
+      
 
       rule_definitions = json_response['parent']['global_rule_definitions']
       rule_definitions['game_day_time'].should == 30

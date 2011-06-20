@@ -13,4 +13,13 @@ class Developer < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name
+  
+  def self.sync_account_to_forum developer_info
+    name = developer_info[:name]
+    email = developer_info[:email]
+    password = developer_info[:password]
+    fu = ForumUser.new(name: name, email: email, password: password)
+    fu.from_dev = true
+    fu.save
+  end #sync_account_to_forum
 end

@@ -4,6 +4,6 @@ class AddNameColumnToParents < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :parents, :name, :string
+    remove_column :parents, :name
   end
 end
