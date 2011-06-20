@@ -1,0 +1,11 @@
+%table
+  %tr
+    %td= image_tag("l1.gif")
+    %td
+      = "Welcome #{current_user.name}"
+      %span.p5
+        |
+        = link_to "Account", '#'
+        |
+        = link_to "Sign Out", destroy_forum_user_session_path
+    %td= link_to "Develop dashboard", '#', :class => 'bac-btn', :title => 'develop dashboard'

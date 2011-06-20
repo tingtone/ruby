@@ -1,0 +1,16 @@
+%h3 Sign in
+
+%table
+  = form_for(@forum_user, :as => :forum_user, :url => forum_user_session_path(@forum_user)) do |f|
+    %tr
+      %td= image_tag("l1.gif")
+      %td= f.email_field :email
+      %td= image_tag("l2.gif")
+      %td= f.password_field :password
+      %td= f.submit "Login", :class => "st", :value => "login"
+    %tr
+      %td
+      %td= link_to "Sign Up", '#'
+      %td
+      %td= link_to "forget your password", '#'
+      %td

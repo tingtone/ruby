@@ -58,16 +58,32 @@ class ClientApplication < ActiveRecord::Base
         if childes
           queries = []
           wheres = []
+
           #generate query
+          #recommends by rating
+#          childes.each { |child|
+#            rating_range = child.rating_range
+#            if rating_range
+#              if not wheres.include?(age_range) and not queries.include?("rating = ?")
+#                queries << "rating = ?"
+#                wheres << rating_range
+#              end
+#            end
+#          }
+
+          #recommends by age
+          age_query = "(start_age >= ? and end_age<=?)"
           childes.each { |child|
             age_range = child.age_range
             if age_range
-              if not wheres.include?(age_range) and not queries.include?("rating = ?")
-                queries << "rating = ?"
+              if not wheres.include?(age_range) and not queries.include?(age_query)
+                queries << age_query
+                wheres << age_range
                 wheres << age_range
               end
             end
           }
+
           queries = queries.join(" or ") if queries
           #find recommends
           apps = ClientApplication.where([queries, *wheres]).order(default_order).limit(limit)
