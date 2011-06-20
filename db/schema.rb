@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110617063909) do
+ActiveRecord::Schema.define(:version => 20110618140550) do
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -76,6 +76,11 @@ ActiveRecord::Schema.define(:version => 20110617063909) do
     t.integer  "screenshot_file_size"
     t.datetime "screenshot_updated_at"
     t.integer  "click_times"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.string   "subject"
   end
 
   create_table "developers", :force => true do |t|
@@ -91,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20110617063909) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "developers", ["email"], :name => "index_developers_on_email", :unique => true
@@ -177,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20110617063909) do
     t.datetime "children_updated_at"
     t.datetime "rule_definitions_updated_at"
     t.datetime "bonus_updated_at"
+    t.string   "client_encrypted_password"
   end
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true
