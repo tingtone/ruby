@@ -47,6 +47,8 @@ Server::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.action_mailer.default_url_options = {:host => 'api.kittypad.com'}
+
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[KittyPad] ",
     :sender_address => %{"kittypad" <noreply@kittypad.com>},
@@ -55,10 +57,11 @@ Server::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => "smtp.exmail.qq.com",
-    :port                 => 587,
     :domain               => 'kittypad.com',
     :user_name            => 'noreply@kittypad.com',
     :password             => 'kittypad',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+
+  config.action_mailer.default_url_options = {:host => 'ec2-50-16-134-27.compute-1.amazonaws.com'}
 end

@@ -10,7 +10,7 @@ Grade.destroy_all
 ClientApplication.destroy_all
 Developer.destroy_all
 
-developer = Developer.create(:email => 'richard@kittypad.com', :password => 'richard', :password_confirmation => 'richard')
+developer = Developer.create(:name => 'Richard', :email => 'richard@kittypad.com', :password => 'richard', :password_confirmation => 'richard')
 
 game_application1 = developer.game_applications.create(:name => 'first app', :description => 'first app', :identifier => 'com.apple.identifier1')
 game_application2 = developer.game_applications.create(:name => 'second app', :description => 'second app', :identifier => 'com.apple.identifier2')
@@ -34,8 +34,8 @@ parent = Parent.create(:email => 'parent@kittypad.com', :password => 'parent', :
 ParentClientApplication.create(:parent => parent, :client_application => game_application1)
 ParentClientApplication.create(:parent => parent, :client_application => game_application2)
 
-child1 = parent.children.create(:fullname => 'Child1', :gender => 'male', :birthday => 1068134400)
-child2 = parent.children.create(:fullname => 'Child2', :gender => 'female', :birthday => 1162396800)
+child1 = parent.children.create(:fullname => 'Child1', :gender => 'boy', :birthday => 1068134400)
+child2 = parent.children.create(:fullname => 'Child2', :gender => 'girl', :birthday => 1162396800)
 
 game_application1.time_trackers.create(:child=>child1,:time=>30,:created_at => 2.days.ago)
 game_application1.time_trackers.create(:child=>child1,:time=>20,:created_at => 4.days.ago)

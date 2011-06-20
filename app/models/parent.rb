@@ -1,4 +1,10 @@
+require 'hmac-sha1'
+
 class Parent < ActiveRecord::Base
+  include OAuth::Helper
+
+  CLIENT_SALT = 'kittypadsalt.com'
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -16,6 +22,7 @@ class Parent < ActiveRecord::Base
   has_many :devices
 
   before_save :ensure_authentication_token
+  before_save :set_client_encrypted_password
 
   def add_client_application(client_application)
     unless self.client_applications.include? client_application
@@ -28,4 +35,11 @@ class Parent < ActiveRecord::Base
       self.devices.create(:identifier => device_identifier)
     end
   end
+
+  protected
+    def set_client_encrypted_password
+      if self.password
+        self.client_encrypted_password = Base64.encode64(HMAC::SHA1.digest(CLIENT_SALT, self.password)).chomp.gsub(/\n/,'').gsub('+', ' ')
+      end
+    end
 end

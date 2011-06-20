@@ -1,11 +1,18 @@
-- simple_form_for [:dev, @game_application] do |form|
+- simple_form_for [:dev, @game_application], :html => {:multipart => true} do |form|
   = form.input :name
   = form.input :rating, :collection => GameApplication::RATINGS.collect { |rating| ["#{rating}+", rating] }
   = form.input :identifier
   = form.input :description
+  - if action_name == "edit" || action_name == "update"
+    = form.input :subject
+    = form.input :start_age, :as => :select, :collection => (2..12)
+    = form.input :end_age, :as => :select, :collection => (2..12)
+    = form.input :icon
+    = form.input :screenshot
+    = form.input :app_store_url
 
   - if @game_application.key.present?
-    = form.input :key, :input_html => {:disabled => true}
-    = form.input :secret, :input_html => {:disabled => true}
+    = form.input :key, :input_html => {:readonly => true}
+    = form.input :secret, :input_html => {:readonly => true}
 
   .buttons= form.button :submit

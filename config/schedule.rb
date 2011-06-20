@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
+set :output, "/home/deploy/sites/kittypad.com/staging/shared/log/cron_log.log"
+
 every 1.day do
   rake "analytics"
 end

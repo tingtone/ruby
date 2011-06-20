@@ -11,7 +11,6 @@ describe Api::V1::ParentsController do
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-      json_response['client_application']['type'].should == 'EducationApplication'
       json_response['parent']['id'].should_not be_blank
       json_response['parent']['authentication_token'].should_not be_blank
 
@@ -19,7 +18,7 @@ describe Api::V1::ParentsController do
       Parent.last.devices.should be_include(Device.last)
       Device.last.identifier.should == 'device-identifier'
 
-      rule_definitions = json_response['parent']['rule_definitions']
+      rule_definitions = json_response['parent']['global_rule_definitions']
       rule_definitions['game_day_time'].should == 30
       rule_definitions['game_week_time'].should == 60
       rule_definitions['total_day_time'].should == 120
