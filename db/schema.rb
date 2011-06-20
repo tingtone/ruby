@@ -10,11 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20110618140550) do
-=======
-ActiveRecord::Schema.define(:version => 20110620031725) do
->>>>>>> ca7b5a7c60d2ad31cb075b27c7eadb1134fd2965
 
   create_table "achievements", :force => true do |t|
     t.integer  "grade_id"
@@ -79,11 +75,7 @@ ActiveRecord::Schema.define(:version => 20110620031725) do
     t.string   "screenshot_content_type"
     t.integer  "screenshot_file_size"
     t.datetime "screenshot_updated_at"
-<<<<<<< HEAD
-    t.integer  "click_times"
-=======
     t.integer  "click_times",                    :default => 0
->>>>>>> ca7b5a7c60d2ad31cb075b27c7eadb1134fd2965
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -191,11 +183,7 @@ ActiveRecord::Schema.define(:version => 20110620031725) do
     t.datetime "children_updated_at"
     t.datetime "rule_definitions_updated_at"
     t.datetime "bonus_updated_at"
-    t.string   "client_encrypted_password"
-<<<<<<< HEAD
-=======
     t.string   "name"
->>>>>>> ca7b5a7c60d2ad31cb075b27c7eadb1134fd2965
   end
 
   add_index "parents", ["email"], :name => "index_parents_on_email", :unique => true

@@ -1,5 +1,8 @@
 class Parent::GameApplicationsController < Parent::BaseController
   inherit_resources
+  def index
+
+  end
 
   def show
     @game_application = GameApplication.find(params[:id])

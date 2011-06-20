@@ -8,4 +8,5 @@ class Parent::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     new_parent_session_path
   end
+
 end
