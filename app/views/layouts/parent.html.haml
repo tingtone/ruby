@@ -22,11 +22,11 @@
       .content.cf
         .left
           .board
-          = yield :right
+          = yield :left
           %div{:style=>"border-right:1px solid #dcdcdc;height:500px;"}
         .right
           .right-t
-          = yield
+          = yield :right
 
     .footer
       = render '/layouts/shared/footer'

@@ -1,7 +1,7 @@
 %h3 Sign in
 
 %table
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = form_for(@forum_user, :as => :forum_user, :url => forum_user_session_path(@forum_user)) do |f|
     %tr
       %td= image_tag("l1.gif")
       %td= f.email_field :email

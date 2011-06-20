@@ -2,6 +2,7 @@
   Home - 
 
 %div
+  =debug session.inspect
   - @forums.each do |forum|
     %p
       = link_to forum.name,  forum_forum_topics_path(forum)
