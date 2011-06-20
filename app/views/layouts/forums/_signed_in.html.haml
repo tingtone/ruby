@@ -1,0 +1,9 @@
+%table
+  %tr
+    %td= image_tag("l1.gif")
+    %td
+      = "Welcome #{current_user.name}"
+      %span.p5
+        |
+        = link_to "Account", '#'
+    %td= link_to "Develop dashboard", '#', :class => 'bac-btn', :title => 'develop dashboard'
