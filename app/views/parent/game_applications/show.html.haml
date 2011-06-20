@@ -1,11 +1,19 @@
-%h3 Set Time Control
+- content_for(:left) do
+  = render "parent/game_applications/menu"
 
-= form_for [:parent, @game_application] do |form|
-  - @rule_definitions.each do |definition|
-    = form.fields_for :rule_definitions, definition do |definition_fields|
-      %p.rule_definition.input
-        = definition_fields.label :time, "allowed play time per #{definition.period}"
-        = definition_fields.hidden_field :child_id
-        = definition_fields.hidden_field :period
-        = definition_fields.text_field :time
-  %p.buttons= form.submit "update", :class => 'button'
+- content_for(:right) do
+  .charts
+    .charts-hd.cf
+      = link_to 'Home', home_url ,:class=>"tc"
+      = link_to 'Home', home_url ,:class=>"cs"
+
+
+    = form_for [:parent, @game_application] do |form|
+      - @rule_definitions.each do |definition|
+        = form.fields_for :rule_definitions, definition do |definition_fields|
+          %p.rule_definition.input
+            = definition_fields.label :time, "allowed play time per #{definition.period}"
+            = definition_fields.hidden_field :child_id
+            = definition_fields.hidden_field :period
+            = definition_fields.text_field :time
+      %p.buttons= form.submit "update", :class => 'button'

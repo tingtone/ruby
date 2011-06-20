@@ -1,0 +1,39 @@
+<% content_for :left do %>
+    <%= render :partial => "parent/game_applications/menu" %>
+<% end %>
+
+<% content_for :right do %>
+    <div class="charts">
+      <%=render :partial=>"nav" %>
+
+      <div class="charts-bd">
+        <div class="charts-bd-top"></div>
+        <div class="charts-bd-mid">
+          <%= simple_form_for parent_game_application_path(@game_application) do |f| %>
+              <table>
+                <tbody>
+                <tr>
+                  <td class="lab">allowed play time per day</td>
+                  <td class="input"><input type="text"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="line"></td>
+                </tr>
+                <tr>
+                  <td class="lab">allowed play time per week</td>
+                  <td class="input"><input type="text"></td>
+                </tr>
+                <tr>
+                  <td class="smt" colspan="2">
+                    <input type="image" src="/images/btn.png">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+          <% end %>
+
+        </div>
+        <div class="charts-bd-btm"></div>
+      </div>
+    </div>
+<% end %>
