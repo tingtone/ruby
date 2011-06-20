@@ -1,13 +1,21 @@
-<h2>Top 5 Time Education application of your children</h2>
- <div id="container_game_time" class="chart-container"></div> 
- <% content_for :javascript do %>  
- 	<%=@edu_time_chart%> 
- <%end%>                    
-<script type="text/javascript">
-    $(document).ready(function() {
-        <%= yield :javascript %>
-    });
-</script>
+
+<% content_for :left do %>
+   <%= render :partial => "parent/game_applications/menu" %>
+<% end %>
+
+<% content_for :right do %>
+    <h2>Top 5 Time Education application of your children</h2>
+     <div id="container_game_time" class="chart-container"></div>
+     <% content_for :javascript do %>
+         <%=@edu_time_chart%>
+     <%end%>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            <%= yield :javascript %>
+        });
+    </script>
+
+<% end %>
 
 
     

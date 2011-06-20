@@ -1,6 +1,10 @@
-%h3 Most Play Education Applications
+- content_for(:left) do
+  = render "parent/game_applications/menu"
 
-%ul
-  - @most_plays.each do |most_play|
-    %li= link_to "#{most_play.client_application.name} (#{most_play.time})", '#'
+- content_for(:right) do
+  %h3 Most Play Education Applications
+
+  %ul
+    - @most_plays.each do |most_play|
+      %li= link_to "#{most_play.client_application.name} (#{most_play.time})", '#'
 

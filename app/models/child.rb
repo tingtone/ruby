@@ -54,7 +54,7 @@ class Child < ActiveRecord::Base
   end
 
 
-  def age_range
+  def rating_range
     #get age range
     if self.birthday
      year = Time.now.year - self.birthday.year
@@ -65,6 +65,12 @@ class Child < ActiveRecord::Base
      end
      rating
     end
+  end
+
+  def age_range
+    year = 0
+    year = Time.now.year - self.birthday.year if self.birthday
+    year
   end
 
 end
