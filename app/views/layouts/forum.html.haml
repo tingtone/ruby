@@ -24,6 +24,10 @@
       = render '/layouts/forums/forum_menu'
 
     .wrap
+      .flash
+        - flash.each do |name, msg|
+          = content_tag :div, raw(msg), :id => "flash_#{name}"
+
       = yield
 
     .footer

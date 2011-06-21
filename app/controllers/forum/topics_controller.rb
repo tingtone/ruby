@@ -8,7 +8,7 @@
 
 
 class Forum::TopicsController < Forum::BaseController
-  # before_filter :authenticate_forum_user!, :only => [:new, :edit, :create, :update]
+  before_filter :need_login, :only => [:new, :edit]
   # load_and_authorize_resource
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
@@ -72,4 +72,12 @@ class Forum::TopicsController < Forum::BaseController
     def find_forum
       @forum = Forum.find params[:forum_id]
     end
+    
+    def need_login
+      find_forum
+      if current_user.blank?
+        flash[:error] = "Please loged in to continue!"
+        redirect_to forum_forum_topics_path(@forum)
+      end
+    end #need_login
 end

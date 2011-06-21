@@ -13,6 +13,7 @@ class Post
   include Mongoid::CounterCache
   counter_cache name: :forum, inverse_of: :posts
   counter_cache name: :forum_user, inverse_of: :posts
+  counter_cache name: :topic, inverse_of: :posts
   cache
   
   #fields
