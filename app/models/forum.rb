@@ -39,7 +39,7 @@ class Forum
   end
   
   def common_topics
-    topics.desc(:created_at).select{|t| t if t.sticky == 0}
+    topics.asc(:created_at).select{|t| t if t.sticky == 0}
   end
   
   class << self

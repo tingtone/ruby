@@ -1,6 +1,6 @@
 <%= paginator.render do -%>
     <div class="fontpage">
-      <span>Page 1 of <%=num_pages%></span>
+      <span>Page <%= current_page %> of <%=num_pages%></span>
       <%= prev_page_tag -%>
         <% each_page.select(&:inside_window?).each do |page| %>
         <%= page_tag page -%>

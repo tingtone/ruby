@@ -9,7 +9,7 @@
 class Forum::ForumsController < Forum::BaseController
   # before_filter :authenticate_forum_user!, :only => [:new, :edit, :create, :update]
   inherit_resources
-  load_and_authorize_resource
+  # load_and_authorize_resource
   
   
   
@@ -24,9 +24,6 @@ class Forum::ForumsController < Forum::BaseController
   def update
     update!{ forum_forums_path }
   end
-  
-  # def about
-  #     
-  #   end #about
+
   
 end

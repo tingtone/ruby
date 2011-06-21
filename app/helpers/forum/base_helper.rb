@@ -32,4 +32,11 @@ module Forum::BaseHelper
   def current_user
     current_forum_user if forum_user_signed_in?
   end
+  
+  def get_menu_class(path)
+    style = ""
+    style = "cur" if current_page?(path)
+    return style
+  end #get_menu_class
+  
 end

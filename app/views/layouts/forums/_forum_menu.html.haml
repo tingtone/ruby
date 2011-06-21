@@ -1,15 +1,16 @@
 %ul.nav-ul.cf
-  %li.li-game
+  %li.li-game{:class => [get_menu_class(forum_app_centers_path).blank? ? get_menu_class(root_path) : get_menu_class(forum_app_centers_path)]}
     = link_to 'Games', forum_app_centers_path, :class => 'par'
     .li-game-sub{:style => 'display:none'}
-      = link_to 'Games1', '#'
-      = link_to 'Games2', '#', :class => 'cur'
+      = link_to 'Games1', '#', :class => get_menu_class(root_path)
+      = link_to 'Games2', '#'
       = link_to 'Games3'
       = link_to 'Games4', '#', :class => 'last'
-  %li= link_to 'News', '#'
-  %li.cur= link_to 'About', about_path
+  %li{:class => [get_menu_class(news_path)]}= link_to 'News', news_path
+  %li
+  %li{:class => [get_menu_class(about_path)]}= link_to 'About', about_path
   - Forum.ordered_forums.each do |of|
-    %li= link_to of.name, forum_forum_topics_path(of)
+    %li{:class => [get_menu_class(forum_forum_topics_path(of))]}= link_to of.name, forum_forum_topics_path(of)
 
   %li.search
     = render '/layouts/forums/search'
