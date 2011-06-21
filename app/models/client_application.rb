@@ -95,7 +95,7 @@ class ClientApplication < ActiveRecord::Base
       ClientApplication.order(default_order).limit(limit)
     end
 
-    def filters(params, page_size=2)
+    def filters(params, page_size=15)
       #App Center Filter List
       sort_params = {"date" => "created_at desc", "update"=>"updated_at desc", "developer" => "developer_id desc"}
       sorted = sort_params[params[:sort]] || "updated_at desc"
