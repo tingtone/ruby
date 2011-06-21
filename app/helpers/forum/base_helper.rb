@@ -65,7 +65,23 @@ module Forum::BaseHelper
   end #get_forum_room_class of
   
   def format_time(timedate)
-    timedate.strftime("%y-%m-%d %H:%m %p")
+    timedate.strftime("%y-%m-%d %H:%m %p") unless timedate.blank?
   end #format_time
+  
+  def last_updated_name(topic)
+    user_name = topic.posts.try(:last).try(:forum_user).try(:name)
+    if user_name.blank?
+      user_name = topic.try(:forum_user).try(:name)
+    end
+    return user_name
+  end #last_updated
+  
+  def last_updated_time(topic)
+    updated_at = topic.posts.try(:last).try(:updated_at)
+    if updated_at.blank?
+      updated_at = topic.try(:updated_at)
+    end
+    return updated_at
+  end #last_updated_time
   
 end
