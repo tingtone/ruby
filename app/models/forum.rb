@@ -22,6 +22,9 @@ class Forum
   field :state,        :type => String,  :default => "public"
   field :hits,         :type => Integer, :default => 0
   
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  
   
   references_many :topics
   references_many :posts

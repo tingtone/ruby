@@ -1,0 +1,15 @@
+%ul.nav-ul.cf
+  %li.li-game
+    = link_to 'Games', '#', :class => 'par'
+    .li-game-sub{:style => 'display:none'}
+      = link_to 'Games1', '#'
+      = link_to 'Games2', '#', :class => 'cur'
+      = link_to 'Games3'
+      = link_to 'Games4', '#', :class => 'last'
+  %li= link_to 'News', '#'
+  %li.cur= link_to 'About', about_path
+  - Forum.ordered_forums.each do |of|
+    %li= link_to of.name, forum_forum_topics_path(of)
+
+  %li.search
+    = render '/layouts/forums/search'
