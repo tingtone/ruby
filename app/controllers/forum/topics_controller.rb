@@ -13,9 +13,9 @@ class Forum::TopicsController < Forum::BaseController
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
   def index
+    @topics = @forum.topics.page(params[:page]).per(15)
     @sticky_topics = @forum.sticky_topics.first(5)
-    @common_topics = Kaminari.paginate_array(@forum.common_topics).page(params[:page]).per(15 - @sticky_topics.size.to_i) if params[:page] == 1
-    @common_topics = Kaminari.paginate_array(@forum.common_topics).page(params[:page]).per(15)
+    @common_topics = (@topics - @sticky_topics)
     @forum.hits_record
   end
   
@@ -30,7 +30,7 @@ class Forum::TopicsController < Forum::BaseController
   def show
     @topic = Topic.find params[:id]
     @author = ForumUser.find(@topic.forum_user_id)
-    @posts = @topic.posts.page(params[:page]).per(20)
+    @posts = @topic.posts.page(params[:page]).per(14)
     @post = @topic.posts.new
     @topic.hits_record
   end
