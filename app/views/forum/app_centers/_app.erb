@@ -1,18 +1,30 @@
-<div class="c-ct">
-  <div>max_score:<%= app.max_score %></div>
-  <div>rating:<%= app.rating %></div>
-  <div>screen shot:<%= image_tag app.screenshot.url %></div>
-  <div>form <%= app.start_age %> to <%= app.end_age %> age</div>
-  <div>click times: <%= app.click_times %>  </div>
-  <div>app store url:
-    <a href="javascript:click_app('<%= app.app_store_url %>','<%= click_forum_app_center_path(app) %>')"><%= app.app_store_url %>
-      game center</a>
+<div class="games-ct cf">
+  <div class="left">
+    <div><%= image_tag app.screenshot.url %></div>
+    <div class="money">$0.00</div>
+    <dl>
+      <% if app.client_application_category %>
+      <dt>Skills developed</dt>
+      <dd><%=app.client_application_category.name%></dd>
+      <% end %>
+      <dt>Type</dt>
+      <dd><%=app.type%></dd>
+      <dt>Age group</dt>
+      <dd> <%= app.start_age %>-<%= app.end_age %> years</dd>
+      <% if app.click_times and app.click_times > 10 %>
+      <dt>click times</dt>
+      <dd> <%= app.click_times %></dd>
+      <% end %>
+      <dt><a href="javascript:click_app('<%= app.app_store_url %>','<%= click_forum_app_center_path(app) %>')">app store url</a></dt>
+      <dt>Customer rating</dt>
+      <dd><img src="/images/star.gif"></dd>
+    </dl>
   </div>
-  <div>developer:<%=app.developer.name %></div>
+  <div class="right">
+    <h4>Description</h4>
 
-  <div>subject:<%=app.subject %></div>
-  <div>description:<%=app.description %></div>
-
-
-
+    <div class="right-ct">
+      <p><%= app.description %></p>
+    </div>
+  </div>
 </div>

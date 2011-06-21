@@ -18,6 +18,22 @@
     .header.cf
       = render '/layouts/shared/header'
 
+    .nav
+      %ul.nav-ul.cf
+        %li.li-game
+          = link_to 'Games', '/forum/app_centers', :class => 'par'
+          .li-game-sub{:style => 'display:none'}
+            = link_to 'Games1', '#'
+            = link_to 'Games2', '#', :class => 'cur'
+            = link_to 'Games3'
+            = link_to 'Games4', '#', :class => 'last'
+        %li= link_to 'News', '#'
+        %li.cur= link_to 'About', about_path
+        %li= link_to 'Parent Room', '#'
+        %li= link_to 'Support Room', '#'
+
+        %li.search
+          = render '/layouts/forums/search'
     .wrap
       .content.cf
         .left
@@ -25,7 +41,6 @@
           = yield :left
           %div{:style=>"border-right:1px solid #dcdcdc;height:500px;"}
         .right
-          .right-t
           = yield
 
     .footer
