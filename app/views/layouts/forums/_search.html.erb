@@ -7,13 +7,13 @@
             set_typee('Topic');
         });
         $('#search_user').click(function() {
-            set_typee('Topic');
+            set_typee('User');
         });
         $('#search_app').click(function() {
-            set_typee('Topic');
+            set_typee('App');
         });
         });
-
+       <%=Kaminari::paginate_array %>
     });
 </script>
 
