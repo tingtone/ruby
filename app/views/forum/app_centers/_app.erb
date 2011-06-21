@@ -1,3 +1,4 @@
+<h3><%=app.name%></h3>
 <div class="games-ct cf">
   <div class="left">
     <div><%= image_tag app.screenshot.url %></div>
@@ -15,9 +16,9 @@
       <dt>click times</dt>
       <dd> <%= app.click_times %></dd>
       <% end %>
-      <dt><a href="javascript:click_app('<%= app.app_store_url %>','<%= click_forum_app_center_path(app) %>')">app store url</a></dt>
-      <dt>Customer rating</dt>
-      <dd><img src="/images/star.gif"></dd>
+      <dt><a href="javascript:click_app('<%= app.app_store_url %>','<%= click_forum_app_center_path(app) %>')">app store</a></dt>
+     <!-- <dt>Customer rating</dt>
+      <dd><img src="/images/star.gif"></dd> -->
     </dl>
   </div>
   <div class="right">
