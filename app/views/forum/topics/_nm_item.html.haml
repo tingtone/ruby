@@ -2,6 +2,8 @@
   %td.td-ct
     %p
       = link_to nm_item.title, forum_forum_topic_path(@forum, nm_item)
+      %span.f-icon
+
     %p
       = nm_item.forum_user.name
       - if (current_user && current_user.name == nm_item.forum_user.name)

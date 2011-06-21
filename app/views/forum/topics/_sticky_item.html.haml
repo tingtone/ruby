@@ -3,6 +3,8 @@
     %p
       %strong Stricky:
       = link_to sticky_item.title, forum_forum_topic_path(@forum, sticky_item)
+      %span.f-icon
+
     %p.author
       = sticky_item.forum_user.name
       - if (current_user && current_user.name == sticky_item.forum_user.name)
