@@ -8,6 +8,7 @@
 
 
 class Forum::SearchesController < Forum::BaseController
+  load_and_authorize_resource
   
   def index
     keywords = params[:keywords]

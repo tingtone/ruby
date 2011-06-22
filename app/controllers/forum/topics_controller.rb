@@ -9,11 +9,11 @@
 
 class Forum::TopicsController < Forum::BaseController
   before_filter :need_login, :only => [:new, :edit]
-  # load_and_authorize_resource
+  load_and_authorize_resource
   before_filter :find_forum, :only => [:index, :new, :edit, :show]
   
   def index
-    @topics = @forum.topics.page(params[:page]).per(15)
+    @topics = @forum.topics.desc("created_at").page(params[:page]).per(15)
     @sticky_topics = @forum.sticky_topics.first(5)
     @common_topics = (@topics - @sticky_topics)
     @forum.hits_record

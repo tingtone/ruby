@@ -9,7 +9,10 @@
         |
         = link_to "Sign Out", destroy_forum_user_session_path
     %td
-      - if (current_user.from_pad? || !current_user.from_dev?)
+      - if current_user.has_role?(:admin)
+        = link_to "Admin dashboard", '#', :class => 'bac-btn', :title => 'admin dashboard'
+      - elsif (current_user.from_pad? || !current_user.from_dev?)
         = link_to "Parent dashboard", parent_root_path, :class => 'bac-btn', :title => 'parent dashboard'
       - elsif current_user.from_dev?
         = link_to "Develop dashboard", dev_root_path, :class => 'bac-btn', :title => 'develop dashboard'
+

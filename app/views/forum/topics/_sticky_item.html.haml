@@ -8,10 +8,11 @@
         = "(Last updated By: #{last_updated_name(sticky_item)} at #{format_time(last_updated_time(sticky_item))} )"
     %p.author
       = sticky_item.forum_user.name
-      - if (current_user && current_user.name == sticky_item.forum_user.name)
+      - if (current_user && (current_user.name == sticky_item.forum_user.name || current_user.has_role?(:admin)) )
         %span
           = link_to "Edit", edit_forum_forum_topic_path(@forum, sticky_item)
-          =# link_to 'Destory', forum_forum_topic_path(@forum, sticky_item), :method => :delete, :confirm => "Are you sure?"
+      - if can? :destory, sticky_item
+        = link_to 'Destory', forum_forum_topic_path(@forum, sticky_item), :method => :delete, :confirm => "Are you sure?"
 
 
   %td.num

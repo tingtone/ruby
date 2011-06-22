@@ -13,10 +13,10 @@ class Forum::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     if current_forum_user.from_pad? || !current_forum_user.from_dev?
       parent_user = Parent.find_by_name(current_forum_user.name) 
-      sign_in(:parent, parent_user)
+      sign_in(:parent, parent_user) unless parent_user.blank?
     elsif current_forum_user.from_dev?
       dev_user = Developer.find_by_name(current_forum_user.name) 
-      sign_in(:developer, dev_user)
+      sign_in(:developer, dev_user) unless dev_user.blank?
     end
     root_path
   end
