@@ -8,6 +8,7 @@
 
 
 class Forum::SearchesController < Forum::BaseController
+  before_filter :need_login, :only => [:index, :create]
   load_and_authorize_resource
   
   def index
@@ -22,4 +23,11 @@ class Forum::SearchesController < Forum::BaseController
     redirect_to forum_searches_path(:keywords => params[:search][:keywords], :typee => params[:search][:typee])
   end
   
+  private
+    def need_login
+      if current_user.blank?
+        flash[:error] = "Please loged in to continue!"
+        redirect_to root_path
+      end
+    end #need_login
 end
