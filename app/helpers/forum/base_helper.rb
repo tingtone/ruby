@@ -39,4 +39,49 @@ module Forum::BaseHelper
     return style
   end #get_menu_class
   
+  %w|games news about parent_room support_room |.each do |name|
+    define_method "get_#{name}_class" do |controller_name, action_name|
+      controller_name = controller_name.split("/").last
+      if %w|forums app_centers|.include?(controller_name) && %w|index|.include?(action_name) && name == "games"
+        'cur'
+      elsif %w|forums|.include?(controller_name) && %w|news|.include?(action_name) && name == "news"
+        'cur'
+      elsif %w|forums|.include?(controller_name) && %w|about|.include?(action_name) && name == "about"
+        'cur'
+      elsif %w|forums topics|.include?(controller_name) && %w|index show new edit|.include?(action_name) && name == "parent_room" && !@forum.blank? && @forum.name == "Parent Room"
+        'cur'
+      elsif %w|forums topics|.include?(controller_name) && %w|index show new edit|.include?(action_name) && name == "support_room" && !@forum.blank? && @forum.name == "Support Room"
+        'cur'
+      end #name
+    end
+  end
+  
+  def get_forum_room_class(controller_name, action_name, of)
+    if of.name == "Support Room"
+      get_support_room_class(controller_name, action_name)
+    elsif of.name == 'Parent Room'
+      get_parent_room_class(controller_name, action_name)
+    end
+  end #get_forum_room_class of
+  
+  def format_time(timedate)
+    timedate.strftime("%y-%m-%d %H:%m %p") unless timedate.blank?
+  end #format_time
+  
+  def last_updated_name(topic)
+    user_name = topic.posts.try(:last).try(:forum_user).try(:name)
+    if user_name.blank?
+      user_name = topic.try(:forum_user).try(:name)
+    end
+    return user_name
+  end #last_updated
+  
+  def last_updated_time(topic)
+    updated_at = topic.posts.try(:last).try(:updated_at)
+    if updated_at.blank?
+      updated_at = topic.try(:updated_at)
+    end
+    return updated_at
+  end #last_updated_time
+  
 end

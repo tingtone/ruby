@@ -2,6 +2,9 @@
   %td.td-ct
     %p
       = link_to nm_item.title, forum_forum_topic_path(@forum, nm_item)
+      %span
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        = " (Last updated By : #{last_updated_name(nm_item)} at #{format_time(last_updated_time(nm_item))} )"
     %p
       = nm_item.forum_user.name
       - if (current_user && current_user.name == nm_item.forum_user.name)
