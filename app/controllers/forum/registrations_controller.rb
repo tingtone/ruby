@@ -12,6 +12,7 @@ class Forum::RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+    @forum_user.roles << Role.parent
     ForumUser.sync_account_to_parents(params[:forum_user])
   end #new
 

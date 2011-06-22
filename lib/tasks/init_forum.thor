@@ -29,6 +29,19 @@ class InitForum < Thor
     end
   end
   
+  desc "init_roles", "init roles of the forums"
+  def init_roles
+    require './config/environment'
+    begin
+      role_names = %w|guest admin parent developer|
+      role_names.each do |role|
+        Role.create(name: role)
+      end
+    rescue
+      say "something is wrong!", :red
+    end
+  end #init_roles
+  
   desc "delete_all_forums", "destroy all forums include topics, you need --f"
   method_options :f => true
   def delete_all_forums

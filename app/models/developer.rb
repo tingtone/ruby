@@ -21,5 +21,6 @@ class Developer < ActiveRecord::Base
     fu = ForumUser.new(name: name, email: email, password: password)
     fu.from_dev = true
     fu.save
+    fu.roles << Role.developer
   end #sync_account_to_forum
 end
