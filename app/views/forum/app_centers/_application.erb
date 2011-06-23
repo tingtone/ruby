@@ -1,3 +1,6 @@
-<div class="games">
-  <%= render :partial => "forum/app_centers/app", :collection => @apps %>
-</div>
+
+
+<%= render :partial => "forum/app_centers/search" %>
+<span id="search_content">
+    <%= render :partial => "forum/app_centers/app", :collection => @apps %>
+</span>

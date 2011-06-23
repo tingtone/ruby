@@ -98,8 +98,10 @@ class ClientApplication < ActiveRecord::Base
     def filters(params, page_size=15)
       #App Center Filter List
       sort_params = {"date" => "created_at desc", "update"=>"updated_at desc", "developer" => "developer_id desc"}
+      #params[:category]
       sorted = sort_params[params[:sort]] || "updated_at desc"
       queries = params_to_query(params)
+
       ClientApplication.where(queries).order(sorted).page(params[:page]||1).per(page_size)
     end
 
@@ -108,14 +110,59 @@ class ClientApplication < ActiveRecord::Base
       if params
         queries = []
         wheres = []
-        excepts = ["controller", "action", "cookie", "session", "app", "flash", "page", "page_size", "method"]
+        excepts = ["controller", "action", "cookie", "session", "app", "flash", "page", "page_size", "method","x","y"]
+        if params["created_at"]
+          queries << "created_at<=?"
+          wheres << params["created_at"]
+          params.delete("created_at")
+        end
+
+        price_query = ""
+        if params['price']
+          if params['price'].include?(">3.99")
+            params['price'].delete(">3.99")
+            price_query="price>3.99"
+          end
+          price_query += " or " if price_query
+          price_query += "price in(#{params['price']})"
+          price_query ="(#{price_query})"
+          params.delete("price")
+        end
+
+        age_query = []
+        if params["age"]
+           params["age"].each do |age|
+             start_age,end_age = age.split("-")
+             age_query << "(start_age>=#{start_age} and end_age<=#{end_age})"
+           end
+           age_query = age_query.join(" or ")
+           age_query = "(#{age_query})"
+           params.delete("age")
+        end
+
         params.each { |key, value|
-          if not excepts.include?(key)
-            queries << key + "=?"
-            wheres << value
+          if not excepts.include?(key) and not value.blank?
+            if value.class.eql?(Array)
+              queries << key + " in(?) "
+              wheres << value.join(",")
+            else
+              queries << key + " =? "
+              wheres << value
+            end
           end
         }
-        [queries.join(" and "), *wheres]
+
+        q = queries.blank? ? "" : queries.join(" and ")
+        if q !=""
+          q += " and " + age_query.to_s unless age_query.blank?
+          q += " and " + price_query unless price_query.blank?
+        else
+           q += age_query.to_s unless age_query.blank?
+           q +=  price_query unless price_query.blank?
+        end
+
+
+        [ q , *wheres]
       end
     end
 
