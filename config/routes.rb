@@ -2,6 +2,7 @@ Server::Application.routes.draw do
   root :to => "forum/forums#index"
   match "/about(.:format)" => 'forum/forums#about', :as => :about
   match "/news(.:format)" => 'forum/forums#news', :as => :news
+  match "/sign_up(.:format)" => 'forum/forums#sign_up', :as => :sign_up
   
   get "most_plays/index"
 

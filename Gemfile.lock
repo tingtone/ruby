@@ -51,6 +51,7 @@ GEM
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
     chunky_png (1.2.0)
+    client_side_validations (3.1.0)
     compass (0.11.3)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -255,6 +256,7 @@ DEPENDENCIES
   cancan
   capistrano
   capistrano-ext
+  client_side_validations
   compass
   database_cleaner
   devise

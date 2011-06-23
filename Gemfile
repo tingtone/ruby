@@ -25,7 +25,7 @@ gem 'omniauth'
 gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
-
+gem 'client_side_validations'
 
 group :development do 
   gem 'thin'

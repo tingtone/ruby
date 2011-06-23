@@ -27,20 +27,3 @@
 .c-ct p{padding:8px 15px 0px 15px;}
 .c-ct p.f{padding:70px 15px 15px 15px}
 .c-ct p.cen{text-align:center}
-
-/* add by Alex Zhang*/
-#flash_notice, #flash_error, #flash_alert, #flash_warn {
-
-  padding: 5px 8px;
-  margin: 10px 0;
-}
-
-#flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
-}
-
-#flash_error, #flash_alert, #flash_warn  {
-  background-color: #FCC;
-  border: solid 1px #C66;
-}
