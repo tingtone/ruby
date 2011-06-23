@@ -73,6 +73,9 @@ Server::Application.routes.draw do
       member do
         get :click
       end
+      collection do
+        get :ajax_search
+      end
     end
     resources :messages do
       member do

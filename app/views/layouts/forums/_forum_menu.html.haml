@@ -1,11 +1,6 @@
 %ul.nav-ul.cf
   %li.li-game{:class => [get_games_class(controller_name, action_name)]}
-    = link_to 'Games', forum_app_centers_path, :class => 'par'
-    .li-game-sub{:style => 'display:none'}
-      = link_to 'Games1', '#', :class => get_games_class(controller_name, action_name)
-      = link_to 'Games2', '#'
-      = link_to 'Games3'
-      = link_to 'Games4', '#', :class => 'last'
+    = link_to 'Games', forum_app_centers_path
   %li{:class => [get_news_class(controller_name, action_name)]}= link_to 'News', news_path
   %li
   %li{:class => [get_about_class(controller_name, action_name)]}= link_to 'About', about_path

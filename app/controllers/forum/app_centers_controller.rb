@@ -3,10 +3,19 @@ class Forum::AppCentersController < Forum::BaseController
   #and recommends applications
 
   def index
+    @devs = Developer.all
+    @categories = ClientApplicationCategory.all
+
     #for filter apps
     @apps = ClientApplication.filters(params)
     #for recommend
     @recommends = ClientApplication.recommends(current_parent)
+  end
+
+  def ajax_search
+     #for filter apps
+    @apps = ClientApplication.filters(params)
+    render :template => "/forum/app_centers/search"  ,:layout => nil
   end
 
   def click
