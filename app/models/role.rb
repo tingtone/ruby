@@ -17,7 +17,7 @@ class Role
   validates_presence_of   :name
   validates_uniqueness_of :name
   
-  references_and_referenced_in_many :roles
+  references_and_referenced_in_many :forum_users
   
   class << self
     # ====================================================================
