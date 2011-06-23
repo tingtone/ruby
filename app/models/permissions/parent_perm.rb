@@ -14,6 +14,7 @@ class Permissions::ParentPerm
     current_ability.can :about, Forum
     current_ability.can :news,  Forum
     current_ability.can [:new, :create],  Topic
+    current_ability.can [:new, :create],  Post
     current_ability.can :update, Topic
     current_ability.can [:index, :create], Search
     
