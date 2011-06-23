@@ -31,7 +31,7 @@ class ForumUser
   references_many :topics
   references_many :posts
   
-  references_and_referenced_in_many :roles, autosave: true
+  references_and_referenced_in_many :roles, :validate => false
   
   # Setting Moderator for Forum
   references_and_referenced_in_many :forums
