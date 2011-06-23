@@ -10,33 +10,23 @@
              <tr>
                 <td align="right">I'm a</td>
                 <td class="p8">
-                <input type="radio"  name="type"/>parent
-                <input type="radio"  name="type" />devloper
+                <input type="radio" name="sign_up" value="parent" checked='checked'/>parent
+                <input type="radio"  name="sign_up" value="developer"/>devloper
                 </td>
              </tr>
-             <tr>
-                <td align="right">Email</td>
-                <td class="p8"><input type="text" class="ip"/></td>
-             </tr>
-             <tr>
-                <td align="right">Password</td>
-                <td  class="p8"><input type="password" class="ip"/></td>
-             </tr>	
-             <tr>
-                <td align="right">Conform<br/>Password</td>
-                <td  class="p8"><input type="password" class="ip"/></td>
-             </tr>
-             <tr>
-                <td align="right">Company<br/>Name</td>
-                <td  class="p8"><input type="text" class="ip"/></td>
-             </tr>
-             <tr>
-               <td></td>
-               <td class="p8"><input type="submit" value="Sign up" class="st"/></td>
-             
-             </tr>
            </table>
-           
+
+           <div class="sign_up_form" id="parent">
+             <%= render "parent_sign_up" %>
+           </div>
+
+           <div class="sign_up_form" id="developer" style="display:none;">
+           <%= render 'developer_sign_up' %>
+           </div>
+
+
+
+
          </div>
        
         <div class="login-shadow regs"></div>
