@@ -45,7 +45,7 @@ module Forum::BaseHelper
   %w|games news about parent_room support_room |.each do |name|
     define_method "get_#{name}_class" do |controller_name, action_name|
       controller_name = controller_name.split("/").last
-      if %w|forums app_centers|.include?(controller_name) && %w|index|.include?(action_name) && name == "games"
+      if %w|app_centers|.include?(controller_name) && %w|index|.include?(action_name) && name == "games"
         'cur'
       elsif %w|forums|.include?(controller_name) && %w|news|.include?(action_name) && name == "news"
         'cur'
