@@ -369,3 +369,40 @@ body {
   }
 }
 /************Content End*************/
+
+
+/************Tab Control Start*************/
+.tab_control {
+  .tab_header_container {
+    border-bottom: 1px solid #C5C5C5;
+    margin-bottom: 10px;
+    .tab_header {
+      float: left;
+      font-size: 14px;
+      margin-right: 10px;
+      &.current {
+        background: #666;
+        -moz-border-radius: 5px 5px 0 0;
+        -webkit-bordr-radius: 5px 5px 0 0;
+        border-raidus: 5px 5px 0 0;
+        a {
+          color: #FFF;
+        }
+      }
+      a {
+        color: #999;
+        display: block;
+        padding: 8px;
+      }
+    }
+  }
+  .tab_content_container {
+    .tab_content {
+        display: none;
+      &.current {
+        display: block;
+      }
+    }
+  }
+}
+/************Tab Control End*************/
