@@ -42,7 +42,7 @@ class Forum::MessagesController < Forum::BaseController
       end
       if ms
         flash[:notice] = "Topic Create Successfully."
-        redirect_to forum_messages_path
+        redirect_to forum_messages_path(:box => 'inbox')
       else
         flash[:error] = "Topic Create UnSuccessfully.#{error}"
         redirect_to new_forum_message_path
