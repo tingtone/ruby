@@ -17,10 +17,9 @@
         = link_to t('Sign Up'), new_parent_registration_path
   %ul.global_action.clearfix
     %li
-      %a
-        Support
+      = link_to 'Support', '/parent/pages/support'
     %li.selected
-      = link_to "SDK Download", "/robots.zip"
+      = link_to "Download", "/parent/pages/download"
     %li
       %a
         Features
