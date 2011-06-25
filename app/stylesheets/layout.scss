@@ -2,6 +2,7 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
 
+/************Global Start*************/
 body.bp {
   a {
     text-decoration: none;
@@ -29,6 +30,10 @@ body.bp {
   a.button {
     color: #4C4C4C;
   }
+  ul {
+    list-style: none;
+    margin: 0;
+  }
 }
 body {
   background-color: #3A3A3A;
@@ -37,28 +42,90 @@ body {
   font-size: 12px;
   line-height: 150%;
 }
-#account_navigation {
-  background: url(/images/account_nav_bg.gif);
-  color: #C8C8C8;
-  height: 26px;
-  line-height: 26px;
-  padding: 10px 20px;
-  a {
-    color: #F2F2F2;
-    font-weight: bold;
+/************Global Start*************/
+
+
+/************Header Start*************/
+.header {
+  position: relative;
+}
+.logo {
+  background: url(/images/logo.png) no-repeat left top;
+  height: 72px;
+  margin: 25px 0 20px 0;
+  text-indent: -9999px;
+  width: 310px;
+}
+.global_navigation {
+  bottom: 0;
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  .global_action {
+    margin: 0 0 10px 0;
+    a, a:visited {
+      color: #CCC
+    }
+    li {
+      float: left;
+      padding: 2px 7px;
+      &.selected {
+        @include border-radius(5px);
+        background-color: #262626;
+      }
+    }
   }
-  li {
-    display: inline-block;
-    padding: 0 10px 0 0;
+  .left_border {
+    border-left: 1px solid #5B5B5B;
+  }
+  .right_border {
+    border-right: 1px solid #454545;
+  }
+  .user_action {
+    a, a:visited {
+      color: #FFF
+    }
+    li {
+      float: right;
+      padding: 10px 7px 0 7px;
+    }
+    .welcome {
+      background: url(/images/user_icon.png) no-repeat left top;
+      color: #FFF;
+      padding-left: 30px;
+    }
   }
 }
-#global_navigation {
-  background: #232323;
-  border-bottom: 7px solid #0C7A3E;
-  overflow: hidden;
-}
+/*#account_navigation {*/
+  /*background: url(/images/account_nav_bg.gif);*/
+  /*color: #C8C8C8;*/
+  /*height: 26px;*/
+  /*line-height: 26px;*/
+  /*padding: 10px 20px;*/
+  /*a {*/
+    /*color: #F2F2F2;*/
+    /*font-weight: bold;*/
+  /*}*/
+  /*li {*/
+    /*display: inline-block;*/
+    /*padding: 0 10px 0 0;*/
+  /*}*/
+/*}*/
+/*#global_navigation {*/
+  /*background: #232323;*/
+  /*border-bottom: 7px solid #0C7A3E;*/
+  /*overflow: hidden;*/
+/*}*/
+/************Header End*************/
+
+
+
+
+
 #main {
+  @include border-radius(10px);
   background: #FFF;
+  border: 1px solid #1C1C1C;
   overflow: hidden;
 }
 #flash .message {
@@ -99,9 +166,6 @@ body {
         float: right;
       }
     }
-  }
-  ul {
-    list-style: none;
   }
 }
 #content {
