@@ -1,32 +1,52 @@
 - if parent_signed_in? && current_child.present?
-  %h3= current_child.fullname
+  .kids.sidebar_section
+    %h2.section_title
+      My Kids
+    %ul
+      %li.kid.current_kid.lv1
+        %h3.child_name.lv1_title
+          = current_child.fullname
+        %ul.kid_app_category.lv2
+          %h4.category_title.lv2_title
+            Game Applications
+          %ul.kid_apps.lv3
+            %li.current_app
+              = link_to 'All', game_parent_child_path(current_child)
+              = link_to 'Top 5', game_top_5_parent_analytic_path(current_child),:class=>"analytics"
+            - current_parent_game_applications.each do |game_application|
+              %li
+                = link_to game_application.name, parent_game_application_path(game_application)
+                = link_to 'analytics', game_parent_analytic_path(game_application), :class => 'analytics'
+          %h4.category_title.lv2_title
+            Education Applications
+          %ul.kid_apps.lv3
+            %li
+              = link_to 'All', education_parent_child_path(current_child)
+              = link_to 'Top 5', education_top_5_parent_analytic_path(current_child),:class=>"analytics"
 
-  %ul
-    %li.title Game Applications
-    %li
-      = link_to 'All', game_parent_child_path(current_child) 
-      = link_to 'Top 5', game_top_5_parent_analytic_path(current_child),:class=>"analytics"
-    - current_parent_game_applications.each do |game_application|
+            - current_parent_education_applications.each do |education_application|
+              %li
+                = link_to education_application.name, parent_education_application_path(education_application)
+                = link_to 'analytics', education_parent_analytic_path(education_application), :class => 'analytics'
+
+      - other_children.each do |child|
+        %li.kid.lv1
+          %h3.child_name.lv1_title
+            = link_to child.fullname, parent_root_path(:child_id => child.id), :class => 'child'
+
+      %li.trends.lv1
+        %h3.lv1_title
+          Trends
+
+  .social.sidebar_section
+    %h2.section_title
+      Social
+    %ul.lv3
       %li
-        = link_to game_application.name, parent_game_application_path(game_application)
-        = link_to 'analytics', game_parent_analytic_path(game_application), :class => 'analytics'
-    %li.title Education Applications
-    %li
-      = link_to 'All', education_parent_child_path(current_child) 
-      = link_to 'Top 5', education_top_5_parent_analytic_path(current_child),:class=>"analytics"
-
-    - current_parent_education_applications.each do |education_application|
+        = link_to "Top Played Education Application", parent_most_plays_path
       %li
-        = link_to education_application.name, parent_education_application_path(education_application) 
-        = link_to 'analytics', education_parent_analytic_path(education_application), :class => 'analytics'
-
-
-  - other_children.each do |child|
-    %h3= link_to child.fullname, parent_root_path(:child_id => child.id), :class => 'child'
-
-  %h3 Social
-  %ul
-    %li= link_to "Top Played Education Application", parent_most_plays_path
-    %li= link_to "Most Popular Education Application", parent_most_downloads_path
-    %li= link_to "Grades for Children", parent_age_grades_path
-    %li= link_to "Club", "http://club.kittypad.com"
+        = link_to "Most Popular Education Application", parent_most_downloads_path
+      %li
+        = link_to "Grades for Children", parent_age_grades_path
+      %li
+        = link_to "Club", "http://club.kittypad.com"

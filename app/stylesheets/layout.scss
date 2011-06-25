@@ -2,6 +2,18 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
 
+/************Mixin Start*************/
+@mixin linear-gradient-lr($startColor, $endColor) {
+  background-image: -ms-linear-gradient(left, $startColor 0, $endColor 100%);   /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$startColor, endColorstr=$endColor, GradientType=1);  /* IE6-9 */
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, $startColor), color-stop(100%, $endColor));  /* Chrome, Safari */
+  background-image: -moz-linear-gradient(left, $startColor 0, $endColor 100%);   /* FF3.6+ */
+  background-image: -o-linear-gradient(left, $startColor 0, $endColor 100%);  /* Opera 11.10+ */
+  background-image: linear-gradient(left, $startColor 0, $endColor 100%);   /* W3C */
+}
+$linkHoverColor: #0099FF;
+/************Mixin Start*************/
+
 /************Global Start*************/
 body.bp {
   a {
@@ -10,8 +22,8 @@ body.bp {
   .button {
     @include border-radius(5px);
     @include box-shadow(#A4A4A4, 1px, 1px, 1px);
-    @include background-image(linear-gradient(#CDCDCD, #A0A0A0));
-    border: 1px solid #9A9A9A;
+    @include background-image(linear-gradient(#E17F06, #FFB008));
+    /*border: 1px solid #9A9A9A;*/
     display: inline-block;
     cursor: pointer;
     height: 26px;
@@ -24,15 +36,23 @@ body.bp {
     text-decoration: none;
     text-shadow: 0 1px 1px #E4E4E4;
     &:hover {
-      @include background-image(line-gradient(#A0A0A0, #CDCDCD));
+      @include background-image(linear-gradient(#A0A0A0, #CDCDCD));
     }
   }
   a.button {
-    color: #4C4C4C;
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(153, 102, 0, .35);
+  }
+  input.button {
+    @include border-radius(10px);
+    border: none;
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(153, 102, 0, .35);
   }
   ul {
     list-style: none;
     margin: 0;
+    padding: 0;
   }
 }
 body {
@@ -63,8 +83,14 @@ body {
   right: 0;
   .global_action {
     margin: 0 0 10px 0;
-    a, a:visited {
-      color: #CCC
+    a {
+      color: #CCC;
+      &:visited {
+        color: #CCC;
+      }
+      &:hover {
+        color: $linkHoverColor;
+      }
     }
     li {
       float: left;
@@ -82,8 +108,14 @@ body {
     border-right: 1px solid #454545;
   }
   .user_action {
-    a, a:visited {
-      color: #FFF
+    a {
+      color: #FFF;
+      &:visited {
+        color: #FFF;
+      }
+      &:hover {
+        color: $linkHoverColor;
+      }
     }
     li {
       float: right;
@@ -119,56 +151,145 @@ body {
 /************Header End*************/
 
 
-
-
-
-#main {
+/************Main Container Start*************/
+.main {
   @include border-radius(10px);
   background: #FFF;
-  border: 1px solid #1C1C1C;
+  border: 1px solid #161616;
   overflow: hidden;
 }
-#flash .message {
-  margin-bottom: 0;
+/************Main Container End*************/
+
+
+/************Global Message Start*************/
+.flash {
+  .message {
+    margin-bottom: 0;
+  }
 }
-#sidebar {
+/************Global Message End*************/
+
+
+/************Sidebar Start*************/
+.sidebar {
   background: url(/images/dropshadow_bottom.png) bottom right repeat-y;
-  padding: 30px 0 25px 0;
-  a.button {
-    margin: 0 20px 40px 20px;
-    width: 138px;
+  padding: 30px 0 25px 0px;
+  .client_application {
+    background: url(/images/game_icon.png) no-repeat left top;
   }
-  a.child {
-    color: #0C7A3E;
-  }
-  h3 {
-    color: #555;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0px 0px 15px 15px;
-  }
-  li {
-    border-top: 1px dotted #C8C8C8;
-    color: #757575;
-    vertical-align: middle;
-    &.title {
-      font-weight: bold;
-      line-height: 30px;
-      padding: 10px 0;
-    }
-    a {
-      color: #757575;
+  .kid {
+    background: url(/images/kid_icon.png) no-repeat left top;
+    .child_name {
+      background: url(/images/collapsed.png) no-repeat right center;
       display: inline-block;
-      font-size: 12px;
-      line-height: 20px;
-      padding: 7px 10px 7px 25px;
-      &.analytics {
-        float: right;
+    }
+    &.current_kid {
+      .child_name {
+        background: url(/images/expanded.png) no-repeat right center;
       }
     }
   }
+  .kid_apps {
+    .current_app {
+      @include linear-gradient-lr(#FDFDFD, #CFCFCF);
+    }
+  }
+  .lv1 {
+    padding-bottom: 10px;
+    .lv1_title {
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0px 0px 8px 0;
+      padding: 0 10px 0 20px;
+      a {
+        color: #333;
+        &:visited {
+          color: #333;
+        }
+        &:hover {
+          color: $linkHoverColor;
+        }
+      }
+    }
+  }
+  .lv2 {
+    padding-left: 20px;
+    .lv2_title {
+      color: #4F4F4F;
+      font-size: 15px;
+      margin: 0 0 5px 0;
+    }
+  }
+  .lv3 {
+    padding: 0 0 5px 20px;
+    a {
+      color: #757575;
+      display: inline-block;
+      line-height: 25px;
+      &:visited {
+        color: #757575;
+      }
+      &:hover {
+        color: $linkHoverColor;
+      }
+      &.analytics {
+        float: right;
+        margin-right: 15px;
+      }
+    }
+  }
+
+
+
+
+
+
+  .sidebar_section {
+    padding: 0 0 30px 20px;
+    .section_title {
+      color: #000;
+      font-size: 22px;
+      font-weight: bold;
+      margin: 0px 0px 5px 0;
+    }
+  }
+  .trends {
+    margin-top: 10px;
+  }
+  /*a.button {*/
+    /*margin: 0 20px 40px 20px;*/
+    /*width: 138px;*/
+  /*}*/
+  /*a.child {*/
+    /*color: #0C7A3E;*/
+  /*}*/
+  /*li {*/
+    /*border-top: 1px dotted #C8C8C8;*/
+    /*color: #757575;*/
+    /*vertical-align: middle;*/
+    /*&.title {*/
+      /*font-weight: bold;*/
+      /*line-height: 30px;*/
+      /*padding: 10px 0;*/
+    /*}*/
+    /*a {*/
+      /*color: #757575;*/
+      /*display: inline-block;*/
+      /*font-size: 12px;*/
+      /*line-height: 20px;*/
+      /*padding: 7px 10px 7px 25px;*/
+      /*&.analytics {*/
+        /*float: right;*/
+      /*}*/
+    /*}*/
+  /*}*/
 }
-#content {
+/************Sidebar End*************/
+
+
+/************Content Start*************/
+.content {
   & > div {
     padding: 30px 35px 100px 25px;
   }
@@ -235,3 +356,4 @@ body {
     padding: 15px 0px;
   }
 }
+/************Content End*************/

@@ -14,13 +14,13 @@
       #header.header
         = render 'dev/shared/header'
       - if flash.present?
-        #flash
+        #flash.flash
           - flash.each do |type, message|
             .message{:class => type}= message
-      #main
-        #sidebar
+      #main.main
+        #sidebar.sidebar
           = render 'dev/shared/sidebar'
-        #content
+        #content.content
           %div= yield
       #footer
         This is footer
