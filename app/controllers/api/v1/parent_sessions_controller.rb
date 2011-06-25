@@ -16,7 +16,9 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
       parent.add_device(params[:device_identifier])
       result = {
         :error => false,
-        :time_summary => parent.children.collect { |child| current_client_application.time_summary(child).merge(:child_id => child.id) }
+        :parent => {
+          :time_summary => parent.children.collect { |child| current_client_application.time_summary(child).merge(:child_id => child.id) }
+        }
       }
       if params[:timestamp].blank? || params[:timestamp].to_i < parent.updated_at.to_i
         result.deep_merge!({
@@ -50,7 +52,11 @@ class Api::V1::ParentSessionsController < Api::V1::BaseController
         })
       end
       if params[:timestamp].blank? || params[:timestamp].to_i < parent.bonus_updated_at.to_i
-        result[:bonus] = parent.children.collect { |child| child.bonus }.flatten
+        result.deep_merge!({
+          :parent => {
+            :bonus => parent.children.collect { |child| child.bonus }.flatten
+          }
+        })
       end
       render :json => result
     else
