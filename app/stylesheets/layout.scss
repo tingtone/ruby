@@ -43,6 +43,9 @@ body.bp {
     color: #FFF;
     text-shadow: 1px 1px 1px rgba(153, 102, 0, .35);
   }
+  abbr {
+    border: none;
+  }
   input.button {
     @include border-radius(10px);
     border: none;
@@ -173,7 +176,7 @@ body {
 /************Sidebar Start*************/
 .sidebar {
   background: url(/images/dropshadow_bottom.png) bottom right repeat-y;
-  padding: 30px 0 25px 0px;
+  padding: 30px 0 25px 0;
   .client_application {
     background: url(/images/game_icon.png) no-repeat left top;
   }
@@ -200,7 +203,7 @@ body {
       color: #333;
       font-size: 18px;
       font-weight: bold;
-      margin: 0px 0px 8px 0;
+      margin: 0 0 8px 0;
       padding: 0 10px 0 20px;
       a {
         color: #333;
@@ -239,19 +242,13 @@ body {
       }
     }
   }
-
-
-
-
-
-
   .sidebar_section {
     padding: 0 0 30px 20px;
     .section_title {
       color: #000;
       font-size: 22px;
       font-weight: bold;
-      margin: 0px 0px 5px 0;
+      margin: 0 0 5px 0;
     }
   }
   .trends {
@@ -296,20 +293,27 @@ body {
   form {
     background-color: #F7F7F7;
     border: 1px solid #E1E1E1;
+    margin: 0 10px 0 20px;
+    padding: 40px 20px;
+  }
+  h3 {
+    color: #666;
+    font-size: 14px;
   }
   div.input, p.input {
-    border-top: 1px dotted #BCBCBC;
+    /*border-top: 1px dotted #BCBCBC;*/
     color: #555;
-    padding: 15px 0px;
+    padding: 15px 0;
     position: relative;
     label {
+      color: #666;
       display: inline-block;
-      font-weight: bold;
       height: 100%;
-      margin-right: 2%;
+      font-size: 14px;
+      margin-right: 10px;
       text-align: right;
       vertical-align: top;
-      width: 35%;
+      width: 120px;
     }
     input, textarea {
       display: inline-block;
@@ -328,7 +332,7 @@ body {
       display: inline-block;
       font-size: 12px;
       height: 24px;
-      padding: 0px 5px;
+      padding: 0 5px;
       width: 205px;
     }
     input[type=checkbox] {
@@ -350,10 +354,18 @@ body {
     }
   }
   .buttons {
-    border-top: 1px dotted #BCBCBC;
+    /*border-top: 1px dotted #BCBCBC;*/
     color: #555;
-    text-align: center;
-    padding: 15px 0px;
+    text-align: left;
+    padding: 30px 0 10px 130px;
+  }
+  .description {
+    color: #999;
+    font-size: 12px;
+    line-height: 20px;
+    p {
+      margin-bottom: 20px;
+    }
   }
 }
 /************Content End*************/
