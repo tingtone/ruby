@@ -3,9 +3,19 @@
 @import "compass/css3/images";
 
 /************Mixin Start*************/
+@mixin linear-gradient-ud($startColor, $endColor) {
+  background-color: $startColor;
+  background-image: -ms-linear-gradient(top, $startColor 0, $endColor 100%);   /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$startColor}", endColorstr="#{$endColor}", GradientType=0);  /* IE6-9 */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $endColor));  /* Chrome, Safari */
+  background-image: -moz-linear-gradient(top, $startColor 0, $endColor 100%);   /* FF3.6+ */
+  background-image: -o-linear-gradient(top, $startColor 0, $endColor 100%);  /* Opera 11.10+ */
+  background-image: linear-gradient(top, $startColor 0, $endColor 100%);   /* W3C */
+}
 @mixin linear-gradient-lr($startColor, $endColor) {
+  background-color: $endColor;
   background-image: -ms-linear-gradient(left, $startColor 0, $endColor 100%);   /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$startColor, endColorstr=$endColor, GradientType=1);  /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$startColor}", endColorstr="#{$endColor}", GradientType=1);  /* IE6-9 */
   background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, $startColor), color-stop(100%, $endColor));  /* Chrome, Safari */
   background-image: -moz-linear-gradient(left, $startColor 0, $endColor 100%);   /* FF3.6+ */
   background-image: -o-linear-gradient(left, $startColor 0, $endColor 100%);  /* Opera 11.10+ */
@@ -22,7 +32,7 @@ body.bp {
   .button {
     @include border-radius(5px);
     @include box-shadow(#A4A4A4, 1px, 1px, 1px);
-    @include background-image(linear-gradient(#E17F06, #FFB008));
+    @include linear-gradient-ud(#E17F06, #FFB008);
     /*border: 1px solid #9A9A9A;*/
     display: inline-block;
     cursor: pointer;
@@ -36,7 +46,7 @@ body.bp {
     text-decoration: none;
     text-shadow: 0 1px 1px #E4E4E4;
     &:hover {
-      @include background-image(linear-gradient(#A0A0A0, #CDCDCD));
+      @include linear-gradient-ud(#A0A0A0, #CDCDCD);
     }
   }
   a.button {
@@ -326,13 +336,13 @@ body {
       text-align: center;
     }
     input[type=text], input[type=email], input[type=password], input[type=url] {
-      @include background-image(linear-gradient(#F7F7F7, #FFF));
+      @include linear-gradient-ud(#F7F7F7, #FFF);
       border: 1px solid #AAA;
       color: #505050;
       display: inline-block;
       font-size: 12px;
-      height: 24px;
-      padding: 0 5px;
+      height: 14px;
+      padding: 5px;
       width: 205px;
     }
     input[type=checkbox] {
@@ -383,8 +393,8 @@ body {
       &.current {
         background: #666;
         -moz-border-radius: 5px 5px 0 0;
-        -webkit-bordr-radius: 5px 5px 0 0;
-        border-raidus: 5px 5px 0 0;
+        -webkit-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
         a {
           color: #FFF;
         }
