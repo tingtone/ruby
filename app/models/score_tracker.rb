@@ -19,19 +19,21 @@ class ScoreTracker < ActiveRecord::Base
     end
 
     def add_score
-      achievement = child.achievements.where(:client_application_category_id => client_application.client_application_category_id).order('score desc').first
-      if achievement
-        achievement.score += score
-        new_grade = Grade.by_score(achievement.score).first
-        if achievement.grade != new_grade
-          self.upgrade = true
-          achievement.grade = new_grade
-          child.bonus.create
+      client_application.categories.each do |category|
+        achievement = child.achievements.where(:category_id => category.id).order('score desc').first
+        if achievement
+          achievement.score += score
+          new_grade = Grade.by_score(achievement.score).first
+          if achievement.grade != new_grade
+            self.upgrade = true
+            achievement.grade = new_grade
+            child.bonus.create
+          end
+          achievement.save
+        else
+          grade = Grade.order("min_score asc").first
+          achievement = child.achievements.create(:category => category, :grade => grade, :score => score)
         end
-        achievement.save
-      else
-        grade = Grade.order("min_score asc").first
-        achievement = child.achievements.create(:client_application_category_id => client_application.client_application_category_id, :grade => grade, :score => score)
       end
     end
 end

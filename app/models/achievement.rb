@@ -1,7 +1,7 @@
 class Achievement < ActiveRecord::Base
   belongs_to :child
   belongs_to :grade
-  belongs_to :client_application_category
+  belongs_to :category
 
   def grade_name
     grade.try(:name)

@@ -3,8 +3,11 @@ class ClientApplication < ActiveRecord::Base
   RATINGS = [4, 9, 12]
 
   belongs_to :developer
-  belongs_to :client_application_category
+  has_many :client_application_categories
+  has_many :categories, :through => :client_application_categories, :source => :category
 
+  has_many :client_application_languages
+  has_many :languages, :through => :client_application_languages, :source => :language
 
   has_many :rule_definitions
   accepts_nested_attributes_for :rule_definitions
@@ -14,6 +17,12 @@ class ClientApplication < ActiveRecord::Base
   validates_presence_of :name, :description
   validates_uniqueness_of :name
   validates_uniqueness_of :identifier
+
+  validates_presence_of :start_age, :unless => :new_record?
+  validates_presence_of :end_age, :unless => :new_record?
+  validates_presence_of :icon, :unless => :new_record?
+  validates_presence_of :screenshot, :unless => :new_record?
+  validates_presence_of :app_store_url, :unless => :new_record?
 
   before_create :generate_keys
 
