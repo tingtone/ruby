@@ -1,3 +1,4 @@
 class ClientApplicationCategory < ActiveRecord::Base
-  has_many :client_applications
+  belongs_to :client_application
+  belongs_to :category
 end

@@ -33,7 +33,7 @@ describe Api::V1::ParentSessionsController do
         children.first['id'].should == @child1.id
         children.last['id'].should == @child2.id
 
-        time_summary = json_response['time_summary']
+        time_summary = json_response['parent']['time_summary']
         time_summary.first['game_day_left_time'].should == 55
         time_summary.first['total_day_left_time'].should == 145
         time_summary.first['game_week_left_time'].should == 85
@@ -59,7 +59,7 @@ describe Api::V1::ParentSessionsController do
         rule_definitions.last['total_week_time'].should == 240
         rule_definitions.last['child_id'].should == @child2.id
 
-        bonus = json_response['bonus']
+        bonus = json_response['parent']['bonus']
         bonus.first['time'].should == 15
         bonus.first['expired_on'].should == @bonus1.expired_on.to_date.to_time.to_i
         bonus.first['child_id'].should == @child1.id
@@ -229,7 +229,7 @@ describe Api::V1::ParentSessionsController do
         json_response = ActiveSupport::JSON.decode response.body
         json_response['error'].should == false
 
-        bonus = json_response['bonus']
+        bonus = json_response['parent']['bonus']
         bonus.first['time'].should == 15
         bonus.first['expired_on'].should == @bonus1.expired_on.to_date.to_time.to_i
         bonus.first['child_id'].should == @child1.id
