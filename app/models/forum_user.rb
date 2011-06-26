@@ -26,7 +26,6 @@ class ForumUser
   field :posts_count,  :type => Integer, :default => 0
   field :from_dev,     :type => Boolean, :default => false
   
-  # field :roles_mask, :type => Fixnum, :default => 0
   
   references_many :topics
   references_many :posts
@@ -41,7 +40,7 @@ class ForumUser
   
   references_many :messages
   references_many :group_messages
-  references_many :black_lists
+  references_many :fblack_lists
   
   validates_presence_of   :name
   validates_presence_of   :email
@@ -58,9 +57,9 @@ class ForumUser
   end
   
   #------------------------------------topics
-  def topics
-    Topic.where(forum_user_id: self.id)
-  end
+  # def topics
+  #     Topic.where(forum_user_id: self.id)
+  #   end
   
   
   # -------------------------------------sync accounts
@@ -109,7 +108,7 @@ class ForumUser
 
   def add_black_list(user)
     if not self.black?(user)
-      bl = FBlackList.new(user: self,black: user)
+      bl = FblackList.new(user: self,black: user)
       return bl.save!
     else
       return false,"user have added in black_list"
@@ -118,7 +117,7 @@ class ForumUser
 
   def black?(user)
     #exits has problem
-    FBlackList.count(conditions: {user_id: self.id,black_id: user.id}) > 0
+    FblackList.count(conditions: {user_id: self.id,black_id: user.id}) > 0
   end
 
 end
