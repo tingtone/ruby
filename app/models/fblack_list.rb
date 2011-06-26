@@ -1,4 +1,4 @@
-class FBlackList
+class FblackList
   include Shared::Mongoid
 
   referenced_in :black, :class_name => "ForumUser", :foreign_key => "black_id"
@@ -14,7 +14,7 @@ class FBlackList
   class << self
 
     def list(user, params, page_size=20, sorted="created_at desc")
-      FBlackList.where(user_id: user.id).order(sorted).page(params[:page]||1).per(page_size)
+      FblackList.where(user_id: user.id).order(sorted).page(params[:page]||1).per(page_size)
     end
 
   end

@@ -1,11 +1,11 @@
 %table
-  = form_for(ForumUser.new, :as => :forum_user, :url => '/forum') do |f|
+  = form_for ForumUser.new, :as => :forum_user, :url => '/forum' do |f|
     %tr
       %td{:align=>'right'} name
-      %td{:class=>'p8'}= f.text_field :name
+      %td{:class=>'p8'}= f.text_field :name, :validate => true
     %tr
       %td{:align=>'right'} email
-      %td{:class=>'p8'}= f.email_field :email
+      %td{:class=>'p8'}= f.email_field :email, :validate => true 
     %tr
       %td{:align=>'right'} password
       %td{:class=>'p8'}= f.password_field :password
@@ -18,3 +18,4 @@
     %tr
       %td
       %td{:class=>'p8'}= f.submit "Sign Up", :class => "st"
+

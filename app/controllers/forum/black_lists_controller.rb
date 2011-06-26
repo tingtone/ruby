@@ -4,7 +4,7 @@ class Forum::BlackListsController < Forum::BaseController
   layout "message"
 
   def index
-    @blacklists = FBlackList.list(current_user,params)
+    @blacklists = FblackList.list(current_user,params)
   end
 
   def new
@@ -30,7 +30,7 @@ class Forum::BlackListsController < Forum::BaseController
 
   def destroy
     if params[:id]
-      fbl = FBlackList.first(conditions: {_id: params[:id]})
+      fbl = FblackList.first(conditions: {_id: params[:id]})
       if fbl.user == current_user
         fbl.destroy! unless fbl.destroyed?
       end

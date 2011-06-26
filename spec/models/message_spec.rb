@@ -79,7 +79,7 @@ describe "Message" do
     success.should == true
     #@sender.black_list.blacks.length.should == 1
     @sender.black?(@reciever).should == true
-    FBlackList.list(@sender,{}).should_not == []
+    FblackList.list(@sender,{}).should_not == []
   end
 
 end
