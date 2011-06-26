@@ -8,17 +8,7 @@
           = current_child.fullname
         %ul.kid_app_category.lv2
           %h4.category_title.lv2_title
-            Game Applications
-          %ul.kid_apps.lv3
-            %li.current_app
-              = link_to 'All', game_parent_child_path(current_child)
-              = link_to 'Top 5', game_top_5_parent_analytic_path(current_child),:class=>"analytics"
-            - current_parent_game_applications.each do |game_application|
-              %li
-                = link_to game_application.name, parent_game_application_path(game_application)
-                = link_to 'analytics', game_parent_analytic_path(game_application), :class => 'analytics'
-          %h4.category_title.lv2_title
-            Education Applications
+            Educational Games
           %ul.kid_apps.lv3
             %li
               = link_to 'All', education_parent_child_path(current_child)
@@ -28,6 +18,16 @@
               %li
                 = link_to education_application.name, parent_education_application_path(education_application)
                 = link_to 'analytics', education_parent_analytic_path(education_application), :class => 'analytics'
+          %h4.category_title.lv2_title
+            Other Games
+          %ul.kid_apps.lv3
+            %li.current_app
+              = link_to 'All', game_parent_child_path(current_child)
+              = link_to 'Top 5', game_top_5_parent_analytic_path(current_child),:class=>"analytics"
+            - current_parent_game_applications.each do |game_application|
+              %li
+                = link_to game_application.name, parent_game_application_path(game_application)
+                = link_to 'analytics', game_parent_analytic_path(game_application), :class => 'analytics'
 
       - other_children.each do |child|
         %li.kid.lv1
