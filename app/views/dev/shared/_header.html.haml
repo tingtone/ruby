@@ -1,12 +1,42 @@
-#account_navigation
-  %ul
+#logo.logo
+  KittyPad
+#global_navigation.global_navigation
+  %ul.user_action.clearfix
     - if developer_signed_in?
-      %li= link_to t('my_info'), edit_developer_registration_path
-      %li= link_to t('sign_out'), destroy_developer_session_path
+      %li.logout
+        = link_to t('Logout'), destroy_developer_session_path
+      %li.welcome
+        %span
+          Welcome
+          %span.username
+            = link_to t('Obama'), edit_developer_registration_path
     - else
-      %li= link_to t('sign_in'), new_developer_session_path
-      %li= link_to t('sign_up'), new_developer_registration_path
-#global_navigation
-  = link_to "Follow us on Twitter", "http://twitter.com/#!/educationforfun"
-  = link_to "Follow us on Facebook", "http://www.facebook.com/people/Kitty-Pad/100002436698178"
-  = link_to "SDK Download", "/robots.zip"
+      %li.login
+        = link_to t('Sign In'), new_developer_session_path
+      %li.signup
+        = link_to t('Sign Up'), new_developer_registration_path
+  %ul.global_action.clearfix
+    %li
+      = link_to 'Support', '/parent/pages/support'
+    %li.selected
+      = link_to "Download", "/parent/pages/download"
+    %li
+      %a
+        Features
+    %li
+      %a
+        Analysis
+
+
+-##account_navigation
+-#  %ul
+-#    - if developer_signed_in?
+-#      %li= link_to t('my_info'), edit_developer_registration_path
+-#      %li= link_to t('sign_out'), destroy_developer_session_path
+-#    - else
+-#      %li= link_to t('sign_in'), new_developer_session_path
+-#      %li= link_to t('sign_up'), new_developer_registration_path
+-##global_navigation
+-#  = link_to "Follow us on Twitter", "http://twitter.com/#!/educationforfun"
+-#  = link_to "Follow us on Facebook", "http://www.facebook.com/people/Kitty-Pad/100002436698178"
+-#  = link_to "SDK Download", "/robots.zip"
