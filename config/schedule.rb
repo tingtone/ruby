@@ -20,6 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "/home/deploy/sites/kittypad.com/staging/shared/log/cron_log.log"
+job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
 
 every 1.day do
   rake "analytics"
