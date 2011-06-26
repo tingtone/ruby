@@ -1,48 +1,48 @@
-<% content_for :content do %>
-<div class="charts">
-  <div class="charts-bd">
-    <div class="charts-bd-top"></div>
-    <div class="charts-bd-mid">
-      <form>
-        <table>
-          <thead>
-           <td class="lab">read</td>
-          <td class="lab">from</td>
-          <td class="lab">subject</td>
-          <td class="lab">date</td>
-          <td class="lab">type</td>
-          </thead>
-          <% if @messages %>
-              <% for message in @messages %>
-              <tr>
-                <td class="lab"><%if message.read?%>R<% else %>U<% end %></td>
-                <td class="lab"><%=message.sender.name%></td>
-                <td class="lab"><a href="/forum/messages/<%=message.id%>"><%=message.subject%></a></td>
-                <td class="lab"><%=message.created_at.to_s(:db) %></td>
-                <%if message.group_message_id %>
-                    <td class="lab">group</td>
-                <% else %>
-                   <td class="lab">personal</td>
-                <% end %>
-              </tr>
-              <tr>
-                <td class="line" colspan="2"></td>
-              </tr>
-              <% end%>
-          <% end%>
-        </table>
-      </form>
-    </div>
+<div class="msg cf">
 
-    <div class="charts-bd-btm"></div>
-  </div>
+     <%= render :partial => 'nav' %>
+
+     <div class="msg-right">
+          <h3><%= session[:message_box] %><span class="n">(Total<%= Message.box_count(current_user, :box=>session[:message_box])%>,
+            <em>Unread Messages</em><%= Message.box_count(current_user, :box =>session[:message_box], :read =>false)%>)</span></h3>
+          <table width="718" cellpadding="0" cellspacing="0">
+             <tr>
+                <th colspan="5">
+                  <span class="t0"><input type="checkbox"/><em></em></span>
+                  <span><a href="#" class="t1">lete</a><a href="#" class="t2">fete</a><a href="#" class="t3">ete</a></span>
+                  <span><%= button_to "Delete", "/forum/messages/delete", :id =>'delete_multi',
+                                    :class => "t4", :method => :delete, :confirm => "Are you sure?",
+                                    :onsubmit => "$('form.button_to').append('<input type=hidden name=\'ids\' value=\'$('input:checked').val()\'>);$('form.button_to').submit();"%></span>
+
+                  <span><a href="#" class="t1">ete</a><a href="#" class="t2">ete</a><a href="#" class="t3">ete</a></span>
+                  <span><a href="#" class="t4">Refresh</a></span>
+                </th>
+
+             </tr>
+             <% if @messages %>
+                <% for message in @messages %>
+                    <tr>
+                        <td class="ck"><input id="<%= message.id%>" name="message_checkbox" type="checkbox"/></td>
+                        <td><span class="type-read <%= 't2' if message.read? %>"></span></td>
+                        <td class="account"><%= message.sender.name %></td>
+                        <td class="tit"><a href="/forum/messages/<%=message.id%>"><%= message.subject %><span class="gray">-<%= message.body[0..15] %>...</span></a></td>
+                        <td><%= message.created_at.to_s(:db) %></td>
+                    </tr>
+                 <% end %>
+             <% end %>
+
+          </table>
+
+
+        <div>
+            <% if @messages %>
+                <%= paginate @messages ,:theme=>"forum" %>
+            <% end %>
+        </div>
+
+
+     </div>
+
+
 
 </div>
-
-<div>
-  <% if @messages %>
-      <%= paginate @messages %>
-  <% end %>
-</div>
-
-<% end %>

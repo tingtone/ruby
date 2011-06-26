@@ -1,4 +1,6 @@
-<% content_for :content do %>
+<div class="msg cf">
+
+     <%= render :partial => '/forum/messages/nav' %>
 
     <% if flash[:error] %>
         <div class="error">
@@ -13,4 +15,4 @@
     <% end %>
 
     </div>
-<% end %>
+</div>

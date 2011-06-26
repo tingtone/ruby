@@ -24,8 +24,6 @@ Feature: Private message
       Given I am on new message page
       When I write a message with "NotExistUser/Hello/This is failure example"
       Then I should see "Topic Create UnSuccessfully.Recipent not exist!"
-      And I am on the outbox message page
-      Then I should not see "lz"
 
     Scenario: send new group message successfully
       Given I am on new message page

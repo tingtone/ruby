@@ -83,6 +83,9 @@ Server::Application.routes.draw do
         #get :view
         get :reply
       end
+      collection do
+        delete :delete
+      end
     end
     resources :black_lists
   end
