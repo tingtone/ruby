@@ -4,9 +4,10 @@ describe Api::V1::ScoreTrackersController do
   context "create" do
     before do
       @child = Factory(:child)
-      @english = Factory(:client_application_category, :name => 'english')
-      @math = Factory(:client_application_category, :name => 'math')
-      @education_application = Factory(:education_application, :client_application_category => @math)
+      @english = Factory(:category, :name => 'english')
+      @math = Factory(:category, :name => 'math')
+      @education_application = Factory(:education_application)
+      Factory(:client_application_category, :client_application => @education_application, :category => @math)
       @level1 = Factory(:grade, :name => 'level1', :min_score => 0, :max_score => 200)
       @level2 = Factory(:grade, :name => 'level2', :min_score => 201, :max_score => 500)
     end
@@ -24,7 +25,7 @@ describe Api::V1::ScoreTrackersController do
 
       achievement = Achievement.last
       achievement.child.should == @child
-      achievement.client_application_category.should == @math
+      achievement.category.should == @math
       achievement.grade.should == @level1
       achievement.score.should == 100
 
@@ -32,7 +33,7 @@ describe Api::V1::ScoreTrackersController do
     end
 
     it "should upgrade grade" do
-      @achievement = Factory(:achievement, :client_application_category => @math, :score => 150, :grade => @level1, :child => @child)
+      @achievement = Factory(:achievement, :category => @math, :score => 150, :grade => @level1, :child => @child)
       post :create, :score => 100, :child_id => @child.id, :key => @education_application.key, :no_sign => true
       response.should be_ok
 
@@ -42,7 +43,7 @@ describe Api::V1::ScoreTrackersController do
 
       achievement = Achievement.last
       achievement.child.should == @child
-      achievement.client_application_category.should == @math
+      achievement.category.should == @math
       achievement.grade.should == @level2
       achievement.score.should == 250
 

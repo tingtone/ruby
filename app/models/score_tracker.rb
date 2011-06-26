@@ -7,7 +7,7 @@ class ScoreTracker < ActiveRecord::Base
   before_save :check_score_count
   after_save :add_score
 
-  attr_accessor :upgrade
+  attr_accessor :upgrade, :category_id
 
   protected
     def check_score_count
@@ -19,7 +19,9 @@ class ScoreTracker < ActiveRecord::Base
     end
 
     def add_score
-      client_application.categories.each do |category|
+      category = Category.find_by_id(category_id)
+      categories = category ? [category] : client_application.categories
+      categories.each do |category|
         achievement = child.achievements.where(:category_id => category.id).order('score desc').first
         if achievement
           achievement.score += score
