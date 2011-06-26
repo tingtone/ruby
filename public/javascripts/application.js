@@ -1,4 +1,4 @@
-
+// add by Alex Zhang for Sign Up
 $(document).ready(function(){ 
     $("input[name=sign_up]").live('click', function() {
 
@@ -7,6 +7,7 @@ $(document).ready(function(){
         $("#"+value).show();
     }); 
 });
+
 
 (function($) {
   $.fn.ktabs = function() {
@@ -36,7 +37,3 @@ $(document).ready(function(){
   });
 })(jQuery);
 
-
-
-
->>>>>>> develop
