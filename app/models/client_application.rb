@@ -6,9 +6,6 @@ class ClientApplication < ActiveRecord::Base
   has_many :client_application_categories
   has_many :categories, :through => :client_application_categories, :source => :category
 
-  has_many :client_application_languages
-  has_many :languages, :through => :client_application_languages, :source => :language
-
   has_many :rule_definitions
   accepts_nested_attributes_for :rule_definitions
 

@@ -7,7 +7,6 @@ ParentClientApplication.destroy_all
 Parent.destroy_all
 ClientApplicationCategory.destroy_all
 Category.destroy_all
-Language.destroy_all
 Grade.destroy_all
 ClientApplication.destroy_all
 Developer.destroy_all
@@ -30,19 +29,6 @@ geography = Category.create(:name => 'Geography')
 history = Category.create(:name => 'History')
 drawing = Category.create(:name => 'Drawing')
 mixed = Category.create(:name => 'Mixed')
-
-lenglish = Language.create(:name => 'English')
-lchinese = Language.create(:name => 'Chinese')
-ljapanese = Language.create(:name => 'Japanese')
-lkorean = Language.create(:name => 'Korean')
-lspanish = Language.create(:name => 'Spanish')
-litalian = Language.create(:name => 'Italian')
-lgerman = Language.create(:name => 'German')
-lportuguese = Language.create(:name => 'Portuguese')
-lrussian = Language.create(:name => 'Russian')
-ldutch = Language.create(:name => 'Dutch')
-lfrench = Language.create(:name => 'French')
-lswedish = Language.create(:name => 'Swedish')
 
 parent = Parent.create(:email => 'parent@kittypad.com', :password => 'parent', :password_confirmation => 'parent')
 
