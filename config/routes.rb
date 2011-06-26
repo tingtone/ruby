@@ -40,6 +40,7 @@ Server::Application.routes.draw do
     resources :most_downloads
     resources :most_plays
     #root :to => 'analytics#index'
+    match "pages/:action" => "pages"
     root :to => 'game_applications#index'
   end
 
