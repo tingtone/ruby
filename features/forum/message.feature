@@ -13,7 +13,23 @@ Feature: Private message
       When I go to the inbox message page
       Then I should see "Bob"
 
-    Scenario: send new message
+    Scenario: send new message successfully
       Given I am on new message page
       When I write a message with "Bob/Hello/Welcome to Kittypad"
       Then I should be on the inbox message page
+      And I am on the outbox message page
+      Then I should see "lz"
+
+    Scenario: send new message fail
+      Given I am on new message page
+      When I write a message with "NotExistUser/Hello/This is failure example"
+      Then I should see "Topic Create UnSuccessfully.Recipent not exist!"
+      And I am on the outbox message page
+      Then I should not see "lz"
+
+    Scenario: send new group message successfully
+      Given I am on new message page
+      When I write a message with "Bob/Hello/Welcome to Kittypad" checking group
+      Then I should be on the inbox message page
+      Then I should see "lz"
+

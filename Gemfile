@@ -47,4 +47,5 @@ group :test do
   gem 'capybara'
   gem 'cucumber'
   gem 'cucumber-rails'
+  gem 'escape_utils'
 end
