@@ -26,6 +26,8 @@ gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
 gem 'client_side_validations'
+gem 'rails_qaptcha'
+
 
 group :development do 
   gem 'thin'

@@ -188,6 +188,8 @@ GEM
       activesupport (= 3.0.8)
       bundler (~> 1.0)
       railties (= 3.0.8)
+    rails_qaptcha (0.0.1)
+      rails (= 3.0.8)
     railties (3.0.8)
       actionpack (= 3.0.8)
       activesupport (= 3.0.8)
@@ -275,6 +277,7 @@ DEPENDENCIES
   omniauth
   paperclip
   rails (= 3.0.8)
+  rails_qaptcha
   remarkable_activerecord (= 4.0.0.alpha4)
   rspec
   rspec-rails

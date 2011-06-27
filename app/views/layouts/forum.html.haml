@@ -20,9 +20,11 @@
     = stylesheet_link_tag 'reset.css', :media => 'screen'
     = stylesheet_link_tag 'common.css', :media => 'screen'
     = stylesheet_link_tag 'home.css', :media => 'screen'
+    = stylesheet_link_tag :qaptcha
 
     = javascript_include_tag :defaults
-
+    = javascript_include_tag :qaptcha
+    
     = csrf_meta_tag
   %body
     .header.cf
