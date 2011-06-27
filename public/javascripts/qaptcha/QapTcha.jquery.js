@@ -15,8 +15,7 @@ jQuery.QapTcha = {
 			txtLock : 'Locked : form can\'t be submited',
 			txtUnlock : 'Unlocked : form can be submited',
 			disabledSubmit : true,
-			autoRevert : false,
-			PHPfile : 'php/Qaptcha.jquery.php'
+			autoRevert : false
         };   
 		
 		if(this.length>0)
@@ -59,11 +58,9 @@ jQuery.QapTcha = {
 					if(ui.position.left > 150)
 					{
 						// set the SESSION iQaptcha in PHP file
-						$.post(opts.PHPfile,{
-							action : 'qaptcha'
-						},
+						$.post('qaptchas/check',
 						function(data) {
-							if(!data.error)
+							if(data['check'])
 							{
 								Slider.draggable('disable').css('cursor','default');
 								inputQapTcha.val("");

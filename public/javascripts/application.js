@@ -38,5 +38,5 @@ $(document).ready(function(){
 })(jQuery);
 
 $(document).ready(function(){
-  $('#QapTcha').QapTcha();
+  $('.QapTcha').QapTcha({autoRevert:true});
 });

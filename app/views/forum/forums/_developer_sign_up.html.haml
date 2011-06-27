@@ -1,5 +1,5 @@
-%table
-  = form_for(Developer.new, :as => :developer, :url => '/dev') do |f|
+= form_for(Developer.new, :as => :developer, :url => '/dev') do |f|
+  %table
     %tr
       %td{:align=>'right'} name
       %td{:class=>'p8'}= f.text_field :name
@@ -21,6 +21,9 @@
         %br
         Name
       %td{:class=>'p8'}= f.text_field :company_name
+    %tr
+      %td{:colspan => 2}
+        .QapTcha
     %tr
       %td
       %td{:class=>'p8'}= f.submit "Sign Up", :class => "st"
