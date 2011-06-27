@@ -46,4 +46,8 @@ group :test do
   gem 'watchr'
   gem 'mocha'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'escape_utils'
 end

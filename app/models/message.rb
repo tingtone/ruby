@@ -57,6 +57,23 @@ class Message
       end
     end
 
+    def box_count(user, options = {})
+      read = options.delete(:read)
+      default_options = {'recipient_deleted' => false}
+      default_options['sender_id'] = user.id if options[:outbox]
+      if options[:box] == 'outbox'
+        default_options['sender_id'] = user.id
+      else
+        default_options['recipient_id'] = user.id
+      end
+      if read
+        default_options['read_at'] = {'$ne' => nil}
+      elsif read == false
+        default_options['read_at'] = nil
+      end
+      Message.count(:conditions => default_options)
+    end
+
     def drops(user, ids, box="inbox")
       if user
         if box == "inbox"

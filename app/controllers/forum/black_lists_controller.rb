@@ -1,7 +1,7 @@
 class Forum::BlackListsController < Forum::BaseController
   #applications center for filter
   #and recommends applications
-  layout "message"
+  layout "forum"
 
   def index
     @blacklists = FblackList.list(current_user,params)

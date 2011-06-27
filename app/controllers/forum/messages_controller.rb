@@ -1,7 +1,7 @@
 class Forum::MessagesController < Forum::BaseController
   before_filter :authenticate_forum_user!, :only => [:create, :update]
 
-  layout "message"
+  layout "forum"
 
   def index
     if not params["page"]
@@ -42,7 +42,7 @@ class Forum::MessagesController < Forum::BaseController
       end
       if ms
         flash[:notice] = "Topic Create Successfully."
-        redirect_to forum_messages_path
+        redirect_to forum_messages_path(:box => 'inbox')
       else
         flash[:error] = "Topic Create UnSuccessfully.#{error}"
         redirect_to new_forum_message_path
@@ -57,6 +57,16 @@ class Forum::MessagesController < Forum::BaseController
     if params[:id]
       m = Message.first(conditions: {_id: params[:id]})
       m.delete(current_user,session[:message_box]||"inbox")
+    end
+    redirect_to :action=>:index, :params => "?box=#{session[:message_box]||"inbox"}"
+  end
+
+  def delete
+    if params[:ids]
+      ms = Message.all(conditions: {_id: {'$in' => params[:ids]}})
+      ms.each do |m|
+        m.delete(current_user,session[:message_box]||"inbox")
+      end
     end
     redirect_to :action=>:index, :params => "?box=#{session[:message_box]||"inbox"}"
   end
