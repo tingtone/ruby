@@ -1,0 +1,14 @@
+<%= javascript_include_tag "checkgroup" %>
+<script type="text/javascript">
+    function click_app(app_store_url, click) {
+        $.get(click, function(data) {
+            window.location = app_store_url;
+        });
+        //show waiting ......
+    }
+</script>
+
+<%= render :partial => "forum/app_centers/application" %>
+
+
+

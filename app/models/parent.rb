@@ -11,7 +11,7 @@ class Parent < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :total_time
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :total_time, :name
 
   has_many :children
   has_many :parent_client_applications
@@ -21,8 +21,11 @@ class Parent < ActiveRecord::Base
   has_many :rule_definitions
   has_many :devices
 
+
+
   before_save :ensure_authentication_token
   before_save :set_client_encrypted_password
+
 
   def add_client_application(client_application)
     unless self.client_applications.include? client_application
@@ -35,6 +38,18 @@ class Parent < ActiveRecord::Base
       self.devices.create(:identifier => device_identifier)
     end
   end
+
+  def set_name
+    self.update_attributes(name: email.split('@').first)
+  end #set_name
+
+  def sync_to_forum_user parent_info
+    password = parent_info[:password]
+    name = email.split('@').first
+    fu = ForumUser.new(name: name, email: email, password: password)
+    fu.from_pad = true
+    fu.save
+  end #sync_to_forum_user
 
   protected
     def set_client_encrypted_password

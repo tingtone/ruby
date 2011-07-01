@@ -1,0 +1,29 @@
+= form_for(Developer.new, :as => :developer, :url => '/dev') do |f|
+  %table
+    %tr
+      %td{:align=>'right'} name
+      %td{:class=>'p8'}= f.text_field :name
+    %tr
+      %td{:align=>'right'} email
+      %td{:class=>'p8'}= f.email_field :email
+    %tr
+      %td{:align=>'right'} password
+      %td{:class=>'p8'}= f.password_field :password
+    %tr
+      %td{:align=>'right'}
+        Conform
+        %br
+        Password
+      %td{:class=>'p8'}= f.password_field :password
+    %tr
+      %td{:align=>'right'}
+        Company
+        %br
+        Name
+      %td{:class=>'p8'}= f.text_field :company_name
+    %tr
+      %td{:colspan => 2}
+        .QapTcha
+    %tr
+      %td
+      %td{:class=>'p8'}= f.submit "Sign Up", :class => "st"

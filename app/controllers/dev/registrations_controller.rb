@@ -18,6 +18,11 @@ class Dev::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def create
+    super
+    Developer.sync_account_to_forum(params[:developer])
+  end #create
+
   def after_sign_up_path_for(resource)
     dev_root_path
   end

@@ -1,0 +1,11 @@
+%ul.nav-ul.cf
+  %li.li-game{:class => [get_games_class(controller_name, action_name)]}
+    = link_to 'Games', forum_app_centers_path
+  %li{:class => [get_news_class(controller_name, action_name)]}= link_to 'News', news_path
+  %li
+  %li{:class => [get_about_class(controller_name, action_name)]}= link_to 'About', about_path
+  - Forum.ordered_forums.each do |of|
+    %li{:class => [get_forum_room_class(controller_name, action_name, of)]}= link_to of.name, forum_forum_topics_path(of)
+
+  %li.search
+    = render '/layouts/forums/search'

@@ -1,0 +1,6 @@
+- simple_form_for [:forum, @forum] do |form|
+  = form.input :name
+  = form.input :description
+  = form.input :position
+
+  .buttons= form.button :submit

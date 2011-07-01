@@ -1,0 +1,123 @@
+<script type="text/javascript" src="/javascripts/jquery.form.js"></script>
+<script type="text/javascript">
+    var current_select;
+    var current_select_data;
+
+    $(document).ready(function() {
+        current_select = $("#csubject");
+        current_select_data = $("#csubject_data");
+        $("#csubject").click(function() {
+            select(this);
+        });
+        $("#cage").click(function() {
+            select(this);
+        });
+        $("#cdeveloper").click(function() {
+            select(this);
+        });
+        $("#cprice").click(function() {
+            select(this);
+        });
+        $("#crelease").click(function() {
+            select(this);
+        });
+
+        /* $("#search_button").click(function() {
+         $('#search_form').submit();
+         });
+         */
+
+        $("#category_all").checkgroup({groupName:"client_application_category_id[]"});
+        $("#price_all").checkgroup({groupName:"price[]"});
+        //$("#developer_all").checkgroup({groupName:"developer_id[]"});
+        $("#age_all").checkgroup({groupName:"age[]"});
+
+        var options = {
+            target:        '#search_content',
+            success:       showResponse,
+            beforeSubmit:  showRequest
+        };
+        $('#search_form').ajaxForm(options);
+    });
+    function showResponse() {
+        $("#loader").hide();
+    }
+    function showRequest() {
+        $("#loader").show();
+    }
+
+    function select(obj) {
+
+        if (obj.id != current_select.attr("id")) {
+            $(obj).attr("class", "cur");
+            current_select.attr("class", "");
+            current_select = $(obj);
+
+            current_select_data.hide();
+            current_select_data = $("#" + obj.id + "_data");
+            if (current_select_data)
+                current_select_data.show();
+        }
+    }
+
+
+</script>
+
+<div class="games-nav cf">
+  <form id="search_form" method="GET" action="/forum/app_centers/ajax_search">
+    <div class="games-nav-left">
+      <p>Please refine your search</p>
+      <ul class="cf">
+        <li><a id="csubject" class="cur" href="#">Subject</a></li>
+        <li><a id="cage" href="#">Age Group</a></li>
+        <li><a id="cdeveloper" href="#">Developer</a></li>
+        <li><a id="cprice" href="#">Price</a></li>
+        <li><a id="crelease" href="#">Release Date</a></li>
+      </ul>
+      <div id="csubject_data" class="cbox">
+        <% @categories.each do |category| %>
+            <input name="client_application_category_id[]" value="<%= category.id %>" type="checkbox"><%= category.name %>
+        <% end %>
+        <input type="checkbox" id="category_all">All
+      </div>
+      <div id="cage_data" class="cbox" style="display:none">
+        <input name="age[]" value="2-4" type="checkbox">2-4
+        <input name="age[]" value="3-5" type="checkbox">3-5
+        <input name="age[]" value="4-6" type="checkbox">4-6
+        <input name="age[]" value="5-7" type="checkbox">5-7
+        <input name="age[]" value="6-8" type="checkbox">6-8
+        <input name="age[]" value="7-9" type="checkbox">7-9
+        <input name="age[]" value="8-10" type="checkbox">8-10
+        <input name="age[]" value="10-11" type="checkbox">10-11
+        <input name="age[]" value="11-12" type="checkbox">11-12
+        <input id="age_all" value="0" type="checkbox">All
+      </div>
+      <div id="cdeveloper_data" class="cbox" style="display:none">
+        <% @devs.each do |dev| %>
+            <input name="developer_id" value="<%= dev.id %>" type="radio"><%= dev.name||"anonym" %>
+        <% end %>
+        <input  name="developer_id" value="" id="developer_all" type="radio">All
+      </div>
+      <div id="cprice_data" class="cbox" style="display:none">
+        <input name="price[]" value="0" type="checkbox">Free
+        <input name="price[]" value="0.99" type="checkbox">$0.99
+        <input name="price[]" value="1.99" type="checkbox">$1.99
+        <input name="price[]" value="2.99" type="checkbox">$2.99
+        <input name="price[]" value="3.99" type="checkbox">$3.99
+        <input name="price[]" value=">3.99" type="checkbox">$3.99 up
+        <input id="price_all" value="all" type="checkbox">All
+      </div>
+
+      <div id="crelease_data" class="cbox" style="display:none">
+        <input name="created_at" value="<%= 1.weeks.ago %>" type="radio">latest week
+        <input name="created_at" value="<%= 1.month.ago %>" type="radio">latest month
+        <input name="created_at" value="<%= Time.now %>" type="radio">All
+      </div>
+
+    </div>
+    <div class="games-nav-right">
+      <img src="/images/indicator.gif" id="loader" style="display:none"/>
+      <input id="search_button" type="image" src="/images/search.png"/>
+    </div>
+  </form>
+</div>

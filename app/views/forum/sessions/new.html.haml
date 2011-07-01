@@ -1,0 +1,24 @@
+.wrap-login
+  .login-ct
+    %h3 Login
+    .login-box
+      %p
+        Not a Kittypad User?
+        = link_to "Sign Up", sign_up_path
+      %table
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          %tr
+            %td{:align=>'right'} Email
+            %td.p8= f.email_field :email
+          %tr
+            %td{:align=>'right'} Password
+            %td.p8= f.password_field :password
+          - if devise_mapping.rememberable?
+            %tr
+              %td
+                %p.input
+                  = f.label :remember_me
+                  = f.check_box :remember_me
+          %tr
+            %td
+            %td= f.submit "Login", :class => 'st'

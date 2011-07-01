@@ -5,7 +5,7 @@ class Developer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :company_name, :email, :password, :password_confirmation, :remember_me
 
   has_many :client_applications
   has_many :game_applications
@@ -13,4 +13,17 @@ class Developer < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name
+  
+  def self.sync_account_to_forum developer_info
+    name = developer_info[:name]
+    email = developer_info[:email]
+    password = developer_info[:password]
+    fu = ForumUser.new(name: name, email: email, password: password)
+    fu.from_dev = true
+    fu.save
+    fu.roles << Role.developer
+  end #sync_account_to_forum
+
+  validates_presence_of :company_name
+
 end

@@ -1,0 +1,5 @@
+<% if page.current? %>
+    <a class="cur" href="#"><%= page %></a>
+<% else %>
+    <%= link_to raw("#{page}"), url%>
+<% end %>

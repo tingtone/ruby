@@ -1,14 +1,23 @@
-<h2>Analytics on <%=@edu_app.name%></h2>
- <div id="container_game_time" class="chart-container"></div> 
- <% content_for :javascript do %>  
- 	<%=@edu_time_chart%> 
- <%end%>
+<% content_for :left do %>
+   <%= render :partial => "parent/game_applications/menu" %>
+<% end %>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        <%= yield :javascript %>
-    });
-</script>
+<% content_for :right do %> 
+ <h3>Analytics on <%=@edu_app.name%></h3>
+  <div id="container_game_time" class="chart-container"></div> 
+  <% content_for :javascript do %>  
+  	<%=@edu_time_chart%> 
+  <%end%>
+
+ <script type="text/javascript">
+     $(document).ready(function() {
+         <%= yield :javascript %>
+     });
+ </script>
+<% end %>
+
+
+
 
 
     

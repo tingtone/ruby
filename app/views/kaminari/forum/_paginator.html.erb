@@ -1,0 +1,12 @@
+<%= paginator.render do -%>
+    <div class="fontpage">
+      <span>Page <%= current_page %> of <%=num_pages%></span>
+      <%= prev_page_tag -%>
+        <% each_page.select(&:inside_window?).each do |page| %>
+        <%= page_tag page -%>
+      <% end %>
+      <a href="#">&gt;</a>
+      <%= next_page_tag -%>
+    </div>
+
+<% end -%>

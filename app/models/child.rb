@@ -52,4 +52,25 @@ class Child < ActiveRecord::Base
   def bonus_time
     @bonus_time ||= bonus.sum(:time, :conditions => ["expired_on >= ?", Date.today])
   end
+
+
+  def rating_range
+    #get age range
+    if self.birthday
+     year = Time.now.year - self.birthday.year
+     for rating in GameApplication::RATINGS.sort()
+       if year < rating
+         break
+       end
+     end
+     rating
+    end
+  end
+
+  def age_range
+    year = 0
+    year = Time.now.year - self.birthday.year if self.birthday
+    year
+  end
+
 end

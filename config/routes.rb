@@ -1,10 +1,16 @@
 Server::Application.routes.draw do
+  root :to => "forum/forums#index"
+  match "/about(.:format)" => 'forum/forums#about', :as => :about
+  match "/news(.:format)" => 'forum/forums#news', :as => :news
+  match "/sign_up(.:format)" => 'forum/forums#sign_up', :as => :sign_up
+  
   get "most_plays/index"
 
   get "most_downloads/index"
 
-  devise_for :developers, :path => 'dev', :controllers => { :sessions => "dev/sessions", :registrations => "dev/registrations" }
-  devise_for :parents, :path => 'parent', :controllers => { :sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords" }
+  devise_for :developers, :path => 'dev', :controllers => {:sessions => "dev/sessions", :registrations => "dev/registrations"}
+  devise_for :parents, :path => 'parent', :controllers => {:sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords"}
+  devise_for :forum_users, :path => 'forum', :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations'}
 
   namespace :dev do
     resources :game_applications
@@ -34,6 +40,7 @@ Server::Application.routes.draw do
     resources :most_downloads
     resources :most_plays
     #root :to => 'analytics#index'
+    match "pages/:action" => "pages"
     root :to => 'game_applications#index'
   end
 
@@ -50,8 +57,40 @@ Server::Application.routes.draw do
 
   namespace :forum do
     #TODO
-    resources :app_centers
+    resources :forums do
+      resources :topics
+    end
+    resources :topics do
+      resources :posts do
+        member do
+          post :reply
+        end
+      end
+    end
+
+    resources :searches
+    root :to => "forums#index"
+    resources :app_centers, :only => [:index] do
+      member do
+        get :click
+      end
+      collection do
+        get :ajax_search
+      end
+    end
+    resources :messages do
+      member do
+        #get :view
+        get :reply
+      end
+      collection do
+        delete :delete
+      end
+    end
+    resources :black_lists
   end
+
+  #match ':messages/:view/:id/'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

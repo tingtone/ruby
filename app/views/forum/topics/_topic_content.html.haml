@@ -1,0 +1,19 @@
+%tr
+  %th{:width => "193", :class => 'tm'}= format_time @topic.updated_at
+  %th.pos #1
+
+%tr
+  %td.td-name
+    %h3= @author.name
+    .tx
+      = image_tag("tx.gif")
+    .when
+      %ul
+        %li= "Joined: #{format_time @author.created_at}"
+        %li= "Location: USA"
+        %li= "Posts: #{@author.posts_count + @author.topics_count}"
+
+  %td.td-detail
+    %h3= @topic.title
+    .details
+      %p= @topic.content

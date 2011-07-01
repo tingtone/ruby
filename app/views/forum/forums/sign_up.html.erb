@@ -1,0 +1,36 @@
+<div class="wrap-login">
+    
+     
+      <div class="login-ct">
+         <h3 class="reg">Sign up</h3>
+         <div class="login-box">
+          
+           <p></p>
+           <table>
+             <tr>
+                <td align="right">I'm a</td>
+                <td class="p8">
+                <input type="radio" name="sign_up" value="parent" checked='checked'/>parent
+                <input type="radio"  name="sign_up" value="developer"/>devloper
+                </td>
+             </tr>
+           </table>
+
+           <div class="sign_up_form" id="parent">
+             <%= render "parent_sign_up" %>
+           </div>
+
+           <div class="sign_up_form" id="developer" style="display:none;">
+           <%= render 'developer_sign_up' %>
+           </div>
+
+
+
+
+         </div>
+       
+        <div class="login-shadow regs"></div>
+      
+      </div>
+   
+  </div>

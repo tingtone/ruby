@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    function set_typee(typee) {
+        $("#typee").val(typee);
+    }
+    $(document).ready(function() {
+        $('#search_topic').click(function() {
+            set_typee('Topic');
+        });
+        $('#search_user').click(function() {
+            set_typee('User');
+        });
+        $('#search_app').click(function() {
+            set_typee('App');
+        });
+    });
+</script>
+
+<%= simple_form_for :search, :url => forum_searches_path do |f| %>
+    <table>
+      <tr>
+        <td class="key">
+          <input type="text" value="<%= params[:keywords] %>" required="required" name="search[keywords]" id="search_keywords"/>
+          <input type="hidden" id="typee" name="search[typee]" value="<%= params[:typee]||'Topic' %>"/>
+        </td>
+        <td class="select">
+    <span id="platform_select">
+      <span id="search_topic"
+            <% if params[:typee]=="Topic" or not params[:typee] %>class="menu_selected" <% else %> style="display:none;" <% end %> >
+             Threads
+      </span>
+      <span id="search_user"
+            <% if params[:typee]=="User"%>class="menu_selected" <% else %> style="display:none;"  <% end %>>
+            User
+      </span>
+      <span id="search_app"   <% if params[:typee]=="App"%>class="menu_selected" <% else %> style="display:none;"  <% end %>>
+            App
+      </span>
+   </span>
+        </td>
+        <td class="btn"><%= f.submit "Search" %></td>
+      </tr>
+    </table>
+<% end -%>
+
+

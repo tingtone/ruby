@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.8'
 gem 'mysql2', '0.2.7'
 gem 'capistrano'
 gem 'capistrano-ext'
@@ -15,7 +15,21 @@ gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'paperclip'
 
-group :development do
+# ======================for forums
+gem 'mongoid'
+gem 'bson_ext'
+gem 'cancan'
+gem 'mongoid_acts_as_tree'
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'omniauth'
+gem 'kaminari'
+gem 'mongoid_slug'
+gem 'state_machine'
+gem 'client_side_validations'
+gem 'rails_qaptcha'
+
+
+group :development do 
   gem 'thin'
   gem 'awesome_print', :require => 'ap'
 end
@@ -32,4 +46,8 @@ group :test do
   gem 'watchr'
   gem 'mocha'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'escape_utils'
 end
