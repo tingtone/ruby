@@ -1,6 +1,6 @@
 class CreateChildScoreStats < ActiveRecord::Migration
   def self.up
-    create_table :stats_child_score_stats do |t|
+    create_table :child_score_stats do |t|
       t.integer :child_id
       t.integer :client_application_id
       t.integer :total_score,:default=>0
@@ -12,10 +12,10 @@ class CreateChildScoreStats < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :stats_child_score_stats, :child_id
+    add_index :child_score_stats, :child_id
   end
 
   def self.down
-    drop_table :stats_child_score_stats
+    drop_table :child_score_stats
   end
 end

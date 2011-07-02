@@ -1,6 +1,6 @@
 class CreateAppScoreStats < ActiveRecord::Migration
   def self.up
-    create_table :stats_app_score_stats do |t|
+    create_table :app_score_stats do |t|
       t.integer :age_group
       t.integer :total_score,:default=>0
       t.integer :total_times,:default=>0
@@ -9,11 +9,11 @@ class CreateAppScoreStats < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :stats_app_score_stats, :app_type
-    add_index :stats_app_score_stats, [:client_application_id,:age_group],:name=>"index_app_age_group", :unique => true
+    add_index :app_score_stats, :app_type
+    add_index :app_score_stats, [:client_application_id,:age_group],:name=>"index_app_age_group", :unique => true
   end
 
   def self.down
-    drop_table :stats_app_stats
+    drop_table :app_score_stats
   end
 end

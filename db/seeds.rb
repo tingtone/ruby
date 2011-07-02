@@ -10,6 +10,8 @@ Category.destroy_all
 Grade.destroy_all
 ClientApplication.destroy_all
 Developer.destroy_all
+ScoreTracker.destroy_all
+Stats::AppStat.destroy_all
 
 developer = Developer.create(:name => 'Richard', :company_name => 'Kittypad', :email => 'richard@kittypad.com', :password => 'richard', :password_confirmation => 'richard')
 
@@ -65,4 +67,13 @@ education_application2.time_trackers.create(:child => child2, :time => 40, :crea
 ScoreTracker.create(:child => child1, :client_application => education_application1, :score => 100)
 ScoreTracker.create(:child => child2, :client_application => education_application2, :score => 200)
 
+#child1,child2
+Stats::AppStat.log(child1, game_application1, 10)
+Stats::AppStat.log(child1, game_application2, 8)
+Stats::AppStat.log(child1, education_application1, 10)
+Stats::AppStat.log(child1, education_application2, 8)
 
+Stats::AppStat.log(child2, game_application1, 12)
+Stats::AppStat.log(child2, game_application2, 7)
+Stats::AppStat.log(child2, education_application1, 12)
+Stats::AppStat.log(child2, education_application2, 7)
