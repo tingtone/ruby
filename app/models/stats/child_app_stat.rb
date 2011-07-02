@@ -28,10 +28,13 @@ class Stats::ChildAppStat < ActiveRecord::Base
     def log(child, app, time)
       #记录 孩子应用程序总使用时间
       if child and app
-        stats = self.find_or_create(:first, :conditions=>["child_id=? and client_application_id=?", [child.id, app.id]])
-        stats.child = child
-        stats.app = app
-        stats.app_type = app.type
+        stats = self.find(:first, :conditions=>["child_id=? and client_application_id=?", child.id, app.id])
+        if stats.blank?
+          stats = Stats::ChildAppStat.new
+          stats.child = child
+          stats.client_application = app
+          stats.app_type = app.type
+        end
         stats.sum_time += time
         stats.total_times += 1
         stats.save!

@@ -20,9 +20,13 @@ class Stats::AppScoreStat < ActiveRecord::Base
       #记录 孩子应用程序总使用时间
       #（应用程序，年龄组）标识一条记录
       if child and app
-        stats = self.find_or_create(:first, :conditions=>["client_application_id=? and age_group=?", app.id, child.age_group])
-        stats.app = app
-        stats.app_type = app.type
+        stats = self.find(:first, :conditions=>["client_application_id=? and age_group=?", app.id, child.age_group])
+        if stats.blank?
+          stats = Stats::AppScoreStat.new
+          stats.client_application = app
+          stats.client_application = app
+          stats.app_type = app.type
+        end
         stats.total_score += score
         stats.total_times += 1
         stats.age_group = child.age_group

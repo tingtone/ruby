@@ -67,7 +67,12 @@ education_application2.time_trackers.create(:child => child2, :time => 40, :crea
 ScoreTracker.create(:child => child1, :client_application => education_application1, :score => 100)
 ScoreTracker.create(:child => child2, :client_application => education_application2, :score => 200)
 
-#child1,child2
+#以下是统计模拟数据
+#通过总结统计信息分为两大类，两大类中又分为两小类
+#1.应用程序统计 ：分为 score 和 使用 time 统计
+#2.孩子的应用程序统计：分为score 和 使用 time 统计
+
+#App
 Stats::AppStat.log(child1, game_application1, 10)
 Stats::AppStat.log(child1, game_application2, 8)
 Stats::AppStat.log(child1, education_application1, 10)
@@ -77,3 +82,43 @@ Stats::AppStat.log(child2, game_application1, 12)
 Stats::AppStat.log(child2, game_application2, 7)
 Stats::AppStat.log(child2, education_application1, 12)
 Stats::AppStat.log(child2, education_application2, 7)
+
+
+Stats::AppScoreStat.log(child1, game_application1, 20)
+Stats::AppScoreStat.log(child1, game_application2, 13)
+Stats::AppScoreStat.log(child1, education_application1, 11)
+Stats::AppScoreStat.log(child1, education_application2, 8)
+
+Stats::AppScoreStat.log(child2, game_application1, 12)
+Stats::AppScoreStat.log(child2, game_application2, 7)
+Stats::AppScoreStat.log(child2, education_application1, 12)
+Stats::AppScoreStat.log(child2, education_application2, 7)
+
+#Child
+Stats::ChildAppStat.log(child1, game_application1, 10)
+Stats::ChildAppStat.log(child1, game_application2, 8)
+Stats::ChildAppStat.log(child1, education_application1, 10)
+Stats::ChildAppStat.log(child1, education_application2, 8)
+
+Stats::ChildAppStat.log(child2, game_application1, 12)
+Stats::ChildAppStat.log(child2, game_application2, 7)
+Stats::ChildAppStat.log(child2, education_application1, 12)
+Stats::ChildAppStat.log(child2, education_application2, 7)
+
+
+Stats::ChildScoreStat.log(child1, game_application1, 20)
+Stats::ChildScoreStat.log(child1, game_application2, 13)
+Stats::ChildScoreStat.log(child1, education_application1, 11)
+Stats::ChildScoreStat.log(child1, education_application2, 8)
+
+Stats::ChildScoreStat.log(child2, game_application1, 12)
+Stats::ChildScoreStat.log(child2, game_application2, 7)
+Stats::ChildScoreStat.log(child2, education_application1, 12)
+Stats::ChildScoreStat.log(child2, education_application2, 7)
+
+
+
+
+
+
+
