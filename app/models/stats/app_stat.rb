@@ -39,13 +39,17 @@ class Stats::AppStat < ActiveRecord::Base
       end
     end
 
-    def total_app_time(type, page=1, page_size=10)
+    def total_app_time(page=1, page_size=10)
       #应用程序使用时间排序
       sorted = "sum_time desc"
       select = "sum(sum_time) as sum_time,sum(total_times) as total_times,client_application_id"
-      conditions = ""
-      conditions = ["app_type=?", type] if type
-      Stats::AppStat.where(conditions).select(select).group("client_application_id").includes(:client_application).order(sorted).page(page||1).per(page_size)
+      Stats::AppStat.select(select).group("client_application_id").includes(:client_application).order(sorted).page(page||1).per(page_size)
+    end
+
+    def group_app_type
+      #应用程序分类 使用时间排序
+      select = "sum(sum_time) as sum_time,sum(total_times) as total_times,app_type"
+      Stats::AppStat.select(select).group("app_type")
     end
 
     def age_group_time(app)

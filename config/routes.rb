@@ -12,6 +12,12 @@ Server::Application.routes.draw do
   devise_for :parents, :path => 'parent', :controllers => {:sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords"}
   devise_for :forum_users, :path => 'forum', :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations'}
 
+  namespace :analytics do
+    resources :app_stats
+    resources :child_app_stats
+    root :to => 'app_stats#index'
+  end
+
   namespace :dev do
     resources :game_applications
     resources :education_applications
