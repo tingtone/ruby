@@ -64,3 +64,5 @@ education_application2.time_trackers.create(:child => child2, :time => 40, :crea
 
 ScoreTracker.create(:child => child1, :client_application => education_application1, :score => 100)
 ScoreTracker.create(:child => child2, :client_application => education_application2, :score => 200)
+
+

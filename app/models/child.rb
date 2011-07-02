@@ -72,5 +72,6 @@ class Child < ActiveRecord::Base
     year = Time.now.year - self.birthday.year if self.birthday
     year
   end
+  alias_method :age_group, :age_range
 
 end
