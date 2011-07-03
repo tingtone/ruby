@@ -96,6 +96,11 @@ Server::Application.routes.draw do
     resources :black_lists
   end
 
+  namespace :mobile do
+    resources :exchange
+    root :to => 'exchange#index'
+  end
+
   #match ':messages/:view/:id/'
 
   # The priority is based upon order of creation:
