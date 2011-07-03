@@ -51,30 +51,9 @@ class Api::BaseController < ApplicationController
         raw_params = if (request.get? || request.delete?)
           request.query_string
         else
-          if params[:child].try(:[], :avatar)
-            text = "&child[birthday]=#{params[:child][:birthday]}"
-            text << "child[fullname]=#{params[:child][:fullname]}"
-            text << "&child[gender]=#{params[:child][:gender]}"
-            if params[:child][:rule_definitions_attributes]
-              text << "&child[rule_definitions_attributes][0][period]=#{params[:child][:rule_definitions_attributes][0][:period]}"
-              text << "&child[rule_definitions_attributes][0][time]=#{params[:child][:rule_definitions_attributes][0][:time]}"
-              text << "&child[rule_definitions_attributes][1][period]=#{params[:child][:rule_definitions_attributes][1][:period]}"
-              text << "&child[rule_definitions_attributes][1][time]=#{params[:child][:rule_definitions_attributes][1][:time]}"
-              text << "&child[rule_definitions_attributes][2][period]=#{params[:child][:rule_definitions_attributes][2][:period]}"
-              text << "&child[rule_definitions_attributes][2][time]=#{params[:child][:rule_definitions_attributes][2][:time]}"
-              text << "&child[rule_definitions_attributes][3][period]=#{params[:child][:rule_definitions_attributes][3][:period]}"
-              text << "&child[rule_definitions_attributes][3][time]=#{params[:child][:rule_definitions_attributes][3][:time]}"
-            end
-            if params[:parent_id]
-              text << "&parent_id=#{params[:parent_id]}"
-            end
-          else
-            request.raw_post
-          end
+          request.raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
-        # remove child avatar
-        raw_params.sub!(/child\[avatar\]=.*?&/, '')
         string = "#{request.path}+#{current_client_application.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         cal = sign(string, current_client_application.secret)
         cal == signature

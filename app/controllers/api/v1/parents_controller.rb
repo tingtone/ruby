@@ -1,20 +1,35 @@
 class Api::V1::ParentsController < Api::V1::BaseController
+  def save
+    @parent = Parent.find_by_email(params[:parent][:email])
+    if @parent
+      update
+    else
+      create
+    end
+  end
+
   def create
-    parent = Parent.new(params[:parent])
-    if parent.save && parent.devices.create(params[:device])
-      parent.add_client_application(current_client_application)
-      parent.set_name
-      parent.sync_to_forum_user(params[:parent])
+    @parent = Parent.new(params[:parent])
+    if @parent.save
+      @parent.add_device(params[:device][:identifier])
+      @parent.add_client_application(current_client_application)
       render :json => {
-        :error => false,
-        :parent => {
-          :id => parent.id,
-          :authentication_token => parent.authentication_token,
-          :global_rule_definitions => RuleDefinition.globals
-        }
+        :error => false
       }
     else
-      render :json => {:error => true, :messages => parent.errors.full_messages}
+      render :json => {:error => true, :messages => @parent.errors.full_messages}
+    end
+  end
+
+  def update
+    if @parent.update_attributes(params[:parent])
+      @parent.add_device(params[:device][:identifier])
+      @parent.add_client_application(current_client_application)
+      render :json => {
+        :error => false
+      }
+    else
+      render :json => {:error => true, :messages => @parent.errors.full_messages}
     end
   end
 end

@@ -6,13 +6,11 @@ describe Api::V1::ParentsController do
       @client_application = Factory(:education_application)
     end
 
-    it "should success" do
-      post :create, :parent => {:email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent'}, :device => {:identifier => 'device-identifier'}, :format => :json, :key => @client_application.key, :no_sign => true
+    it "should success to create a parent" do
+      post :save, :parent => {:email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent'}, :device => {:identifier => 'device-identifier'}, :format => :json, :key => @client_application.key, :no_sign => true
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-      json_response['parent']['id'].should_not be_blank
-      json_response['parent']['authentication_token'].should_not be_blank
 
       Parent.last.client_applications.should be_include(@client_application)
       Parent.last.devices.should be_include(Device.last)
@@ -20,22 +18,25 @@ describe Api::V1::ParentsController do
       Parent.last.name.should == 'parent'
       
       Device.last.identifier.should == 'device-identifier'
+    end
 
+    it "should success to update a parent" do
+      parent = Factory(:parent, :email => 'parent@test.com')
+      device = Factory(:device, :parent => parent)
 
-      ForumUser.last.name.should == 'parent'
-      ForumUser.last.email.should == 'parent@test.com'
-      ForumUser.last.from_pad.should == true
-      
+      post :save, :parent => {:email => 'parent@test.com', :password => 'parent', :password_confirmation => 'parent'}, :device => {:identifier => 'device-identifier'}, :format => :json, :key => @client_application.key, :no_sign => true
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == false
 
-      rule_definitions = json_response['parent']['global_rule_definitions']
-      rule_definitions['game_day_time'].should == 30
-      rule_definitions['game_week_time'].should == 60
-      rule_definitions['total_day_time'].should == 120
-      rule_definitions['total_week_time'].should == 240
+      parent.reload
+      device.reload
+      parent.client_applications.collect(&:id).should be_include(@client_application.id)
+      parent.devices.collect(&:id).should be_include(device.id)
     end
 
     it "should fail" do
-      post :create, :parent => {:email => 'parent@test.com'}, :format => :json, :no_sign => true
+      post :save, :parent => {:email => 'parent@test.com'}, :format => :json, :no_sign => true
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == true

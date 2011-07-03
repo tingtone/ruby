@@ -52,12 +52,14 @@ Server::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post "parents/save"
       resources :parents, :only => [:create]
       resources :parent_sessions, :only => [:create]
       resources :children, :only => [:create, :update]
       resources :time_trackers, :only => [:create]
       resources :score_trackers, :only => [:create]
       resources :passwords, :only => [:create]
+      resources :devices
     end
   end
 
