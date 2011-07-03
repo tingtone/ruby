@@ -12,11 +12,15 @@ ClientApplication.destroy_all
 Developer.destroy_all
 ScoreTracker.destroy_all
 Stats::AppStat.destroy_all
+Stats::ChildScoreStat.destroy_all
+Stats::ChildAppStat.destroy_all
+Stats::AppScoreStat.destroy_all
+Stats::AppStat.destroy_all
 
 developer = Developer.create(:name => 'Richard', :company_name => 'Kittypad', :email => 'richard@kittypad.com', :password => 'richard', :password_confirmation => 'richard')
 
-game_application1 = developer.game_applications.create(:name => 'first app', :description => 'first app', :identifier => 'com.apple.identifier1')
-game_application2 = developer.game_applications.create(:name => 'second app', :description => 'second app', :identifier => 'com.apple.identifier2')
+game_application1 = developer.game_applications.create(:name => 'faster', :description => 'first app', :identifier => 'com.apple.identifier1')
+game_application2 = developer.game_applications.create(:name => 'angry pig', :description => 'second app', :identifier => 'com.apple.identifier2')
 
 [[:level_1, 0, 300], [:level_2, 301, 800], [:level_3, 801, 1500], [:level_4, 1501, 2500], [:level_5, 2501, 4000], [:level_6, 4001, 60000], [:level_7, 8001, 10000]].each_with_index do |grade, index|
   name, min_score, max_score = *grade
@@ -40,17 +44,17 @@ ParentClientApplication.create(:parent => parent, :client_application => game_ap
 child1 = parent.children.create(:fullname => 'Child1', :gender => 'boy', :birthday => 1068134400)
 child2 = parent.children.create(:fullname => 'Child2', :gender => 'girl', :birthday => 1162396800)
 
-game_application1.time_trackers.create(:child=>child1,:time=>30,:created_at => 2.days.ago)
-game_application1.time_trackers.create(:child=>child1,:time=>20,:created_at => 4.days.ago)
-game_application1.time_trackers.create(:child=>child1,:time=>50,:created_at => 5.days.ago)
+game_application1.time_trackers.create(:child=>child1, :time=>30, :created_at => 2.days.ago)
+game_application1.time_trackers.create(:child=>child1, :time=>20, :created_at => 4.days.ago)
+game_application1.time_trackers.create(:child=>child1, :time=>50, :created_at => 5.days.ago)
 
-game_application2.time_trackers.create(:child=>child2,:time=>10,:created_at => 1.days.ago)
-game_application2.time_trackers.create(:child=>child2,:time=>30,:created_at => 3.days.ago)
-game_application2.time_trackers.create(:child=>child2,:time=>40,:created_at => 5.days.ago)
+game_application2.time_trackers.create(:child=>child2, :time=>10, :created_at => 1.days.ago)
+game_application2.time_trackers.create(:child=>child2, :time=>30, :created_at => 3.days.ago)
+game_application2.time_trackers.create(:child=>child2, :time=>40, :created_at => 5.days.ago)
 
-education_application1 = developer.education_applications.create(:name => 'first edu', :description => 'first edu', :identifier => 'com.apple.edu.identifier1')
+education_application1 = developer.education_applications.create(:name => 'ninja math', :description => 'ninja math', :identifier => 'com.apple.edu.identifier1')
 education_application1.client_application_categories.create(:category => math)
-education_application2 = developer.education_applications.create(:name => 'second edu', :description => 'second edu', :identifier => 'com.apple.edu.identifier2')
+education_application2 = developer.education_applications.create(:name => 'letter on', :description => 'letter on', :identifier => 'com.apple.edu.identifier2')
 education_application2.client_application_categories.create(:category => english)
 
 ParentClientApplication.create(:parent => parent, :client_application => education_application1)
@@ -89,21 +93,21 @@ Stats::AppScoreStat.log(child1, game_application2, 13)
 Stats::AppScoreStat.log(child1, education_application1, 11)
 Stats::AppScoreStat.log(child1, education_application2, 8)
 
-Stats::AppScoreStat.log(child2, game_application1, 12)
-Stats::AppScoreStat.log(child2, game_application2, 7)
-Stats::AppScoreStat.log(child2, education_application1, 12)
-Stats::AppScoreStat.log(child2, education_application2, 7)
+Stats::AppScoreStat.log(child2, game_application1, 18)
+Stats::AppScoreStat.log(child2, game_application2, 13)
+Stats::AppScoreStat.log(child2, education_application1, 32)
+Stats::AppScoreStat.log(child2, education_application2, 6)
 
 #Child
-Stats::ChildAppStat.log(child1, game_application1, 10)
+Stats::ChildAppStat.log(child1, game_application1, 19)
 Stats::ChildAppStat.log(child1, game_application2, 8)
-Stats::ChildAppStat.log(child1, education_application1, 10)
-Stats::ChildAppStat.log(child1, education_application2, 8)
+Stats::ChildAppStat.log(child1, education_application1, 11)
+Stats::ChildAppStat.log(child1, education_application2, 10)
 
 Stats::ChildAppStat.log(child2, game_application1, 12)
 Stats::ChildAppStat.log(child2, game_application2, 7)
-Stats::ChildAppStat.log(child2, education_application1, 12)
-Stats::ChildAppStat.log(child2, education_application2, 7)
+Stats::ChildAppStat.log(child2, education_application1, 22)
+Stats::ChildAppStat.log(child2, education_application2, 17)
 
 
 Stats::ChildScoreStat.log(child1, game_application1, 20)
@@ -111,12 +115,22 @@ Stats::ChildScoreStat.log(child1, game_application2, 13)
 Stats::ChildScoreStat.log(child1, education_application1, 11)
 Stats::ChildScoreStat.log(child1, education_application2, 8)
 
-Stats::ChildScoreStat.log(child2, game_application1, 12)
-Stats::ChildScoreStat.log(child2, game_application2, 7)
+Stats::ChildScoreStat.log(child2, game_application1, 22)
+Stats::ChildScoreStat.log(child2, game_application2, 17)
 Stats::ChildScoreStat.log(child2, education_application1, 12)
 Stats::ChildScoreStat.log(child2, education_application2, 7)
 
+50.times do |i|
+  Stats::AppScoreStat.log(child1, game_application1, rand(i) )
+  Stats::AppScoreStat.log(child1, game_application2, rand(i))
+  Stats::AppScoreStat.log(child1, education_application1, rand(i))
+  Stats::AppScoreStat.log(child1, education_application2, rand(i))
 
+  Stats::AppScoreStat.log(child2, game_application1, rand(i) )
+  Stats::AppScoreStat.log(child2, game_application2, rand(i))
+  Stats::AppScoreStat.log(child2, education_application1, rand(i))
+  Stats::AppScoreStat.log(child2, education_application2, rand(i))
+end
 
 
 

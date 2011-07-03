@@ -29,16 +29,16 @@ class Stats::ChildScoreStat < ActiveRecord::Base
       #（child , app , span , timetag）标识一条记录
       # 目前默认时间为 timetag
       if child and app
-        time_tag = Time.now.beginning_of_week
+        time_tag = Time.now.beginning_of_week.to_i
         stats = self.find(:first, :conditions=>["child_id=? and client_application_id=? and span=? and timetag=?", child.id, app.id, WEEK, time_tag])
         if stats.blank?
           stats = Stats::ChildScoreStat.new
           stats.client_application = app
           stats.app_type = app.type
           stats.child = child
+          stats.span = WEEK
+          stats.timetag = time_tag
         end
-        stats.span = WEEK
-        stats.timetag = time_tag
         stats.total_score += score
         stats.total_times += 1
         stats.save!

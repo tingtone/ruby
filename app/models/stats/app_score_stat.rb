@@ -49,6 +49,10 @@ class Stats::AppScoreStat < ActiveRecord::Base
       Stats::AppStat.where(:client_application=>app).includes(:client_application).order(sorted) if app
     end
 
+    def age_groups(app)
+
+    end
+
 
   end
 

@@ -7,6 +7,14 @@ gem 'capistrano-ext'
 gem 'haml'
 gem 'compass'
 gem 'devise'
+#gem 'dm-core',           '~> 1.1.0'
+#gem 'dm-sqlite-adapter', '~> 1.1.0' # or your preferred adapter
+#gem 'dm-serializer',     '~> 1.1.0'
+#gem 'dm-timestamps',     '~> 1.1.0'
+#gem 'dm-rails',          '~> 1.1.0'
+#gem 'dm-validations',    '~> 1.1.0' # Do not include if using data_mapper_active_model
+#gem 'dm-devise',         '~> 1.4.0'
+
 gem 'simple_form'
 gem 'inherited_resources'
 gem 'oauth'
