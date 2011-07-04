@@ -39,4 +39,5 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   $('.QapTcha').QapTcha({autoRevert:true});
+  $('#markdown').markItUp(myMarkdownSettings);
 });

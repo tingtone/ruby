@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.8'
+gem 'rails', '3.0.9'
 gem 'mysql2', '0.2.7'
 gem 'capistrano'
 gem 'capistrano-ext'
@@ -26,8 +26,12 @@ gem 'kaminari'
 gem 'mongoid_slug'
 gem 'state_machine'
 gem 'client_side_validations'
-gem 'rails_qaptcha'
-
+gem 'rails_qaptcha', "~> 0.0.5"
+gem "redcarpet"
+gem "albino"
+gem "nokogiri"
+gem 'rails_markitup'
+gem 'mongoid_counter_cache'
 
 group :development do 
   gem 'thin'

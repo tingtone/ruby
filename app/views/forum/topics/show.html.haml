@@ -29,7 +29,7 @@
             %td.td-detail
               %h3= "Re: #{post_item.topic.title}"
               .details
-                %p= post_item.content
+                %p= markdown(post_item.content)
 
 
   .forum-top.cf

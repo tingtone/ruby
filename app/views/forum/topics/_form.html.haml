@@ -1,7 +1,7 @@
 - simple_form_for [:forum, @topic] do |form|
   = form.input :forum_id, :as => :hidden, :input_html => { :value => "#{params[:forum_id]}" } 
   = form.input :title
-  = form.input :content, :as => :text
+  = form.input :content, :as => :text, :input_html => {:id => 'markdown'} 
   - if current_user && current_user.has_role?(:admin)
     %p
       = form.input :sticky, :as => :boolean
