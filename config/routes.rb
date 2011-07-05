@@ -8,6 +8,7 @@ Server::Application.routes.draw do
 
   get "most_downloads/index"
 
+  devise_for :users
   devise_for :developers, :path => 'dev', :controllers => {:sessions => "dev/sessions", :registrations => "dev/registrations"}
   devise_for :parents, :path => 'parent', :controllers => {:sessions => "parent/sessions", :registrations => "parent/registrations", :passwords => "parent/passwords"}
   devise_for :forum_users, :path => 'forum', :controllers => {:sessions => "forum/sessions", :registrations => 'forum/registrations'}
