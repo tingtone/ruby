@@ -110,6 +110,9 @@ GEM
     mime-types (1.16)
     mocha (0.9.12)
     mysql2 (0.2.7)
+    nested_set (1.6.7)
+      activerecord (>= 3.0.0)
+      railties (>= 3.0.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -222,6 +225,7 @@ DEPENDENCIES
   kaminari
   mocha
   mysql2 (= 0.2.7)
+  nested_set
   oauth
   paperclip
   rails (= 3.0.9)
