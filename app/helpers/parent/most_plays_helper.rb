@@ -1,2 +1,0 @@
-module Parent::MostPlaysHelper
-end

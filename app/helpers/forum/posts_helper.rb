@@ -1,2 +1,0 @@
-module Forum::PostsHelper
-end

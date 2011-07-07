@@ -1,6 +1,0 @@
-- content_for(:left) do
-  = render "parent/game_applications/menu"
-
-- content_for(:right) do
-  = simple_form_for [:parent, @education_application] do |f|
-    = f.association :client_application_category

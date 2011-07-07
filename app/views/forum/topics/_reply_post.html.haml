@@ -1,4 +1,0 @@
-- simple_form_for @post, :url => reply_forum_topic_post_path(@topic, post) do |form|
-  = form.input :topic_id, :as => :hidden, :label_html => { :value => "#{params[:id]}" }
-  = form.input :content
-  .buttons= form.submit 'Reply'

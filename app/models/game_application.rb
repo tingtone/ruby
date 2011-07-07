@@ -1,2 +1,0 @@
-class GameApplication < ClientApplication
-end
