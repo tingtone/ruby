@@ -9,7 +9,7 @@ class CreateApps < ActiveRecord::Migration
       t.integer  :category_id, :null => false
       t.string   :rating
       t.string   :support_device
-      t.string   :max_score
+      t.integer  :max_score,  :default => 0
       t.string   :app_store_url
       t.string   :screenshot_file_name
       t.string   :screenshot_content_type
