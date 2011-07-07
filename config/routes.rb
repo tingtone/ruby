@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  
+  
   resources :categories
 
   resources :time_trackers

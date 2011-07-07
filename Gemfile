@@ -19,8 +19,6 @@ gem 'paperclip'
 gem 'kaminari'
 gem 'ancestry'
 
-
-
 group :development do 
   gem 'thin'
   gem 'awesome_print', :require => 'ap'
