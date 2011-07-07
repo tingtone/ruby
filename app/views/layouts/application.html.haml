@@ -6,7 +6,8 @@
     %meta{:name=>"description", :content=> APPLICATION_CONFIG['meta_description']}
 
     %title= "#{yield(:title)} KittyPad"
-    
+    = stylesheet_link_tag 'jquery.mobile.min.css', :media => 'screen'
+    = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
     %div{'data-role'=>"page"}

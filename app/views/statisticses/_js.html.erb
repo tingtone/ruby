@@ -1,0 +1,6 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag :highcharts %>
+  <!--[if IE]> 
+    <%= javascript_include_tag :ie_high_charts %>
+   <![endif]-->
+<% end%>
