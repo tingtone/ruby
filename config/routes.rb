@@ -1,5 +1,6 @@
 Server::Application.routes.draw do
-  
+  root :to => "home#index"
+  match "/about(.:format)" => 'home#about', :as => :about
   
   resources :categories
 
@@ -15,5 +16,5 @@ Server::Application.routes.draw do
 
   resources :users
 
-  root :to => "home#index"
+  
 end
