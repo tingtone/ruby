@@ -30,6 +30,8 @@ GEM
       activemodel (= 3.0.9)
       activesupport (= 3.0.9)
     activesupport (3.0.9)
+    ancestry (1.2.4)
+      activerecord (>= 2.2.2)
     arel (2.0.10)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
@@ -110,9 +112,6 @@ GEM
     mime-types (1.16)
     mocha (0.9.12)
     mysql2 (0.2.7)
-    nested_set (1.6.7)
-      activerecord (>= 3.0.0)
-      railties (>= 3.0.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -206,6 +205,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
+  ancestry
   autotest
   autotest-rails
   awesome_print
@@ -225,7 +225,6 @@ DEPENDENCIES
   kaminari
   mocha
   mysql2 (= 0.2.7)
-  nested_set
   oauth
   paperclip
   rails (= 3.0.9)

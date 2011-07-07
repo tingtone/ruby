@@ -17,7 +17,7 @@ gem 'whenever'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'paperclip'
 gem 'kaminari'
-gem 'nested_set'
+gem 'ancestry'
 
 
 
