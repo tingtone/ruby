@@ -18,7 +18,7 @@ gem 'exception_notification', :require => 'exception_notifier'
 gem 'paperclip'
 gem 'kaminari'
 gem 'ancestry'
-gem 'rails_highcharts'
+gem 'rails_highcharts', '~> 0.0.2'
 
 group :development do 
   gem 'thin'
