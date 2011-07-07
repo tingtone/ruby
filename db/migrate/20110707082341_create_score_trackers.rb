@@ -1,7 +1,9 @@
 class CreateScoreTrackers < ActiveRecord::Migration
   def self.up
     create_table :score_trackers do |t|
-
+      t.integer :score 
+      t.integer :player_id, :null => false
+      t.integer :app_id,    :null => false
       t.timestamps
     end
   end
