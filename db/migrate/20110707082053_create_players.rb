@@ -10,6 +10,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.string  :gender
       t.datetime  :birthday
       
+      
       t.timestamps
     end
   end
