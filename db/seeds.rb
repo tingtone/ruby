@@ -10,9 +10,15 @@ end
 education = Category.find_by_name "Education"
 education_sub_categories = ['General Knowledge', 'Language', 'Math', 'Puzzles', 'Drawing', 'Stories', 'Music', 'Science', 'Geography', 'History']
 education_sub_categories.each do |sub_cate|
-  education.children.create( name: sub_cate)
+  education.children.create(name: sub_cate)
 end
 # init categories end
+
+# init developer
+
+
+
+
 
 #init App
 
