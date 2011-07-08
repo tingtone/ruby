@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  resources :top_tens
+
   root :to => "home#index"
   match "/about(.:format)" => 'home#about', :as => :about
   

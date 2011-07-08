@@ -1,0 +1,2 @@
+class MostActive < TopTen
+end

@@ -13,3 +13,9 @@ education_sub_categories.each do |sub_cate|
   education.children.create( name: sub_cate)
 end
 # init categories end
+
+#init App
+
+
+
+#init TimeTracker

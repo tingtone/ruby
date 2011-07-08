@@ -1,0 +1,2 @@
+class MostPlayed < TopTen
+end
