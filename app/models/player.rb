@@ -4,9 +4,7 @@ class Player < ActiveRecord::Base
   has_many :player_apps
   has_many :apps, :through => :player_apps
   
-  # has_many :score_trackers
-  #   has_many :apps, :through => :score_trackers
-  #   
-  #   has_many :time_trackers
-  #   has_many :apps, :through => :time_trackers
+  has_many :score_trackers
+  has_many :time_trackers
+
 end
