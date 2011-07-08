@@ -3,9 +3,9 @@ Server::Application.routes.draw do
 
   root :to => "home#index"
   match "/about(.:format)" => 'home#about', :as => :about
-  
+
   resources :statisticses
-  
+
   resources :categories
 
   resources :time_trackers
@@ -20,5 +20,13 @@ Server::Application.routes.draw do
 
   resources :users
 
-  
+  namespace :api do
+    namespace :v1 do
+      resources :owners do
+        collection do
+          post "save"
+        end
+      end
+    end
+  end
 end
