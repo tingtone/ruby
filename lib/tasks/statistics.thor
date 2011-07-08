@@ -20,7 +20,7 @@ class Statistics < Thor
   include Thor::Actions
 
   desc "most_active", "init most active everyday"
-  
+  # method_options :force => true
   def most_active
     require './config/environment'
     begin
@@ -35,5 +35,16 @@ class Statistics < Thor
       say "something is wrong!", :red
     end
   end
+  
+  desc "most_score", 'init most score everyday'
+  def most_score
+    require './config/environment'
+    begin
+
+      say "successfully.", :green
+    rescue
+      say "something is wrong!", :red
+    end
+  end #most_score
 
 end
