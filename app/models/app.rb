@@ -5,4 +5,6 @@ class App < ActiveRecord::Base
   belongs_to :category
   belongs_to :developer, :foreign_key => :user_id
   
+  has_many :time_trackers
+  
 end

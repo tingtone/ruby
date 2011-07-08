@@ -19,17 +19,16 @@
 class Statistics < Thor
   include Thor::Actions
 
-  desc "most_active", "init most active top 10"
+  desc "most_active", "init most active everyday"
   
   def most_active
     require './config/environment'
     begin
       
-      MostActive.delete_all
-      say "clean up", :red
-      
-      sql = 'select sum(time) as total_time , app_id from time_trackers where created_at = "#{day.Today}" group by app_id'
-      
+      result = TimeTracker.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", (Date.today - 1).to_s(:db)).group(:app_id).sum(:time)
+      result.each do |k, v|
+        MostActive.create(app_id: k, time: v)
+      end
 
       say "successfully.", :green
     rescue
