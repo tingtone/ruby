@@ -22,11 +22,8 @@ Server::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :owners do
-        collection do
-          post "save"
-        end
-      end
+      match "owners/save" => "owners#save", :via => :post
+      match "owners/sync" => "owners#sync", :via => :get
     end
   end
 end

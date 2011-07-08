@@ -8,6 +8,13 @@ class Api::V1::OwnersController < Api::BaseController
     end
   end
 
+  def sync
+    @player = Player.find_by_device_identifier(params[:device_identifier])
+    access_denied("no such device identifier") if !@player
+
+    render :json => {:error => false, :owner => @player.owner, :player => @player}
+  end
+
   def create
     @owner = Owner.new(params[:owner].merge(:password_confirmation => params[:owner][:password]))
     if @owner.save

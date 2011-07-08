@@ -7,4 +7,10 @@ class Player < ActiveRecord::Base
   has_many :score_trackers
   has_many :time_trackers
 
+  def as_json(options={})
+    {:device_identifier => device_identifier, :language => language, :name => name,
+      :gender => gender, :time_between_pause => time_between_pause, :break_duration => break_duration,
+      :time_to_pause => time_to_pause, :time_to_break => time_to_break, :weekday_time => weekday_time,
+      :weekend_time => weekend_time}
+  end
 end
