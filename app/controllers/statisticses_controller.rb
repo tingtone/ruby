@@ -2,9 +2,18 @@ class StatisticsesController < ApplicationController
   
   def index
     #test data
-    @h = HighChart.new('graph') do |f|
-       f.series(:name=>'John', :data=>[3, 20, 3, 5, 4, 10, 12 ,3, 5,6,7,7,80,9,9])
-       f.series(:name=>'Jane', :data=> [1, 3, 4, 3, 3, 5, 4,-46,7,8,8,9,9,0,0,9] )
-     end
+    @yestoday_most_acitve_top10 = HighChart.new('graph') do |f|
+      most_actives = MostActive.hot_apps
+      app_names = App.find(most_actives.keys).map(&:name)
+
+      f.options[:chart][:defaultSeriesType] = 'column'
+      f.options[:title][:text]              = 'Hot Apps Top 10 at Yestoday'
+      f.options[:x_axis][:categories]       = app_names
+      f.options[:x_axis][:labels]           = { :align=>'center' }
+      f.options[:y_axis][:title][:text]     = 'Time (minutes)'
+      
+      f.series(name: 'Time', data: most_actives.values)
+      
+    end
   end #index
 end
