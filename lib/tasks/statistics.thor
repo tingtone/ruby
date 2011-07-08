@@ -25,8 +25,13 @@ class Statistics < Thor
     require './config/environment'
     begin
       
+      MostActive.delete_all
+      say "clean up", :red
+      
+      sql = 'select sum(time) as total_time , app_id from time_trackers where created_at = "#{day.Today}" group by app_id'
+      
 
-      say "#{fu.name} be create successfully.", :green
+      say "successfully.", :green
     rescue
       say "something is wrong!", :red
     end

@@ -52,6 +52,7 @@ tt1 = player.time_trackers.create(time: 60,  app_id: App.find_by_key('app_test1_
 tt2 = player.time_trackers.create(time: 120, app_id: App.find_by_key('app_test2_key').id)
 tt3 = player.time_trackers.create(time: 160, app_id: App.find_by_key('app_test3_key').id)
 tt4 = player.time_trackers.create(time: 20,  app_id: App.find_by_key('app_test4_key').id)
+tt5 = player.time_trackers.create(time: 20,  app_id: App.find_by_key('app_test1_key').id)
 
 
 puts "--------> Finished Successfully!"
