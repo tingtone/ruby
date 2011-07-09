@@ -1,5 +1,5 @@
 =link_to "Home", root_path
 - if user_signed_in?
-  = link_to "Options", '#'
+  = link_to "Dashboard", users_path
 - else
-  = link_to "Sign In", '#'
+  = link_to "Sign In", new_user_session_path
