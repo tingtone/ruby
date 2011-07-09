@@ -34,8 +34,12 @@ class Api::V1::OwnersController < Api::BaseController
 
   def update
     if @owner.update_attributes(params[:owner])
-      @player = @owner.players.find_by_device_identifier(params[:player][:device_identifer])
-      @player.update_attributes(params[:player])
+      @player = @owner.players.find_by_device_identifier(params[:player][:device_identifier])
+      if @player
+        @player.update_attributes(params[:player])
+      else
+        @owner.players.create(params[:player])
+      end
       render :json => {:error => false}
     else
       render :json => {:error => true, :messages => @owner.errors.full_messages}
