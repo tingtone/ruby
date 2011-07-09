@@ -12,7 +12,14 @@ class Api::V1::OwnersController < Api::BaseController
     @player = Player.find_by_device_identifier(params[:device_identifier])
     access_denied("no such device identifier") if !@player
 
-    render :json => {:error => false, :owner => @player.owner, :player => @player}
+    result = {:error => false}
+    if params[:timestamp].blank? || params[:timestamp].to_i < @player.owner.updated_at.to_i
+      result.merge! :owner => @player.owner
+    end
+    if params[:timestamp].blank? || params[:timestamp].to_i < @player.updated_at.to_i
+      result.merge! :player => @player
+    end
+    render :json => result
   end
 
   def create
