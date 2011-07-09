@@ -8,15 +8,19 @@
     %title= "#{yield(:title)} KittyPad"
     = stylesheet_link_tag 'jquery.mobile.min.css', :media => 'screen'
     = javascript_include_tag :defaults
+    = javascript_include_tag :highcharts
+    /[if IE]
+      = javascript_include_tag :ie_high_charts
     = csrf_meta_tag
   %body
     %div{'data-role'=>"page"}
       %div{'data-role'=>"header"}
-        %h1 KittyPad
-      %div{'data-role'=>"content"}
+        = render '/layouts/shared/header'
+        %h1="#{yield(:title)}"
+          
+      %div{'data-role'=>"content", :class=>"ui-content", :role=>'main'}
         = yield
       %div{'data-role'=>"footer"}
-
-    .footer
-      = render '/layouts/shared/footer'
-      = render '/google/analytics'
+        = render '/layouts/shared/footer'
+        = render '/google/analytics'
+    

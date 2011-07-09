@@ -3,6 +3,7 @@ Server::Application.routes.draw do
 
   root :to => "home#index"
   match "/about(.:format)" => 'home#about', :as => :about
+  match "/developer(.:format)" => 'home#developer', :as => :developer
 
   resources :statisticses
 
