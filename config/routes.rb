@@ -19,7 +19,11 @@ Server::Application.routes.draw do
 
   resources :player_apps
 
-  resources :apps
+  resources :apps do
+    collection do
+      get :search, :as => :search
+    end
+  end
 
   resources :players
 

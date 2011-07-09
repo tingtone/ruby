@@ -1,8 +1,11 @@
 = title "#{current_owner.name}'s dashboard"
+%div{"data-role"=>"navbar"}
+  %ul
+    %li= link_to 'Profile', edit_owner_path(current_owner), "data-icon" => "plus"
 
 %h1 Owner Dashboard
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Operate
-  %li=link_to "Sign_out", destroy_owner_session_path
+  %li=link_to "Sign_out", destroy_owner_session_path, :method => :delete
   

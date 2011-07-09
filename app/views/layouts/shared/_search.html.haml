@@ -1,0 +1,4 @@
+%div{"data-role"=>"fieldcontain"}
+  = simple_form_for :search, :url => search_apps_path do |f|
+    = f.input :app_name, :input_html => {:id => "search", :type => "search"}, :label => false
+

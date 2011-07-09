@@ -13,14 +13,16 @@
       = javascript_include_tag :ie_high_charts
     = csrf_meta_tag
   %body
-    %div{'data-role'=>"page"}
+    %div{'data-role'=>"page", 'data-theme'=>"c"}
       %div{'data-role'=>"header"}
         = render '/layouts/shared/header'
         %h1="#{yield(:title)}"
+        = yield :header
           
       %div{'data-role'=>"content", :class=>"ui-content", :role=>'main'}
         = yield
       %div{'data-role'=>"footer"}
+        = yield :footer
         = render '/layouts/shared/footer'
         = render '/google/analytics'
     
