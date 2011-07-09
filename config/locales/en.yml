@@ -8,3 +8,7 @@ en:
       Older: "&lt; Older"
       Newer: "Newer &gt;"
       truncate: "..."
+  activerecord:
+    attributes:
+      user:
+        login: "Name or email"
