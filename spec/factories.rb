@@ -1,4 +1,6 @@
 Factory.define :app do |a|
+  a.sequence(:name) { |n| "name#{n}" }
+  a.sequence(:description) { |n| "description#{n}" }
   a.association :category
   a.association :developer
 end
