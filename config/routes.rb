@@ -25,6 +25,7 @@ Server::Application.routes.draw do
       match "owners/save" => "owners#save", :via => :post
       match "owners/sync" => "owners#sync", :via => :get
       resources :score_trackers, :only => [:create]
+      resources :time_trackers, :only => [:create]
     end
   end
 end

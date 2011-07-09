@@ -8,7 +8,6 @@ describe Api::V1::ScoreTrackersController do
       @player = Factory(:player)
       post :create, :score => 10, :player_id => @player.id, :no_sign => true
 
-      p response.body
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
