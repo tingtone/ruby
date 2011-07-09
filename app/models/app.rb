@@ -6,5 +6,5 @@ class App < ActiveRecord::Base
   belongs_to :developer, :foreign_key => :user_id
   
   has_many :time_trackers
-  
+  has_many :score_trackers
 end

@@ -4,11 +4,21 @@ require 'hmac-sha1'
 class Api::BaseController < ApplicationController
   before_filter :signature_required
 
+  helper_method :current_player
   helper_method :current_app
 
   protected
+    def player_required
+      @current_player = Player.find_by_id(params[:player_id])
+      access_denied('no such player') unless @current_player
+    end
+
+    def current_player
+      @current_player
+    end
+
     def current_app
-      @app ||= App.find_by_key(params[:key])
+      @current_app ||= App.find_by_key(params[:key])
     end
 
     def access_denied(message)
