@@ -1,5 +1,7 @@
 =link_to "Home", root_path
-- if user_signed_in?
-  = link_to "Dashboard", users_path
+- if developer_signed_in?
+  = link_to "Dashboard", developers_path, "data-icon" => "gear"
+- elsif owner_signed_in?
+  = link_to "Dashboard", owners_path, "data-icon" => "gear"
 - else
-  = link_to "Sign In", new_user_session_path
+  = link_to "Sign In", new_owner_session_path

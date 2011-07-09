@@ -1,0 +1,8 @@
+= title "#{current_owner.name}'s dashboard"
+
+%h1 Owner Dashboard
+
+%ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
+  %li{"data-role"=>"list-divider", :role=>"heading"} Operate
+  %li=link_to "Sign_out", destroy_owner_session_path
+  

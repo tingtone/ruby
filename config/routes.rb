@@ -2,10 +2,12 @@ Server::Application.routes.draw do
   resources :top_tens
 
   root :to => "home#index"
-  devise_for :users
+  devise_for :users, :developers, :owners
   
   match "/about(.:format)" => 'home#about', :as => :about
   match "/developer(.:format)" => 'home#developer', :as => :developer
+  match "/tos(.:format)" => 'home#tos', :as => :tos
+  match "/faq(.:format)" => 'home#faq', :as => :faq
 
   resources :statisticses
 
@@ -22,6 +24,8 @@ Server::Application.routes.draw do
   resources :players
 
   resources :users
+  resources :developers
+  resources :owners
 
   namespace :api do
     namespace :v1 do
