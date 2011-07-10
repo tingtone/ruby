@@ -17,4 +17,10 @@ class Player < ActiveRecord::Base
       :time_to_pause => time_to_pause, :time_to_break => time_to_break, :weekday_time => weekday_time,
       :weekend_time => weekend_time}
   end
+
+  def add_app(app)
+    unless self.player_apps.find_by_app_id(app.id)
+      self.player_apps.create(:app => app)
+    end
+  end
 end
