@@ -1,4 +1,6 @@
 class App < ActiveRecord::Base
+  include OAuth::Helper
+  
   has_many :player_apps
   has_many :players, :through => :player_apps
   
@@ -7,6 +9,13 @@ class App < ActiveRecord::Base
   
   has_many :time_trackers
   has_many :score_trackers
+
+  before_create :generate_keys
+  validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
+  validates :description, :presence => true
+  validates :screenshot,  :presence => true, :unless => :new_record?
+  validates :app_store_url,  :presence => true, :unless => :new_record?
+
 
   has_attached_file :screenshot, :styles => {:default => "100x100>"}
   has_attached_file :icon, :styles => {:default => "156x156>"}
@@ -21,4 +30,10 @@ class App < ActiveRecord::Base
   def full_icon_url(style_name)
     "#{RAILS_HOST}/public#{icon.url(style_name)}"
   end
+  
+  protected
+    def generate_keys
+      self.key = generate_key(16)
+      self.secret = generate_key(32)
+    end
 end
