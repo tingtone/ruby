@@ -69,6 +69,41 @@ test:
     sleep_in_delayed_jobs_worke:   1
     title_max_length: 30
     max_size_of_attachments_in_mb: 1
+staging:
+  application:
+    name:              KittyPad.com
+
+    title_prefix:      'iBoard.cc: '
+    stylesheet_screen: application
+    stylesheet_print:  application
+    layout:            application
+    copyright:         © 2011 KittyPad Inc. All rights reserved.
+    copyright_url:     http://kittypad.com
+    meta_description:  'Author: Andreas Altendorfer, iboard.cc, IT-Veteran, Developer, Musik Benzin und Kuchen'
+    registration_from: 'noreply@your.site'
+    admin_notification_address: 'admin@your.domain'
+    registration_from: 'test@application.tt'
+    slogan:            'unfuzzy development that makes fun'
+    pivotal_tracker_project: 'http://www.pivotaltracker.com/projects/203457'
+
+    twitter_name: '@Twitter'
+    twitter_link: 'http://twitter.com/nickendell'    
+  constants:
+    max_time_to_edit_new_comments: 15    
+    rss_feed_cache_time:           10.minutes
+    paginate_postings_per_page:    6
+    paginate_episodes_per_page:    6
+    paginate_users_per_page:       6    
+    num_postings_on_welcome_page:  6
+    postings_on_homepage:          6
+    sleep_in_delayed_jobs_worker:  60
+    rating_range:                  (1..5)
+    paginate_ratings_per_page:     20
+    paginate_blog_entries_per_page: 20
+    delay_new_posting_notifications: 900
+    sleep_in_delayed_jobs_worke:   59
+    title_max_length: 30
+    max_size_of_attachments_in_mb: 1
 production:
   application:
     name:              KittyPad.com

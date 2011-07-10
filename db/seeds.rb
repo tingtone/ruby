@@ -36,10 +36,10 @@ developer = Developer.create(name: 'dev1', email: 'dev@kittypad.com', password: 
 
 # init app
 puts "--------> init app"
-app1 = developer.apps.create(name: 'app_test1', key: 'app_test1_key', secret: 'app_test1_secret', category_id: 1)
-app2 = developer.apps.create(name: 'app_test2', key: 'app_test2_key', secret: 'app_test2_secret', category_id: 2)
-app3 = developer.apps.create(name: 'app_test3', key: 'app_test3_key', secret: 'app_test3_secret', category_id: 3)
-app4 = developer.apps.create(name: 'app_test4', key: 'app_test4_key', secret: 'app_test4_secret', category_id: 4)
+app1 = developer.apps.create(name: 'app_test1', description: 'app_description1', price: 10, key: 'app_test1_key', secret: 'app_test1_secret', category_id: 1)
+app2 = developer.apps.create(name: 'app_test2', description: 'app_description2', price: 20, key: 'app_test2_key', secret: 'app_test2_secret', category_id: 2)
+app3 = developer.apps.create(name: 'app_test3', description: 'app_description3', price: 30, key: 'app_test3_key', secret: 'app_test3_secret', category_id: 3)
+app4 = developer.apps.create(name: 'app_test4', description: 'app_description4', price: 40, key: 'app_test4_key', secret: 'app_test4_secret', category_id: 4)
 
 # init active app 
 puts "--------> init active app"
