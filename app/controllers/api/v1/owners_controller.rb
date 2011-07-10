@@ -25,7 +25,8 @@ class Api::V1::OwnersController < Api::BaseController
   def create
     @owner = Owner.new(params[:owner].merge(:password_confirmation => params[:owner][:password]))
     if @owner.save
-      @owner.players.create(params[:player])
+      @player = @owner.players.create(params[:player])
+      @player.add_app(current_app)
       render :json => {:error => false}
     else
       render :json => {:error => true, :messages => @owner.errors.full_messages}
@@ -38,8 +39,9 @@ class Api::V1::OwnersController < Api::BaseController
       if @player
         @player.update_attributes(params[:player])
       else
-        @owner.players.create(params[:player])
+        @player = @owner.players.create(params[:player])
       end
+      @player.add_app(current_app)
       render :json => {:error => false}
     else
       render :json => {:error => true, :messages => @owner.errors.full_messages}
