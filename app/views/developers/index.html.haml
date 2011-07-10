@@ -6,6 +6,7 @@
     %ul
       %li= link_to 'Profile', edit_developer_registration_path(current_developer), "data-icon" => "plus"
       %li= link_to 'Add App', new_developer_app_path(current_developer), "data-icon" => "arrow-r"
+      %li= link_to 'Your Apps', developer_apps_path(current_developer), "data-icon" => "arrow-r"
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
@@ -14,6 +15,8 @@
 - if developer_signed_in?
   %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
     %li{"data-role"=>"list-divider", :role=>"heading"} Operate
+    %li=link_to "Change Download Setting", edit_developer_path(current_developer), "data-ajax" => false
+    %hr
     %li=link_to "Sign_out", quit_path, "data-ajax" => false
 
 

@@ -5,7 +5,7 @@ Server::Application.routes.draw do
   devise_for :users, :developers, :owners
   
   match "/about(.:format)" => 'home#about', :as => :about
-  match "/developer(.:format)" => 'home#developer', :as => :developer
+  match "/developer_page(.:format)" => 'home#developer_page', :as => :developer_page
   match "/tos(.:format)" => 'home#tos', :as => :tos
   match "/faq(.:format)" => 'home#faq', :as => :faq
   match "/quit(.:format)" => 'home#quit', :as => :quit
@@ -31,6 +31,9 @@ Server::Application.routes.draw do
   resources :users
   resources :developers do
     resources :apps
+    member do
+      get :exchange_app, :as => :exchange_app
+    end
   end
   resources :players
   resources :owners do

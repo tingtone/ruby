@@ -15,6 +15,8 @@ class App < ActiveRecord::Base
   validates :description, :presence => true
   validates :screenshot,  :presence => true, :unless => :new_record?
   validates :app_store_url,  :presence => true, :unless => :new_record?
+  validates :category_id,  :presence => true
+  validates :price,  :presence => true
 
 
   has_attached_file :screenshot, :styles => {:default => "100x100>"}
