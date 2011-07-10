@@ -1,4 +1,5 @@
 class App < ActiveRecord::Base
+  include OAuth::Helper
   has_many :player_apps
   has_many :players, :through => :player_apps
   
@@ -14,11 +15,18 @@ class App < ActiveRecord::Base
   scope :except, lambda { |app_id| where("id != ?", app_id) }
   scope :random, lambda { |number| order("RAND()").limit(number) }
 
+  before_create :generate_keys
+
   def to_exchange
     {:name => name, :description => description, :app_store_url => app_store_url, :icon_url => full_icon_url(:default)}
   end
 
   def full_icon_url(style_name)
     "#{RAILS_HOST}/public#{icon.url(style_name)}"
+  end
+
+  def generate_keys
+    self.key = generate_key(16)
+    self.secret = generate_key(32)
   end
 end
