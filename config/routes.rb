@@ -8,6 +8,7 @@ Server::Application.routes.draw do
   match "/developer(.:format)" => 'home#developer', :as => :developer
   match "/tos(.:format)" => 'home#tos', :as => :tos
   match "/faq(.:format)" => 'home#faq', :as => :faq
+  match "/quit(.:format)" => 'home#quit', :as => :quit
 
   resources :statisticses
 
@@ -25,11 +26,16 @@ Server::Application.routes.draw do
     end
   end
 
-  resources :players
+  
 
   resources :users
-  resources :developers
-  resources :owners
+  resources :developers do
+    resources :apps
+  end
+  resources :players
+  resources :owners do
+    resources :players
+  end
 
   namespace :api do
     namespace :v1 do

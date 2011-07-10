@@ -1,11 +1,15 @@
-= title "#{current_owner.name}'s dashboard"
-%div{"data-role"=>"navbar"}
-  %ul
-    %li= link_to 'Profile', edit_owner_path(current_owner), "data-icon" => "plus"
-
-%h1 Owner Dashboard
+= title "#{owner_signed_in? ? current_owner.name : 'Player Dashboard'}"
+- if owner_signed_in?
+  %div{"data-role"=>"navbar"}
+    %ul
+      %li= link_to 'Profile', edit_owner_registration_path(current_owner), "data-icon" => "plus"
+      %li= link_to 'Your Pads', owner_players_path(current_owner), "data-icon" => "arrow-r"
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
-  %li{"data-role"=>"list-divider", :role=>"heading"} Operate
-  %li=link_to "Sign_out", destroy_owner_session_path, :method => :delete
-  
+  %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
+  %li=link_to "Most Active Top10 Apps", statisticses_path(:typee => "active_top10")
+
+- if owner_signed_in?
+  %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
+    %li{"data-role"=>"list-divider", :role=>"heading"} Operate
+    %li=link_to "Sign_out", quit_path, "data-ajax" => false

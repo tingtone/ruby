@@ -1,0 +1,23 @@
+= f.input :owner_id, :as => :hidden, :input_html => {:value => params[:owner_id], :name => :owner_id}
+%div{"data-role" =>"fieldcontain"}
+  = f.input :device_identifier, :disabled => true, :hint => "You cannot change it."
+%div{"data-role" =>"fieldcontain"}
+  = f.input :device_user_agent, :disabled => true, :hint => "You cannot change it."
+%div{"data-role" =>"fieldcontain"}
+  = f.input :language, :disabled => true, :hint => "You cannot change it."
+%hr
+%div{"data-role" =>"fieldcontain"}
+  = f.input :name
+%div{"data-role" =>"fieldcontain"}
+  = f.label "Please choose your gender"
+  = f.collection_radio :gender, [[1, 'Man'] ,[2, 'Woman']], :first, :last
+%div{"data-role" =>"fieldcontain"}
+  = f.label "Please choose your birthday"
+  = f.input :birthday, :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :label => false
+%div{"data-role" =>"fieldcontain"}
+  = f.input :avatar, :as => :file
+%div{"data-role" =>"fieldcontain"}
+  = f.label "Current Avatar preview"
+  = image_tag(@player.avatar.url(:thumb))
+
+

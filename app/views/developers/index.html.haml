@@ -1,13 +1,19 @@
 = title "#{current_developer.name}'s dashboard"
-= header do
-  = link_to 'Add', new_app_path, "data-icon" => "plus", "class" => "ui-btn-right"
-  
-%h1 Developer Dashboard
-
-=link_to "Sign_out", destroy_developer_session_path, :method => :delete
+=# header do
+=# link_to 'Add', new_app_path, "data-icon" => "plus", "class" => "ui-btn-right"
+- if developer_signed_in?
+  %div{"data-role"=>"navbar"}
+    %ul
+      %li= link_to 'Profile', edit_developer_registration_path(current_developer), "data-icon" => "plus"
+      %li= link_to 'Add App', new_developer_app_path(current_developer), "data-icon" => "arrow-r"
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
   %li=link_to "Most Active Top10 Apps", statisticses_path(:typee => "active_top10")
+
+- if developer_signed_in?
+  %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
+    %li{"data-role"=>"list-divider", :role=>"heading"} Operate
+    %li=link_to "Sign_out", quit_path, "data-ajax" => false
 
 

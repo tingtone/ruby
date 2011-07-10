@@ -1,0 +1,14 @@
+= title "Player Info Show"
+
+%div{"data-role" =>"fieldcontain"}
+  %label Your Name
+  = @player.name
+%div{"data-role" =>"fieldcontain"}
+  %label Your gender
+  = @player.gender
+%div{"data-role" =>"fieldcontain"}
+  %label Birthday
+  = @player.birthday.to_s(:db)
+%div{"data-role" =>"fieldcontain"}
+  %label "Current Avatar preview"
+  = image_tag(@player.avatar.url(:thumb))

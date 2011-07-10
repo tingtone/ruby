@@ -1,0 +1,6 @@
+= title "Edit Pad"
+
+= simple_form_for @player, :as => :player, :url => owner_player_path(@owner, @player), :html => {:multipart => true} do |f|
+  = render :partial => "form", :locals => {:f => f}
+  %div{"data-role" =>"fieldcontain"}
+    = f.submit "Update"
