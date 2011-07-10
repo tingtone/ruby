@@ -35,8 +35,8 @@ class App < ActiveRecord::Base
   end
 
   def generate_keys
-    self.key = generate_key(16)
-    self.secret = generate_key(32)
+    self.key ||= generate_key(16)
+    self.secret ||= generate_key(32)
   end
 
 end
