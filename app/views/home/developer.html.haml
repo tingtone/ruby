@@ -1,8 +1,0 @@
-= title "KittyPad - Developer"
-
-
-%ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
-  %li{"data-role"=>"list-divider", :role=>"heading"} Operate
-  - unless developer_signed_in?
-    %li= link_to "Developer Sign up", new_developer_registration_path
-    %li= link_to "Developer Sign in", new_developer_session_path
