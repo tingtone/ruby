@@ -34,7 +34,8 @@ class StatisticsesController < ApplicationController
         
         f.options[:title][:text] = 'My faverite Top 3 apps last week'
         f.options[:chart][:defaultSeriesType] = 'column'
-        f.options[:x_axis][:categories]       = app_names
+        # f.options[:x_axis][:categories]       = app_names
+        f.options[:x_axis][:categories]       = ['word', 'Test', 'ABC', 'Anger Picture']
         f.options[:x_axis][:labels]           = { :align=>'center' }
         f.options[:y_axis][:title][:text]     = 'Time (minutes)'
 
@@ -48,7 +49,8 @@ class StatisticsesController < ApplicationController
         
         f.options[:title][:text] = 'How much time to spent every app yesterday'
         f.options[:chart][:defaultSeriesType] = 'column'
-        f.options[:x_axis][:categories]       = app_names
+        # f.options[:x_axis][:categories]       = app_names
+        f.options[:x_axis][:categories]       = ['word', 'Test', 'ABC', 'Anger Picture']
         f.options[:x_axis][:labels]           = { :align=>'center' }
         f.options[:y_axis][:title][:text]     = 'Time (minutes)'
 
