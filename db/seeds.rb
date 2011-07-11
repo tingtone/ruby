@@ -47,6 +47,7 @@ player.apps << App.find_by_key('app_test1_key')
 player.apps << App.find_by_key('app_test2_key')
 
 #init TimeTracker
+# player = Player.find_by_device_identifier '318FD1D2-67EF-500E-B564-5089CE2F3B8B'
 puts "--------> init TimeTracker"
 tt1 = player.time_trackers.create(time: 60,  app_id: App.find_by_key('app_test1_key').id)
 tt2 = player.time_trackers.create(time: 120, app_id: App.find_by_key('app_test2_key').id)
