@@ -4,7 +4,7 @@
       = image_tag(item.icon.url(:default), :class => "ui-li-thumb")
     %div{:class=>"ui-block-b", :style => "width: 60%"}
       %h3.ui-li-heading= item.name
-      %p.ui-li-desc= item.description
+      %p.ui-li-desc= truncate(item.description, :length => 50)
     %div{:class=>"ui-block-c", :style => "width: 10%"}
       %h3.ui-li-heading= item.try(:category).try(:name)
     %div{:class=>"ui-block-d", :style => "width: 10%"}
