@@ -5,7 +5,7 @@ describe Api::V1::OwnersController do
     it "with app" do
       @app = Factory(:app)
       post :save,
-           :owner => {:name => 'richard', :email => 'richard@kittypad.com', :password => 'testtest'},
+           :owner => {:name => 'richard', :email => 'richard@kittypad.com', :password => 'password'},
            :player => {:device_identifier => 'device-identifier', :language => 'cn', :name => 'player', :gender => 0, :time_between_pause => 10, :pause_duration => 20, :time_between_breaks => 30, :break_duration => 40, :time_to_pause => 50, :time_to_break => 60, :weekday_time => 70, :weekend_time => 80},
            :key => @app.key, :no_sign => true
 
@@ -44,17 +44,13 @@ describe Api::V1::OwnersController do
 
     it "with player" do
       post :save,
-           :owner => {:name => 'richard', :email => 'richard@kittypad.com', :password => 'testtest'},
+           :owner => {:email => 'richard@kittypad.com', :password => 'password'},
            :player => {:device_identifier => 'player_device_identifier', :language => 'cn', :name => 'player', :gender => 0, :time_between_pause => 10, :pause_duration => 20, :time_between_breaks => 30, :break_duration => 40, :time_to_pause => 50, :time_to_break => 60, :weekday_time => 70, :weekend_time => 80},
            :key => @app.key, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-
-      @owner.reload
-      @owner.name.should == 'richard'
-      @owner.email.should == 'richard@kittypad.com'
 
       @player.reload
       @player.device_identifier.should == 'player_device_identifier'
@@ -75,17 +71,13 @@ describe Api::V1::OwnersController do
 
     it "without player" do
       post :save,
-           :owner => {:name => 'richard', :email => 'richard@kittypad.com', :password => 'testtest'},
+           :owner => {:email => 'richard@kittypad.com', :password => 'password'},
            :player => {:device_identifier => 'device-identifier', :language => 'cn', :name => 'player', :gender => 0, :time_between_pause => 10, :pause_duration => 20, :time_between_breaks => 30, :break_duration => 40, :time_to_pause => 50, :time_to_break => 60, :weekday_time => 70, :weekend_time => 80},
            :key => @app.key, :no_sign => true
 
       response.should be_ok
       json_response = ActiveSupport::JSON.decode response.body
       json_response['error'].should == false
-
-      owner = Owner.last
-      owner.name.should == 'richard'
-      owner.email.should == 'richard@kittypad.com'
 
       player = Player.last
       player.device_identifier.should == 'device-identifier'
@@ -102,6 +94,18 @@ describe Api::V1::OwnersController do
       player.weekend_time.should == 80
 
       PlayerApp.find_by_player_id_and_app_id(player.id, @app.id).should_not be_nil
+    end
+
+    it "failure with wrong password" do
+      post :save,
+           :owner => {:email => 'richard@kittypad.com', :password => 'wrongpassword'},
+           :player => {:device_identifier => 'device-identifier', :language => 'cn', :name => 'player', :gender => 0, :time_between_pause => 10, :pause_duration => 20, :time_between_breaks => 30, :break_duration => 40, :time_to_pause => 50, :time_to_break => 60, :weekday_time => 70, :weekend_time => 80},
+           :key => @app.key, :no_sign => true
+
+      response.should be_ok
+      json_response = ActiveSupport::JSON.decode response.body
+      json_response['error'].should == true
+      json_response['messages'].should == ['wrong email and password']
     end
   end
 
