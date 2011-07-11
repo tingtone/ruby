@@ -61,6 +61,6 @@ Server::Application.configure do
     :user_name            => 'noreply@kittypad.com',
     :password             => 'kittypad',
     :authentication       => 'plain',
-    :enable_starttls_auto => true  }
+    :enable_starttls_auto => true
   }
 end
