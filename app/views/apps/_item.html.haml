@@ -1,5 +1,5 @@
 %li
   
-  = link_to "App Name: #{item.name}", "#"
+  = link_to "App Name: #{item.name}", app_path(item)
   - if item.belong_to_current_developer?(current_developer)
     = link_to 'edit app', edit_developer_app_path(current_developer, item), "data-icon" => "gear"
