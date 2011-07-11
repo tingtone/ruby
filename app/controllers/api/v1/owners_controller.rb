@@ -34,17 +34,20 @@ class Api::V1::OwnersController < Api::BaseController
   end
 
   def update
-    if @owner.update_attributes(params[:owner])
-      @player = @owner.players.find_by_device_identifier(params[:player][:device_identifier])
-      if @player
-        @player.update_attributes(params[:player])
-      else
-        @player = @owner.players.create(params[:player])
-      end
+    unless @owner.valid_password?(params[:owner][:password])
+      render :json => {:error => true, :messages => ["wrong email and password"]} and return
+    end
+    @player = @owner.players.find_by_device_identifier(params[:player][:device_identifier])
+    if @player
+      @player.update_attributes(params[:player])
+    else
+      @player = @owner.players.create(params[:player])
+    end
+    if @player.errors.present?
+      render :json => {:error => true, :messages => @owner.errors.full_messages}
+    else
       @player.add_app(current_app)
       render :json => {:error => false}
-    else
-      render :json => {:error => true, :messages => @owner.errors.full_messages}
     end
   end
 end
