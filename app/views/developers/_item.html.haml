@@ -6,6 +6,11 @@
       %h3.ui-li-heading= item.name
       %p.ui-li-desc= item.description
     %div{:class=>"ui-block-c", :style => "width: 10%"}
-      = format_price(item.price)
+      %h3.ui-li-heading= item.try(:category).try(:name)
     %div{:class=>"ui-block-d", :style => "width: 10%"}
       = link_to image_tag("viewinitunes_en.png"), item.app_store_url
+      %br
+      %fieldset{:class=>"ui-grid-c"}
+        %div{:class =>"ui-block-a", :style => "width: 30%"}
+        %div{:class =>"ui-block-b", :style => "width: 10%"}
+          = format_price(item.price)
