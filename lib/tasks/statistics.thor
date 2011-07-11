@@ -97,7 +97,7 @@ class Statistics < Thor
       total_time = TimeTracker.where("DATE_FORMAT(updated_at, '%Y-%m-%d') >= ? and DATE_FORMAT(updated_at, '%Y-%m-%d') < ?", start_day, end_day).sum(:time)
       result = TimeTracker.where("DATE_FORMAT(updated_at, '%Y-%m-%d') >= ? and DATE_FORMAT(updated_at, '%Y-%m-%d') < ?", start_day, end_day).group(:player_id).group(:app_id).sum(:time)
       result.each do |k, v|
-        CategoriesTimePercentWeeks.create(player_id: k[0], category_id: App.find(k[1]).category.id, time: v, total_time: total_time, start_day: start_day, end_day: end_day)
+        CategoriesTimePercentWeek.create(player_id: k[0], category_id: App.find(k[1]).category.id, time: v, total_time: total_time, start_day: start_day, end_day: end_day)
       end
       say "successfully.", :green
     rescue

@@ -1,3 +1,14 @@
 = title "Your Statistics Info"
 
-=  high_chart("my_id", @high_chart)
+- if @active_top10
+  = high_chart("my_id", @active_top10)
+
+- if @categories_time_percent_weeks
+  = high_chart("categories_time_percent_weeks", @categories_time_percent_weeks)
+
+- if @favorite_apps_week_trackers
+  = high_chart("favorite_apps_week_trackers", @favorite_apps_week_trackers)
+
+- if @categories_time_percent_weeks
+  = high_chart("install_apps_day_trackers", @install_apps_day_trackers)
+

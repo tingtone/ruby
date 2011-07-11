@@ -5,9 +5,6 @@
       %li= link_to 'Profile', edit_owner_registration_path(current_owner), "data-icon" => "plus"
       %li= link_to 'Your Pads', owner_players_path(current_owner), "data-icon" => "arrow-r"
 
-%ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
-  %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
-  %li=link_to "Most Active Top10 Apps", statisticses_path(:typee => "active_top10")
 
 - if owner_signed_in?
   %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}

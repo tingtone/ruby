@@ -1,4 +1,4 @@
 %li
   
-  = link_to "Player Name: #{item.name}", "#"
+  = link_to "Player Name: #{item.name}", statisticses_path(:device => item.device_identifier)
   = link_to 'edit pad', edit_owner_player_path(@owner, item), "data-icon" => "gear"
