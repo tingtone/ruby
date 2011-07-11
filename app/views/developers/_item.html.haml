@@ -1,7 +1,6 @@
-%li{"data-theme"=>"c", :class=>"ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-li-has-thumb ui-btn-up-c"}
-  %div{:class => "ui-btn-inner ui-li ui-li-has-alt"}
-    .ui-btn-text
-      %a.ui-link-inherit
-        = image_tag(item.icon.url(:default), :class => "ui-li-thumb")
-        %h3.ui-li-desc= item.name
-        %p.ui-li-desc= item.description
+%li{"data-theme" => "c"}
+  %a
+    = image_tag(item.icon.url(:default), :class => "ui-li-thumb")
+    %h3.ui-li-desc= item.name
+    %p.ui-li-desc= item.description
+  = link_to "View in iTnues", item.app_store_url, :class => "ui-li-link-alt.ui-btn.ui-btn-up-c"

@@ -13,7 +13,7 @@ module ApplicationHelper
   end #footer
   
   def format_price price
-    if price.to_s == '0.0'
+    if price.to_s == '0.0' || price.to_s == '0'
       "Free"
     else
       number_to_currency(price, :unit => '$')
