@@ -1,0 +1,6 @@
+= title "Edit App"
+
+= simple_form_for @app, :as => :app, :url => developer_app_path(@developer, @app), :html => {:multipart => true} do |f|
+  = render :partial => "form", :locals => {:f => f}
+  %div{"data-role" =>"fieldcontain"}
+    = f.submit "Update"

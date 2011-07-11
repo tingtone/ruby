@@ -7,9 +7,7 @@ class Player < ActiveRecord::Base
   has_many :score_trackers
   has_many :time_trackers
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "48x48>" },
-                             :url =>  "upload/images/:class/:attachment/:id/:style.:extension",
-                             :path => ":rails_root/public/upload/images/:class/:attachment/:id/:style.:extension"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "48x48>" }
 
   def as_json(options={})
     {:device_identifier => device_identifier, :language => language, :name => name,

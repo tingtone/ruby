@@ -6,7 +6,7 @@
     %ul
       %li= link_to 'Profile', edit_developer_registration_path(current_developer), "data-icon" => "plus"
       %li= link_to 'Add App', new_developer_app_path(current_developer), "data-icon" => "arrow-r"
-      %li= link_to 'Your Apps', developer_apps_path(current_developer), "data-icon" => "arrow-r"
+      %li= link_to 'My Apps', developer_apps_path(current_developer), "data-icon" => "arrow-r"
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses

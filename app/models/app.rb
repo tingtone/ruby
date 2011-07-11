@@ -39,4 +39,8 @@ class App < ActiveRecord::Base
     self.secret ||= generate_key(32)
   end
 
+  def belong_to_current_developer?(developer)
+    self.developer.id.to_i == developer.id.to_i
+  end
+
 end

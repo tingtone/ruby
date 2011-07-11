@@ -2,3 +2,6 @@
 
 %div{"data-role"=>"navbar"}
   = render '/layouts/shared/search'
+
+%ul{"data-role" => "listview", "data-theme" => "g"}
+  = render :partial => "item", :collection => @apps
