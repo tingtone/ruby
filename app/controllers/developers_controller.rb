@@ -1,5 +1,5 @@
 class DevelopersController < InheritedResources::Base
-  before_filter :authenticate_developer!
+  before_filter :authenticate_developer!, :except => [:exchange_app]
   
   def index
     
