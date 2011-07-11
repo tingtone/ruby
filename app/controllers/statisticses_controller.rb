@@ -8,7 +8,7 @@ class StatisticsesController < ApplicationController
         app_names = App.find(most_actives.keys).map(&:name)
 
         f.options[:chart][:defaultSeriesType] = 'column'
-        f.options[:title][:text]              = 'Hot Apps Top 10 at Yestoday'
+        f.options[:title][:text]              = 'Hot Apps Top 10 at yesterday'
         f.options[:x_axis][:categories]       = app_names
         f.options[:x_axis][:labels]           = { :align=>'center' }
         f.options[:y_axis][:title][:text]     = 'Time (minutes)'
@@ -23,7 +23,7 @@ class StatisticsesController < ApplicationController
         app_names = App.find(most_actives.keys).map(&:name)
 
         f.options[:chart][:defaultSeriesType] = 'column'
-        f.options[:title][:text]              = 'Hot Apps Top 10 at Yestoday'
+        f.options[:title][:text]              = 'Hot Apps Top 10 at yesterday'
         f.options[:x_axis][:categories]       = app_names
         f.options[:x_axis][:labels]           = { :align=>'center' }
         f.options[:y_axis][:title][:text]     = 'Time (minutes)'
