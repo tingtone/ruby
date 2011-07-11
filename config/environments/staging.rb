@@ -52,7 +52,7 @@ Server::Application.configure do
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[KittyPad] ",
     :sender_address => %{"kittypad" <noreply@kittypad.com>},
-    :exception_recipients => %w{flyerhzm@gmail.com}
+    :exception_recipients => %w{flyerhzm@gmail.com blackanger.z@gmail.com}
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

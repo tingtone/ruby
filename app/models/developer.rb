@@ -23,12 +23,15 @@ class Developer < User
       elsif @player.device_user_agent.match(/iPhone/)
         @apps = (@developer.apps - @install_app).first(5)
       end
-    else
+    elsif @developer.exchange_all?
       if @player.device_user_agent.match(/iPad/)
         @apps = (App.all - @installed_app).sample(7)
       elsif @player.device_user_agent.match(/iPhone/)
         @apps = (App.all - @installed_app).sample(5)
       end
+    else
+      @apps = []
     end #if
+    return @apps
   end #self.got_exchange_apps
 end
