@@ -17,7 +17,6 @@ class App < ActiveRecord::Base
   validates :category_id,  :presence => true
   validates :price,  :presence => true
 
-
   has_attached_file :screenshot, :styles => {:default => "100x100>"}
   has_attached_file :icon, :styles => {:default => "156x156>"}
 
