@@ -19,9 +19,9 @@ class Developer < User
     @installed_app = @player.apps
     if @developer.exchange_own?
       if @player.device_user_agent.match(/iPad/)
-        @apps = (@developer.apps - @install_app).first(7)
+        @apps = (@developer.apps - @installed_app).first(7)
       elsif @player.device_user_agent.match(/iPhone/)
-        @apps = (@developer.apps - @install_app).first(5)
+        @apps = (@developer.apps - @installed_app).first(5)
       end
     elsif @developer.exchange_all?
       if @player.device_user_agent.match(/iPad/)
