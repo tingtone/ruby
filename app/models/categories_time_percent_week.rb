@@ -4,11 +4,13 @@ class CategoriesTimePercentWeek < ActiveRecord::Base
     start_day = Date.today - 7
     end_day = Date.today
     #TODO category 重复
-    data = where("DATE_FORMAT(start_day, '%Y-%m-%d') >= ? and DATE_FORMAT(start_day, '%Y-%m-%d') < ? and player_id =?", start_day.to_s(:db), end_day.to_s(:db), player_id)
+    datas = where("DATE_FORMAT(start_day, '%Y-%m-%d') >= ? and DATE_FORMAT(start_day, '%Y-%m-%d') < ? and player_id =?", start_day.to_s(:db), end_day.to_s(:db), player_id)
+    total_time = datas.first.total_time
+    data = datas.group("category_id").sum(:time)
     
-    datas = Array.new.tap do |h|
-      data.each{|d| h << [Category.find(d.category_id).name, (d.time.to_f/d.total_time.to_f)*100] }
+    result = Array.new.tap do |h|
+      data.each{|k, v| h << [Category.find(k).name, (v.to_f/total_time.to_f)*100] }
     end
-    return datas
+    return result
   end #self.hot_apps
 end
