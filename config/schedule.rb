@@ -21,7 +21,21 @@
 
 set :output, "/home/deploy/sites/kittypad.com/staging/shared/log/cron_log.log"
 job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
+job_type :thor, "cd :path && RAILS_ENV=:environment bundle exec thor :task :output"
 
-# every 1.day do
-#   rake "analytics"
-# end
+
+every 1.day, :at => '01:00 am' do
+  thor "statistics:install_apps_day_tracker"
+end
+
+every 1.day, :at => '01:00 am' do
+  thor "statistics:most_active"
+end
+
+every :monday, :at => "01:00 am" do
+  thor "statistics:favorite_apps_week_trackers"
+end
+
+every :monday, :at => "01:00 am" do
+  thor "statistics:categories_time_percent_weeks"
+end
