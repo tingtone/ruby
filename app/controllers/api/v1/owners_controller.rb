@@ -14,10 +14,10 @@ class Api::V1::OwnersController < Api::BaseController
 
     result = {:error => false}
     if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.updated_at.to_i
-      result.merge! :owner => @player.owner
+      result.merge! :owner => @player.try(:owner)
     end
     if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i
-      result.merge! :player => @player
+      result.merge! :player => @player.try(:owner)
     end
     render :json => result
   end
