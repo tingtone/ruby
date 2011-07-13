@@ -18,7 +18,7 @@ class Api::V1::OwnersController < Api::BaseController
         result.merge! :owner => @player.try(:owner)
       end
       if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i
-        result.merge! :player => @player.try(:owner)
+        result.merge! :player => @player
       end
       render :json => result
     end
