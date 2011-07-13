@@ -28,7 +28,7 @@ owner = Owner.create(email: 'blackanger.z@gmail.com', password: '123456', name: 
 
 # init player
 puts "-------->init player"
-player = owner.players.create(name: 'blackanger1', gender: 'man', device_identifier: '318FD1D2-67EF-500E-B564-5089CE2F3B8B', device_user_agent: 'iPad', language: 'en_US')
+player = owner.players.create(name: 'blackanger1', gender: 'man', device_identifier: '318FD1D2-67EF-500E-B564-5089CE2F3B8B-test', device_user_agent: 'iPad', language: 'en_US')
 
 # init developer
 puts "--------> init developer"

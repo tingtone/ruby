@@ -7,7 +7,11 @@ class Player < ActiveRecord::Base
   has_many :score_trackers
   has_many :time_trackers
 
+  validates :device_identifier, :presence => true, :uniqueness => true
+
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "48x48>" }
+  
+  
 
   def as_json(options={})
     {:device_identifier => device_identifier, :language => language, :name => name,
