@@ -15,6 +15,15 @@ class Api::V1::OwnersController < Api::BaseController
     else
       result = {:error => false}
       if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.updated_at.to_i
+        # init time_left according by timestamp
+        if params[:timestamp].to_i > @player.timestamp
+          week = Time.at(params[:timestamp].to_i).stamp("Sunday")
+          if week == 'Sunday' || week == 'Saturday'
+            @player.update_attributes(time_left: @player.weekend_time)
+          else
+            @player.update_attributes(time_left: @player.weekday_time)
+          end
+        end
         result.merge! :owner => @player.try(:owner)
       end
       if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i

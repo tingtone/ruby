@@ -19,6 +19,7 @@ gem 'paperclip'
 gem 'kaminari'
 gem 'ancestry'
 gem 'rails_highcharts', '~> 0.0.3'
+gem 'stamp'
 
 group :development do 
   gem 'thin'

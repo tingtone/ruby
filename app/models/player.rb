@@ -18,7 +18,9 @@ class Player < ActiveRecord::Base
       :gender => gender, :time_between_pause => time_between_pause, :pause_duration => pause_duration,
       :time_between_breaks => time_between_breaks,:break_duration => break_duration,
       :time_to_pause => time_to_pause, :time_to_break => time_to_break, :weekday_time => weekday_time,
-      :weekend_time => weekend_time}
+      :weekend_time => weekend_time,
+      :time_left => time_left,
+      :timestamp => timestamp}
   end
 
   def add_app(app)
