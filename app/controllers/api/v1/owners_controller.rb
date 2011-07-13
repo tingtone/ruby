@@ -10,16 +10,18 @@ class Api::V1::OwnersController < Api::BaseController
 
   def sync
     @player = Player.find_by_device_identifier(params[:device_identifier])
-    access_denied("no such device identifier") if !@player
-
-    result = {:error => false}
-    if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.updated_at.to_i
-      result.merge! :owner => @player.try(:owner)
+    if !@player
+      access_denied("no such device identifier") 
+    else
+      result = {:error => false}
+      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.updated_at.to_i
+        result.merge! :owner => @player.try(:owner)
+      end
+      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i
+        result.merge! :player => @player.try(:owner)
+      end
+      render :json => result
     end
-    if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i
-      result.merge! :player => @player.try(:owner)
-    end
-    render :json => result
   end
 
   def create
