@@ -9,7 +9,7 @@ class Api::BaseController < ApplicationController
 
   protected
     def player_required
-      @current_player = Player.find_by_id(params[:player_id])
+      @current_player = Player.find_by_device_identifier(params[:device_identifier])
       access_denied('no such player') unless @current_player
     end
 
