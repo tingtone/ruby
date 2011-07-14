@@ -20,6 +20,10 @@ module ApplicationHelper
     end
   end #format_price
   
+  def support_language_options
+    [['English', 'en'], ['Chinese', 'zh'], ['French', 'fr'], ['German', 'de'], ['Spanish', 'es'], ['Portuguese', 'pt'], ['Italian', 'it'], ['Japanese', 'ja'], ['Korean', 'ko'], ['Russian', 'ru']]
+  end #support_language_options
+  
   #Books Education Game App
   def get_categories_sub_collect
       book_cates = [["Books",1]]

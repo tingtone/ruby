@@ -17,6 +17,8 @@
 %div{"data-role" =>"fieldcontain"}
   = f.input :support_device, :collection => ["iPad/iPhone", "iPad", "iPhone"], :include_blank => false
 %div{"data-role" =>"fieldcontain"}
+  = f.input :language, :collection => support_language_options, :include_blank => false
+%div{"data-role" =>"fieldcontain"}
   = f.input :app_store_url
 %div{"data-role" =>"fieldcontain"}
   = f.input :icon, :as => :file
