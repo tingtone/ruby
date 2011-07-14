@@ -48,7 +48,7 @@ class Developer < User
     def filter_apps(option={})
       #  apps, support_device, device_lang, installed_apps
       device_apps = option[:apps].select{|app| app if app.support_device == option[:support_device] || app.support_device == 'iPad/iPhone'} if !option[:apps].blank?
-      language_apps = device_apps.select{|app| app if app.f.include?(option[:device_lang])} if !device_apps.blank?
+      language_apps = device_apps.select{|app| app if app.language.include?(option[:device_lang])} if !device_apps.blank?
       final_apps = (language_apps - option[:installed_apps]).sample(10)
       return final_apps
     end #filter_apps(support_device, language)
