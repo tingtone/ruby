@@ -14,7 +14,7 @@ class Api::V1::OwnersController < Api::BaseController
       access_denied("no such device identifier") 
     else
       result = {:error => false}
-      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.updated_at.to_i
+      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.timestamp.to_i
         # init time_left according by timestamp
         if params[:timestamp].to_i > @player.timestamp.to_i
           week = Time.at(params[:timestamp].to_i).stamp("Sunday")
@@ -26,7 +26,7 @@ class Api::V1::OwnersController < Api::BaseController
         end
         result.merge! :owner => @player.try(:owner)
       end
-      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.updated_at.to_i
+      if !params[:timestamp].blank? || params[:timestamp].to_i > @player.timestamp.to_i
         result.merge! :player => @player
       end
       render :json => result
