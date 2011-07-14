@@ -18,6 +18,8 @@ class App < ActiveRecord::Base
   validates :price,  :presence => true
   validates :language,  :presence => true
 
+  serialize :language, Array
+  
   has_attached_file :screenshot, :styles => {:default => "100x100>"}
   has_attached_file :icon, :styles => {:default => "156x156>"}
 

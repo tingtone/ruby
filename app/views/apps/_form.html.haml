@@ -18,7 +18,12 @@
 %div{"data-role" =>"fieldcontain"}
   = f.input :support_device, :collection => ["iPad/iPhone", "iPad", "iPhone"], :include_blank => false
 %div{"data-role" =>"fieldcontain"}
-  = f.input :language, :collection => support_language_options, :include_blank => false
+  %fieldset{"data-role"=>"controlgroup", 'data-type'=>"horizontal"}
+    %legend Support Language
+    - support_language_options.each do |l|
+      = check_box_tag("app[language][]", l[1], true)
+      = f.label l[0]
+
 %div{"data-role" =>"fieldcontain"}
   = f.input :app_store_url
 %div{"data-role" =>"fieldcontain"}
