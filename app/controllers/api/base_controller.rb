@@ -41,13 +41,10 @@ class Api::BaseController < ApplicationController
         Rails.logger.info("----------------->  valid signature true")
         raw_params = if (request.get? || request.delete?)
           request.query_string
-          Rails.logger.info("=======> request.query_string : #{request.query_string}")
         else
-          Rails.logger.info("=========> request.raw_post : #{request.raw_post}")
           request.raw_post
         end
-        raw_params.sub!(/&signature=.*$/, '')
-        Rails.logger.info("=========> request.path : #{request.path}")
+        raw_params = raw_params.sub!(/&signature=.*$/, '')
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         Rails.logger.info( "server before signature: ====> #{string}")
         cal = sign(string, current_app.secret)
@@ -63,7 +60,7 @@ class Api::BaseController < ApplicationController
 
     def sign(string, secret)
       salt = "#{escape(secret)}"
-      Base64.encode64(HMAC::SHA1.digest(salt, string)).chomp.gsub(/\n/,'').gsub('+', ' ')
+      Base64.encode64(HMAC::SHA1.digest(salt, string)).chomp.gsub(/\n/,'')
     end
 
     def escape(value)
