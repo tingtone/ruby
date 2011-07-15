@@ -7,13 +7,16 @@ class TimeTracker < ActiveRecord::Base
     last_tt = current_player.try(:time_trackers).try(:last)
     last_timestamp = last_tt.try(:timestamp)
     week = Time.at(params[:timestamp].to_i).stamp("Sunday")
-    if last_tt.blank? || (last_tt && last_timestamp.to_i < params[:timestamp].to_i)
+    params_day  = Time.at(params[:timestamp].to_i).stamp("1900-01-01")
+    db_store_day = Time.at(last_timestamp.to_i).stamp("1900-01-01")
+    
+    if last_tt.blank? || (last_tt && params_day != db_store_day)
       if week == 'Sunday' || week == 'Saturday'
         time = current_player.weekend_time.to_i - params[:time_left].to_i
       else
         time = current_player.weekday_time.to_i - params[:time_left].to_i
       end
-    elsif last_tt && last_timestamp.to_i == params[:timestamp].to_i
+    elsif last_tt && params_day == db_store_day
       time = current_player.time_left.to_i - params[:time_left].to_i
     else
       time = -1
