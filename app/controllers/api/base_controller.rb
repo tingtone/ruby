@@ -38,9 +38,12 @@ class Api::BaseController < ApplicationController
     def has_valid_signature?
       return true if params['no_sign'] && !Rails.env.production?
       if (key = params['key']) && (@app = App.find_by_key(key)) && (signature = params.delete('signature'))
+        Rails.logger.info("----------------->  valid signature true")
         raw_params = if (request.get? || request.delete?)
           request.query_string
+          Rails.logger.info("=======> request.query_string : #{request.query_string}")
         else
+          Rails.logger.info("=========> request.raw_post : #{request.raw_post}")
           request.raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
@@ -48,10 +51,12 @@ class Api::BaseController < ApplicationController
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         puts "server before signature:" + string
         cal = sign(string, current_app.secret)
-        puts "server signature:" + cal
-        puts "client signature:" + signature
+        Rails.logger.info( "server signature:  cal:#{cal.inspect}")
+        Rails.logger.info( "client signature: signature: #{signature.inspect}")
+        Rails.logger.info("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}")
         cal == signature
       else
+        Rails.logger.info("----------------->  valid signature false,  ")
         false
       end
     end
