@@ -47,7 +47,7 @@ class Api::BaseController < ApplicationController
           request.raw_post
         end
         raw_params.sub!(/&signature=.*$/, '')
-        
+        Rails.logger.info("=========> request.path : #{request.path}")
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         puts "server before signature:" + string
         cal = sign(string, current_app.secret)
