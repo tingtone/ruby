@@ -34,7 +34,7 @@ class Api::V1::OwnersController < Api::BaseController
   end
 
   def create
-    @owner = Owner.new(params[:owner].merge(:password_confirmation => params[:owner][:password]))
+    @owner = Owner.new(params[:owner].merge(:password_confirmation => params[:owner][:password]).merge(:timestamp => params[:timestamp]))
     if @owner.save
       @player = @owner.players.create(params[:player])
       @player.add_app(current_app)
