@@ -15,15 +15,6 @@ class Api::V1::OwnersController < Api::BaseController
     else
       result = {:error => false}
       if !params[:timestamp].blank? || params[:timestamp].to_i > @player.owner.timestamp.to_i
-        # init time_left according by timestamp
-        if params[:timestamp].to_i > @player.timestamp.to_i
-          week = Time.at(params[:timestamp].to_i).stamp("Sunday")
-          if week == 'Sunday' || week == 'Saturday'
-            @player.update_attributes(time_left: @player.weekend_time)
-          else
-            @player.update_attributes(time_left: @player.weekday_time)
-          end
-        end
         result.merge! :owner => @player.try(:owner)
       end
       if !params[:timestamp].blank? || params[:timestamp].to_i > @player.timestamp.to_i
@@ -36,7 +27,7 @@ class Api::V1::OwnersController < Api::BaseController
   def create
     @owner = Owner.new(params[:owner].merge(:password_confirmation => params[:owner][:password]).merge(:timestamp => params[:timestamp]))
     if @owner.save
-      @player = @owner.players.create(params[:player])
+      @player = @owner.players.create(params[:player].merge(:timestamp => params[:timestamp]))
       @player.add_app(current_app)
       render :json => {:error => false}
     else
@@ -50,9 +41,9 @@ class Api::V1::OwnersController < Api::BaseController
     end
     @player = @owner.players.find_by_device_identifier(params[:player][:device_identifier])
     if @player
-      @player.update_attributes(params[:player])
+      @player.update_attributes(params[:player].merge(:timestamp => params[:timestamp]))
     else
-      @player = @owner.players.create(params[:player])
+      @player = @owner.players.create(params[:player].merge(:timestamp => params[:timestamp]))
     end
     if @player.errors.present?
       render :json => {:error => true, :messages => @owner.errors.full_messages}
