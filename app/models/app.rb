@@ -10,13 +10,14 @@ class App < ActiveRecord::Base
   has_many :time_trackers
   has_many :score_trackers
 
+  attr_accessor :language
+  
   validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
   validates :description, :presence => true
   validates :screenshot,  :presence => true, :unless => :new_record?
-  validates :app_store_url,  :presence => true, :unless => :new_record?
+  validates :app_store_url,  :presence => true, :uniqueness => true, :unless => :new_record?
   validates :category_id,  :presence => true
   validates :price,  :presence => true
-  validates :language,  :presence => true
 
   serialize :language, Array
   
@@ -44,5 +45,10 @@ class App < ActiveRecord::Base
   def belong_to_current_developer?(developer)
     self.developer.id.to_i == developer.id.to_i
   end
+
+  def language=(langs)
+    write_attribute(:language, langs.values)
+  end #language=(langs)
+  
 
 end

@@ -20,9 +20,12 @@
 %div{"data-role" =>"fieldcontain"}
   %fieldset{"data-role"=>"controlgroup", 'data-type'=>"horizontal"}
     %legend Support Language
-    - support_language_options.each do |l|
-      = check_box_tag("app[language][]", l[1], true)
-      = f.label l[0]
+    - support_language_options.each_with_index do |l,index|
+      - if l[1] == 'en'
+        %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}", :checked => 'checked' }
+      - else
+        %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}"}
+      %label{:for=>"checkbox_#{index+1}"}= l[0]
 
 %div{"data-role" =>"fieldcontain"}
   = f.input :app_store_url
