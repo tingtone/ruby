@@ -12,14 +12,16 @@
     = select('app', 'category_id', grouped_options_for_select(get_categories_sub_collect, (@app.try(:category_id).blank? ? "" : @app.try(:category_id))), { :include_blank => "--please choose categories--" } )
 
 %div{"data-role" =>"fieldcontain"}
-  = f.label "Rating"
   = f.input :rating, :input_html => {:type => "range", :id => "slider", :value => "0", :min => "2", :max => "12"}
 
 %div{"data-role" =>"fieldcontain"}
   = f.input :support_device, :collection => ["iPad/iPhone", "iPad", "iPhone"], :include_blank => false
 %div{"data-role" =>"fieldcontain"}
   %fieldset{"data-role"=>"controlgroup", 'data-type'=>"horizontal"}
-    %legend Support Language
+    %legend
+      Support Language
+      %br
+      (Default English)
     - support_language_options.each_with_index do |l,index|
       - if l[1] == 'en'
         %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}", :checked => 'checked' }
