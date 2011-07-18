@@ -1,11 +1,11 @@
 puts "--------> truncate tables"
-ActiveRecord::Base.connection.execute("truncate categories;")
-ActiveRecord::Base.connection.execute("truncate users;")
-ActiveRecord::Base.connection.execute("truncate players;")
-ActiveRecord::Base.connection.execute("truncate player_apps;")
-ActiveRecord::Base.connection.execute("truncate score_trackers;")
-ActiveRecord::Base.connection.execute("truncate time_trackers;")
-ActiveRecord::Base.connection.execute("truncate apps;")
+# ActiveRecord::Base.connection.execute("truncate categories;")
+# ActiveRecord::Base.connection.execute("truncate users;")
+# ActiveRecord::Base.connection.execute("truncate players;")
+# ActiveRecord::Base.connection.execute("truncate player_apps;")
+# ActiveRecord::Base.connection.execute("truncate score_trackers;")
+# ActiveRecord::Base.connection.execute("truncate time_trackers;")
+# ActiveRecord::Base.connection.execute("truncate apps;")
 
 # init categories
 puts "--------> init categories"
@@ -22,6 +22,7 @@ education_sub_categories.each do |sub_cate|
   education.children.create(name: sub_cate)
 end
 
+=begin
 # init owner
 puts "--------> init owner"
 owner = Owner.create(email: 'blackanger.z@gmail.com', password: '123456', name: 'blackanger')
@@ -55,5 +56,5 @@ tt3 = player.time_trackers.create(time: 160, app_id: App.find_by_key('app_test3_
 tt4 = player.time_trackers.create(time: 20,  app_id: App.find_by_key('app_test4_key').id)
 tt5 = player.time_trackers.create(time: 20,  app_id: App.find_by_key('app_test1_key').id)
 
-
+=end
 puts "--------> Finished Successfully!"
