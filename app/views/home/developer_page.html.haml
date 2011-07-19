@@ -11,54 +11,143 @@
 
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
   %h3 Introduction to the SDK Package
-  %p Our SDK package is divided into the following files:
-  %p 1. The KittyPad SDK Library
-  %p 2. Bundled files (including demonstrations of xib files and image files)
-  %p 3. Opensource
-  %p at the present stage this includes the following six files in the vendor catalog
-  %p a. TouchJSON
-  %p b. MPO autoconnection
-  %p c. ASI
-  %p d. reachability
+  %p
+    Our SDK package is divided into the following files:
+    %ol
+      %li The KittyPad SDK Library
+      %li Bundled files (including demonstrations of xib files and image files)
+      %li
+        Opensource
+        %dl
+          at the present stage this includes the following six files in the vendor catalog
+          %dd a. TouchJSON
+          %dd b. MPO autoconnection
+          %dd c. ASI
+          %dd d. reachability
 
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
   %h3 Integrated Engineering (with XCode)
   %p 
-    1. add kittypadsdk as a library
-    a. from (Your Project)>Build Phases>Link Binaries With Libraries
-    b. click the "+" button on the lower left
-    c. select "libkittypadskd" from the KittyPad SDK package
-  %p
-    2. in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
-  %p
-    3. correct kittypadResources configuration bundle in your project in XCode
-    a. in (Your Project)>Build Phases>copy Bundle Resource
-    b. click the "+" button on the lower left
-    c. select the kittypadresource from the kittypad sdk package
-  %p
-    4. import vendor
-    a. solution 1: import the application under the non-existing vendor opensource
-    b. solution 2: quote "libvendor.a" and delete the source that is already with the item
-  %p
-    5. make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
-    Foundation
-    UIKit
-    CoreGraphics
-    QuartzCore
-    CoreData
-    SystemCOnfiguration
-    MobileCoreServices
-    CFNetwork
-    libz.dylib
-    to add a framework in XCode 4:
-    a. click your project icon in the project navigator
-    b. click on the target in the middle column
-    c. click on the Build Phases tab
-    d. open the Link Binary with Libraries section
-    e. click the "+" button on the lower left
-    f. select the framework from the alphabetical list
-    (XCode 3.22: add a framework by right clicking on your project and selecting Add>Existing Frameworks...)
-  %p
-    6. Code Integration
+    %ol
+      %li
+        add kittypadsdk as a library
+        %dl
+          %dd a. from (Your Project)>Build Phases>Link Binaries With Libraries
+          %dd b. click the "+" button on the lower left
+          %dd c. select "libkittypadskd" from the KittyPad SDK package
+      %li in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
+
+      %li
+        correct kittypadResources configuration bundle in your project in XCode
+        %dl
+          %dd a. in (Your Project)>Build Phases>copy Bundle Resource
+          %dd b. click the "+" button on the lower left
+          %dd c. select the kittypadresource from the kittypad sdk package
+      %li
+        import vendor
+        %dl
+          %dd a. solution 1: import the application under the non-existing vendor opensource
+          %dd b. solution 2: quote "libvendor.a" and delete the source that is already with the item
+      %li
+        make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
+        %ul
+          %li Foundation
+          %li UIKit
+          %li CoreGraphics
+          %li QuartzCore
+          %li CoreData
+          %li SystemCOnfiguration
+          %li MobileCoreServices
+          %li CFNetwork
+          %li
+            libz.dylib
+            %dl
+              to add a framework in XCode 4:
+              %dd a. click your project icon in the project navigator
+              %dd b. click on the target in the middle column
+              %dd c. click on the Build Phases tab
+              %dd d. open the Link Binary with Libraries section
+              %dd e. click the "+" button on the lower left
+              %dd f. select the framework from the alphabetical list
+              %dd (XCode 3.22: add a framework by right clicking on your project and selecting Add>Existing Frameworks...)
+      %li
+        Code Integration
+        %dl
+          %dd
+            a. in your main page XXXDelegate.m Finish Launching set the initialization method
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad initializeWithPlist:@"kp_config" andDelegate:[[MyDelegate alloc]init]];
+                %hr
+              %dd the first parameter be assigning allocation files, the second parameter is program end proxy classes the second parameter has two kinds of settings, if is it nil, then use the default prozy class, otherwise you won't be able to implement the Kittypad Delegate protocol.
+          %dd
+            b. in applicationWillResignActive add a method to transmit time information
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad postTime];
+                %hr
+          %dd
+            c. according to your own game settings set up the appropriate rotation settings
+            %hr
+            %dl
+              %dd
+                %em= "#UIKit"
+                %dl
+                  %em= "- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {"
+                  %dd
+                    %em= "//portrait"
+                  %dd= "return UIInterfaceOrientationIsPortrait(interfaceOrientation);"
+                  %dd
+                    %em= "//landscape;"
+                  %dd= "return UIInterfaceOrientationIsLandscape(interfaceOrientation);"
+                  %dd= "}"
+              %dd
+                = "#cocos2d"
+              %dl
+                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeLeft];"
+                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeRight];"
+                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortrait];"
+                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortraitUpsideDown];"
+                %hr
+          %dd
+            d.open the KittyPad control dashboard and adjust the event notification
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad start];
+                %hr
+          %dd
+            e.submit scores
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad postScore:100];
+                %hr
+          %dd
+            f.to set whether or not your uses must have a KittyPad account
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad setBackButtonHidden:NO];
+                %hr
+          %dd
+            %p g.setting up the control dashboard and rest time, as well as the optional pause and continue function
+            %p   requires the KittypadBreakDelegate protocol
+            %p   proxy setting
+            %dl
+              %dd
+                %hr
+                %strong [Kittypad setBreakDelegate:self];
+                %hr
+%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
+  %h3 use the following options
+  %ol
+    %li
+      %ul
+        %li (void)onPause
+        %li (void)onResume
+    %li for specific integration methods you can reference the sample program
 
 
