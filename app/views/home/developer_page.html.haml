@@ -1,10 +1,64 @@
 = title "KittyPad - Developer"
 
+%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
+  %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
+    %li{"data-role"=>"list-divider", :role=>"heading"} Operate
+    - unless developer_signed_in?
+      %li= link_to "Developer Sign up", new_developer_registration_path
+      %li= link_to "Developer Sign in", new_developer_session_path
+    - else
+      %li=link_to "Sign_out", quit_path, "data-ajax" => false
 
-%ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
-  %li{"data-role"=>"list-divider", :role=>"heading"} Operate
-  - unless developer_signed_in?
-    %li= link_to "Developer Sign up", new_developer_registration_path
-    %li= link_to "Developer Sign in", new_developer_session_path
-  - else
-    %li=link_to "Sign_out", quit_path, "data-ajax" => false
+%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
+  %h3 Introduction to the SDK Package
+  %p Our SDK package is divided into the following files:
+  %p 1. The KittyPad SDK Library
+  %p 2. Bundled files (including demonstrations of xib files and image files)
+  %p 3. Opensource
+  %p at the present stage this includes the following six files in the vendor catalog
+  %p a. TouchJSON
+  %p b. MPO autoconnection
+  %p c. ASI
+  %p d. reachability
+
+%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
+  %h3 Integrated Engineering (with XCode)
+  %p 
+    1. add kittypadsdk as a library
+    a. from (Your Project)>Build Phases>Link Binaries With Libraries
+    b. click the "+" button on the lower left
+    c. select "libkittypadskd" from the KittyPad SDK package
+  %p
+    2. in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
+  %p
+    3. correct kittypadResources configuration bundle in your project in XCode
+    a. in (Your Project)>Build Phases>copy Bundle Resource
+    b. click the "+" button on the lower left
+    c. select the kittypadresource from the kittypad sdk package
+  %p
+    4. import vendor
+    a. solution 1: import the application under the non-existing vendor opensource
+    b. solution 2: quote "libvendor.a" and delete the source that is already with the item
+  %p
+    5. make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
+    Foundation
+    UIKit
+    CoreGraphics
+    QuartzCore
+    CoreData
+    SystemCOnfiguration
+    MobileCoreServices
+    CFNetwork
+    libz.dylib
+    to add a framework in XCode 4:
+    a. click your project icon in the project navigator
+    b. click on the target in the middle column
+    c. click on the Build Phases tab
+    d. open the Link Binary with Libraries section
+    e. click the "+" button on the lower left
+    f. select the framework from the alphabetical list
+    (XCode 3.22: add a framework by right clicking on your project and selecting Add>Existing Frameworks...)
+  %p
+    6. Code Integration
+
+
