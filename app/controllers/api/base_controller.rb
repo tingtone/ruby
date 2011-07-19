@@ -64,6 +64,6 @@ class Api::BaseController < ApplicationController
     end
 
     def escape(value)
-      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/")
+      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+")
     end
 end
