@@ -14,10 +14,12 @@
   %p
     Our SDK package is divided into the following files:
     %ol
-      %li The KittyPad SDK Library
-      %li Bundled files (including demonstrations of xib files and image files)
       %li
-        Opensource
+        %strong The KittyPad SDK Library
+      %li
+        %strong Bundled files (including demonstrations of xib files and image files)
+      %li
+        %strong Opensource
         %dl
           at the present stage this includes the following six files in the vendor catalog
           %dd a. TouchJSON
@@ -30,26 +32,27 @@
   %p 
     %ol
       %li
-        add kittypadsdk as a library
+        %strong add kittypadsdk as a library
         %dl
           %dd a. from (Your Project)>Build Phases>Link Binaries With Libraries
           %dd b. click the "+" button on the lower left
           %dd c. select "libkittypadskd" from the KittyPad SDK package
-      %li in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
+      %li
+        %strong in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
 
       %li
-        correct kittypadResources configuration bundle in your project in XCode
+        %strong correct kittypadResources configuration bundle in your project in XCode
         %dl
           %dd a. in (Your Project)>Build Phases>copy Bundle Resource
           %dd b. click the "+" button on the lower left
           %dd c. select the kittypadresource from the kittypad sdk package
       %li
-        import vendor
+        %strong import vendor
         %dl
           %dd a. solution 1: import the application under the non-existing vendor opensource
           %dd b. solution 2: quote "libvendor.a" and delete the source that is already with the item
       %li
-        make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
+        %strong make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
         %ul
           %li Foundation
           %li UIKit
@@ -71,7 +74,7 @@
               %dd f. select the framework from the alphabetical list
               %dd (XCode 3.22: add a framework by right clicking on your project and selecting Add>Existing Frameworks...)
       %li
-        Code Integration
+        %strong Code Integration
         %dl
           %dd
             a. in your main page XXXDelegate.m Finish Launching set the initialization method
