@@ -93,23 +93,30 @@
             %hr
             %dl
               %dd
-                %em= "#UIKit"
+                %strong= "#UIKit"
                 %dl
-                  %em= "- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {"
+                  %strong= "- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {"
                   %dd
-                    %em= "//portrait"
-                  %dd= "return UIInterfaceOrientationIsPortrait(interfaceOrientation);"
+                    %strong= "//portrait"
                   %dd
-                    %em= "//landscape;"
-                  %dd= "return UIInterfaceOrientationIsLandscape(interfaceOrientation);"
-                  %dd= "}"
+                    %strong= "return UIInterfaceOrientationIsPortrait(interfaceOrientation);"
+                  %dd
+                    %strong= "//landscape;"
+                  %dd
+                    %strong= "return UIInterfaceOrientationIsLandscape(interfaceOrientation);"
+                  %dd
+                    %strong= "}"
               %dd
-                = "#cocos2d"
+                %strong= "#cocos2d"
               %dl
-                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeLeft];"
-                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeRight];"
-                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortrait];"
-                %dd= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortraitUpsideDown];"
+                %dd
+                  %strong= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeLeft];"
+                %dd
+                  %strong= "[Kittypad setDashboardOrientation:UIInterfaceOrientationLandscapeRight];"
+                %dd
+                  %strong= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortrait];"
+                %dd
+                  %strong= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortraitUpsideDown];"
                 %hr
           %dd
             d.open the KittyPad control dashboard and adjust the event notification
