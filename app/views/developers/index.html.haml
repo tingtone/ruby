@@ -11,6 +11,10 @@
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
   %li=link_to "Most Active Top10 Apps", statisticses_path(:typee => "active_top10")
+  %li=link_to "Average Age For my apps", statisticses_path(:typee => "average_age")
+  %li=link_to "Most Gender For my apps", statisticses_path(:typee => "most_gender")
+  %li=link_to "Active Amount For my apps", statisticses_path(:typee => "active_amount")
+
 
 - if developer_signed_in?
   %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}

@@ -1,7 +1,24 @@
 class StatisticsesController < ApplicationController
 
   def index
-    #test data
+    
+    # For Developer Dashboard
+    
+    if !params[:typee].blank? && params[:typee] == "average_age"
+      @average_age = []
+    end
+    
+    if !params[:typee].blank? && params[:typee] == "most_gender"
+      @most_gender = []
+    end
+    
+    
+    if !params[:typee].blank? && params[:typee] == "active_amount"
+      @active_amount = []
+    end
+    
+    
+    #For Pad Dashboard
     if !params[:typee].blank? && params[:typee] == 'active_top10'
       @active_top10 = HighChart.new('graph') do |f|
         most_actives = MostActive.hot_apps
@@ -16,6 +33,7 @@ class StatisticsesController < ApplicationController
         f.series(name: 'Time', data: most_actives.values)
       end
     end
+    
     
     if !params[:device].blank?
       @player = Player.find_by_device_identifier(params[:device])
