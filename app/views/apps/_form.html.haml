@@ -26,7 +26,10 @@
       - if l[1] == 'en'
         %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}", :checked => 'checked' }
       - else
-        %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}"}
+        - if action_name == 'edit' && @app.try(:language).include?(l[1])
+          %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}", :checked => 'checked'}
+        - else
+          %input{:type=>"checkbox", :name=>"app[language][#{l[1]}]", :value => "#{l[1]}", :id => "checkbox_#{index+1}"}
       %label{:for=>"checkbox_#{index+1}"}= l[0]
 
 %div{"data-role" =>"fieldcontain"}

@@ -9,8 +9,6 @@ class App < ActiveRecord::Base
   
   has_many :time_trackers
   has_many :score_trackers
-
-  attr_accessor :language
   
   validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
   validates :description, :presence => true
