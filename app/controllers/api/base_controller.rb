@@ -46,7 +46,7 @@ class Api::BaseController < ApplicationController
         end
         raw_params = raw_params.sub!(/&signature=.*$/, '')
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
-        Rails.logger.info( "server before signature: ====> #{string}")
+        Rails.logger.info( "server before signature: ====> #{escape(string).inspect}")
         cal = sign(string, current_app.secret)
         Rails.logger.info("====> current_app: #{current_app.secret}, id: #{current_app.id}")
         client_signature = escape(signature)
@@ -61,10 +61,11 @@ class Api::BaseController < ApplicationController
 
     def sign(string, secret)
       salt = "#{escape(secret)}"
+      string = "#{escape(string)}"
       Base64.encode64(HMAC::SHA1.digest(salt, string)).chomp.gsub(/\n/,'')
     end
 
     def escape(value)
-      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+")
+      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+").gsub("%5B", "[").gsub("%5D", "]")
     end
 end
