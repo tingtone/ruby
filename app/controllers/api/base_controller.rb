@@ -63,7 +63,6 @@ class Api::BaseController < ApplicationController
 
     def sign(string, secret)
       salt = "#{escape(secret)}"
-      string = "#{escape(string)}"
       Base64.encode64(HMAC::SHA1.digest(salt, string)).chomp.gsub(/\n/,'')
     end
 
