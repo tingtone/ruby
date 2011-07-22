@@ -54,7 +54,7 @@ class Api::BaseController < ApplicationController
         Rails.logger.info("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}, client_signature: #{client_signature.inspect}" )
         
         cal == client_signature
-        # return true
+        return true
       else
         Rails.logger.info("----------------->  valid signature false,  ")
         false
