@@ -105,4 +105,8 @@ class Statistics < Thor
     end
   end #favorite_apps_week_trackers
 
+
+  # ==========
+  # = Banner =
+  # ==========
 end
