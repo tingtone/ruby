@@ -1,60 +1,52 @@
 = title "KittyPad - Developer"
 
-%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-  %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
-    %li{"data-role"=>"list-divider", :role=>"heading"} Operate
-    - unless developer_signed_in?
-      %li= link_to "Developer Sign up", new_developer_registration_path
-      %li= link_to "Developer Sign in", new_developer_session_path
-      %li= link_to "SDK DownLoad", "#"
-    - else
-      %li=link_to "Sign_out", quit_path, "data-ajax" => false
 
-=link_to "SDK 集成过程", chinese_developer_page_path
+=link_to "back", developer_page_path
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-  %h3 Introduction to the SDK Package
+  %h3 SDK集成的过程
   %p
-    Our SDK package is divided into the following files:
+    我们的sdk包分为以下几种文件：
     %ol
       %li
-        %strong The KittyPad SDK Library
+        %strong The KittyPad SDK 的库文件
       %li
-        %strong Bundled files (including demonstrations of xib files and image files)
+        %strong Bundled 文件 (里面包含各种显示的xib文件和用到的图片文件)
       %li
-        %strong Opensource
+        %strong 使用的库
         %dl
-          at the present stage this includes the following six files in the vendor catalog
+          vendor目录下的4个库
           %dd a. TouchJSON
           %dd b. MPO autoconnection
           %dd c. ASI
           %dd d. reachability
 
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-  %h3 Integrated Engineering (with XCode)
+  %h3 工程集成 (XCode环境下)
   %p 
     %ol
       %li
-        %strong add kittypadsdk as a library
+        %strong 把kittypadsdk和vendor追加到项目的链接库中。
         %dl
           %dd a. from (Your Project)>Build Phases>Link Binaries With Libraries
           %dd b. click the "+" button on the lower left
           %dd c. select "libkittypadskd" from the KittyPad SDK package
       %li
-        %strong in (your project)>Build Phases>Linking and add the value: -all_load and -ObjC to *Other Linker Flags.
+        %strong 在link的Other Linker Flags里追加-all_load和-ObjC参数。
+        %dl
+          %dd  In (your project)>Build Phases>*Linking, add the value -all_load and -ObjC to *Other Linker Flags.
 
       %li
-        %strong correct kittypadResources configuration bundle in your project in XCode
+        %strong 把kittypadResources追加到项bundle Resource中。
         %dl
           %dd a. in (Your Project)>Build Phases>copy Bundle Resource
           %dd b. click the "+" button on the lower left
           %dd c. select the kittypadresource from the kittypad sdk package
       %li
-        %strong import vendor
+        %strong 设定头文件的搜索路径
         %dl
-          %dd a. solution 1: import the application under the non-existing vendor opensource
-          %dd b. solution 2: quote "libvendor.a" and delete the source that is already with the item
+          %dd In (your project)>Build Settings>SearchPaths>Header Search Paths的值为sdk的目录。
       %li
-        %strong make sure that the following frameworks are included in you Build Phases>Link Binaries with Libraries
+        %strong 确保以下的库在链接库中
         %ul
           %li Foundation
           %li UIKit
@@ -76,18 +68,27 @@
               %dd f. select the framework from the alphabetical list
               %dd (XCode 3.22: add a framework by right clicking on your project and selecting Add>Existing Frameworks...)
       %li
-        %strong Code Integration
+        %strong 代码集成
         %dl
           %dd
-            a. in your main page XXXDelegate.m Finish Launching set the initialization method
+            a. 在你的主XXXDelegate.m的FinishLaunching方法里设置初始化
             %dl
               %dd
                 %hr
                 %strong [Kittypad initializeWithPlist:@"kp_config" andDelegate:[[MyDelegate alloc]init]];
                 %hr
-              %dd the first parameter be assigning allocation files, the second parameter is program end proxy classes the second parameter has two kinds of settings, if is it nil, then use the default prozy class, otherwise you won't be able to implement the Kittypad Delegate protocol.
+              %dd 第一个参数是指定的配置文件，里面有三个key，value值.
+                %dl
+                  %dd
+                    app_key：键值                                      //在服务器上注册完程序后得到
+                  %dd
+                    app_secret：密钥                                  //在服务器上注册完程序后得到
+                  %dd
+                    server：http://m.kittypad.com/               //我们服务器的地址，请不要改动
+                  %dd
+                    第二个参数是程序结束的代理类，它有两种设置方式，如果为nil，那么使用默认的代理类, 否则自己实现那个KittypadDelegate协议，并实现里面的方法。
           %dd
-            b. in applicationWillResignActive add a method to transmit time information
+            b. 在applicationWillResignActive方法里追加程序结束时的方法。
             %dl
               %dd
                 %hr
@@ -160,5 +161,3 @@
                 %hr
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
   %h3 for specific integration methods you can reference the sample program
-
-
