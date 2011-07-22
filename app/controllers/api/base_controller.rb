@@ -44,7 +44,7 @@ class Api::BaseController < ApplicationController
         else
           request.raw_post
         end
-        raw_params = raw_params.sub!(/&signature=.*$/, '')
+        raw_params = CGI.unescape(raw_params.sub!(/&signature=.*$/, ''))
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         Rails.logger.info("-----> raw_params: #{escape(raw_params).inspect}")
         Rails.logger.info( "server before signature: ====> #{string.inspect}")
@@ -68,6 +68,6 @@ class Api::BaseController < ApplicationController
     end
 
     def escape(value)
-      CGI.unescape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+")
+      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+")
     end
 end
