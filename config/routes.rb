@@ -2,9 +2,7 @@ Server::Application.routes.draw do
   resources :top_tens
 
   root :to => "home#index"
-  devise_for :users
-  devise_for :developers
-  devise_for :owners
+  devise_for :users, :developers, :owners, :controllers => {:sessions => "user/sessions"}
   
   match "/about(.:format)" => 'home#about', :as => :about
   match "/developer_page(.:format)" => 'home#developer_page', :as => :developer_page
