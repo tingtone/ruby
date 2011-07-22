@@ -3,7 +3,7 @@
 
 =link_to "back", developer_page_path
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-  %h3 SDK集成的过程
+  %h3 SDK包总述
   %p
     我们的sdk包分为以下几种文件：
     %ol
@@ -77,7 +77,8 @@
                 %hr
                 %strong [Kittypad initializeWithPlist:@"kp_config" andDelegate:[[MyDelegate alloc]init]];
                 %hr
-              %dd 第一个参数是指定的配置文件，里面有三个key，value值.
+              %dd
+                第一个参数是指定的配置文件，里面有三个key，value值.
                 %dl
                   %dd
                     app_key：键值                                      //在服务器上注册完程序后得到
@@ -92,10 +93,10 @@
             %dl
               %dd
                 %hr
-                %strong [Kittypad postTime];
+                %strong [Kittypad shutdown];
                 %hr
           %dd
-            c. according to your own game settings set up the appropriate rotation settings
+            c. 根据自己的游戏方式，设置适合的支持旋转方式.
             %hr
             %dl
               %dd
@@ -125,39 +126,41 @@
                   %strong= "[Kittypad setDashboardOrientation:UIInterfaceOrientationPortraitUpsideDown];"
                 %hr
           %dd
-            d.open the KittyPad control dashboard and adjust the event notification
+            d.开启kittypad控制面板,可以在自作的按钮事件里调用。
             %dl
               %dd
                 %hr
                 %strong [Kittypad start];
                 %hr
           %dd
-            e.submit scores
+            = "#以下为可选集成："
+          %dd
+            e.提交分数
             %dl
               %dd
                 %hr
                 %strong [Kittypad postScore:100];
                 %hr
           %dd
-            f.to set whether or not your uses must have a KittyPad account
+            f.设置是否让用户必须注册为Kittypad用户
             %dl
               %dd
                 %hr
                 %strong [Kittypad setBackButtonHidden:NO];
                 %hr
           %dd
-            %p g.setting up the control dashboard and rest time, as well as the optional pause and continue function
-            %p   requires the KittypadBreakDelegate protocol
-            %p   proxy setting
+            %p g.在休息暂停过程中，如果要让游戏同时暂停
+            %p    需要实现KittypadBreakDelegate协议，
+            %p   设置代理类
             %dl
               %dd
                 %hr
                 %strong [Kittypad setBreakDelegate:self];
               %dd
-                use the following options
+                实现下面的方法:
                 %ul
                   %li (void)onPause
                   %li (void)onResume
                 %hr
-%div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-  %h3 for specific integration methods you can reference the sample program
+      %li
+        %strong 具体的集成方法可以参考给出的sample程序。

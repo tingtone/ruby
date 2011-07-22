@@ -6,11 +6,10 @@
     - unless developer_signed_in?
       %li= link_to "Developer Sign up", new_developer_registration_path
       %li= link_to "Developer Sign in", new_developer_session_path
-      %li= link_to "SDK DownLoad", "#"
     - else
       %li=link_to "Sign_out", quit_path, "data-ajax" => false
 
-=link_to "SDK 集成过程", chinese_developer_page_path
+=link_to "SDK 集成过程(中文)", chinese_developer_page_path
 %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
   %h3 Introduction to the SDK Package
   %p
