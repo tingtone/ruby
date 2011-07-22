@@ -45,7 +45,7 @@ class Api::BaseController < ApplicationController
           request.raw_post
         end
         raw_params = raw_params.sub!(/&signature=.*$/, '')
-        string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
+        string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params.gsub("%5B", "[").gsub("%5D", "]")}"
         Rails.logger.info("-----> raw_params: #{raw_params.inspect}")
         Rails.logger.info( "server before signature: ====> #{string.inspect}")
         cal = sign(string, current_app.secret)
@@ -54,6 +54,7 @@ class Api::BaseController < ApplicationController
         Rails.logger.info("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}, client_signature: #{client_signature.inspect}" )
         
         cal == client_signature
+        # return true
       else
         Rails.logger.info("----------------->  valid signature false,  ")
         false
@@ -66,6 +67,6 @@ class Api::BaseController < ApplicationController
     end
 
     def escape(value)
-      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+").gsub("%5B", "[").gsub("%5D", "]")
+      CGI.escape(value.to_s).gsub("%7E", '~').gsub("%20", "+").gsub("%3D", "=").gsub("%2F", "/").gsub("%2B", "+")
     end
 end
