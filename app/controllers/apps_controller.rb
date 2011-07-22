@@ -3,7 +3,7 @@ class AppsController < InheritedResources::Base
   before_filter :got_developer, :only => [:index, :new, :edit, :create, :update]
   
   def index
-    developer = Developer.find_by_name('simdm')
+    developer = Developer.find_by_name('dev1')
     @kittypad_apps = developer.blank? ? [] : developer.apps.each_slice(3).to_a 
     
     if !params[:developer_id].blank?

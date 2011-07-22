@@ -11,7 +11,7 @@
         - items.each_with_index do |item, index|
           - classname = if(index == 0); 'a'; elsif(index == 1); 'b' ; elsif(index == 2); 'c'; end
           %div{:class =>"ui-block-#{classname}", :style => "width: 33%"}
-            %div.ui-bar{:style=>"height:50px"}
+            %div.ui-bar{:style=>"height:80px"}
               = image_tag(item.icon.url(:default), :class => "ui-li-thumb")
             %h3.ui-li-heading= item.name
             = link_to image_tag("viewinitunes_en.png"), item.app_store_url
