@@ -46,14 +46,14 @@ class Api::BaseController < ApplicationController
         end
         raw_params = raw_params.sub!(/&signature=.*$/, '')
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
-        Rails.logger.debug( "server before signature: ====> #{string}")
+        Rails.logger.info( "server before signature: ====> #{string}")
         cal = sign(string, current_app.secret)
         client_signature = escape(signature)
-        Rails.logger.debug("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}, client_signature: #{client_signature.inspect}" )
+        Rails.logger.info("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}, client_signature: #{client_signature.inspect}" )
         
         cal == client_signature
       else
-        Rails.logger.debug("----------------->  valid signature false,  ")
+        Rails.logger.info("----------------->  valid signature false,  ")
         false
       end
     end
