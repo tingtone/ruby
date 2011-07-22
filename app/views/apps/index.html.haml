@@ -1,7 +1,18 @@
 = title "KittyPad - Apps"
 
 %div{"data-role"=>"navbar"}
-  = render '/layouts/shared/search'
+  =# render '/layouts/shared/search'
 
-%ul{"data-role" => "listview", "data-theme" => "g"}
-  = render :partial => "item", :collection => @apps
+%div{"data-theme" => "c"}
+  %fieldset{:class=>"ui-grid-c"}
+    %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
+      %h3 KittyPad's Apps
+      - @kittypad_apps.each do |items|
+        - items.each_with_index do |item, index|
+          - classname = if(index == 0); 'a'; elsif(index == 1); 'b' ; elsif(index == 2); 'c'; end
+          %div{:class =>"ui-block-#{classname}", :style => "width: 33%"}
+            %div.ui-bar{:style=>"height:50px"}
+              = image_tag(item.icon.url(:default), :class => "ui-li-thumb")
+            %h3.ui-li-heading= item.name
+            = link_to image_tag("viewinitunes_en.png"), item.app_store_url
+            %br

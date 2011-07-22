@@ -106,7 +106,43 @@ class Statistics < Thor
   end #favorite_apps_week_trackers
 
 
-  # ==========
-  # = Banner =
-  # ==========
+  # ===========================
+  # = Average Age For my apps =
+  # ===========================
+  desc "average_age", 'got average age for every apps every day'
+  def average_age
+    require './config/environment'
+    begin
+      
+    rescue
+      
+    end
+  end
+  
+  # ===========================
+  # = Most Gender For my apps =
+  # ===========================
+  desc "most_gender", 'got most gender for every apps every day'
+  def most_gender
+    require './config/environment'
+    begin
+      
+    rescue
+      
+    end
+  end
+  
+  # =============================
+  # = Active Amount For my apps =
+  # =============================
+  desc "active_amount", 'got active amount for every apps every day'
+  def most_gender
+    require './config/environment'
+    begin
+      
+    rescue
+      
+    end
+  end
+  
 end
