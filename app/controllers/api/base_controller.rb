@@ -48,6 +48,7 @@ class Api::BaseController < ApplicationController
         string = "#{request.path}+#{current_app.secret}+#{request.request_method.to_s.upcase}+#{raw_params}"
         Rails.logger.info( "server before signature: ====> #{string}")
         cal = sign(string, current_app.secret)
+        Rails.logger.info("====> current_app: #{current_app.secret}, id: #{current_app.id}")
         client_signature = escape(signature)
         Rails.logger.info("----------------->  cal: #{cal.inspect}, signature: #{signature.inspect}, client_signature: #{client_signature.inspect}" )
         
