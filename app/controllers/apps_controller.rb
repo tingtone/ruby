@@ -3,9 +3,7 @@ class AppsController < InheritedResources::Base
   before_filter :got_developer, :only => [:index, :new, :edit, :create, :update]
   
   def index
-    developer = Developer.find_by_name('simdm')
-    @kittypad_apps = developer.blank? ? [] : developer.apps.each_slice(3).to_a 
-    
+
     if !params[:developer_id].blank?
       @apps = @developer.apps
     elsif !params[:key].blank? && !params[:device].blank?
@@ -13,7 +11,10 @@ class AppsController < InheritedResources::Base
       @developer = @app.developer
       redirect_to exchange_app_developer_path(@developer, :device => params[:device], :developer_id => @developer.id)
     else
-      @apps = App.all
+      developer = Developer.find_by_name('simdm')
+      @kittypad_apps = developer.blank? ? [] : developer.apps.each_slice(3).to_a 
+      
+      # @apps = App.all
     end
   end #index
   
