@@ -109,9 +109,16 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mechanize (2.0.1)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 1.8)
+      nokogiri (~> 1.4)
+      webrobots (~> 0.0, >= 0.0.9)
     mime-types (1.16)
     mocha (0.9.12)
     mysql2 (0.2.7)
+    net-http-digest_auth (1.1.1)
+    net-http-persistent (1.8)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -198,6 +205,8 @@ GEM
     warden (1.0.4)
       rack (>= 1.0)
     watchr (0.7)
+    webrobots (0.0.10)
+      nokogiri (>= 1.4.4)
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
@@ -227,6 +236,7 @@ DEPENDENCIES
   haml
   inherited_resources
   kaminari
+  mechanize
   mocha
   mysql2 (= 0.2.7)
   oauth
