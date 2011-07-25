@@ -9,6 +9,11 @@
       %li= link_to 'My Apps', developer_apps_path(current_developer), "data-icon" => "arrow-r"
 
 %ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
+  %li{"data-role"=>"list-divider", :role=>"heading"} SDK Download
+  %li=link_to "SDK_v_1.0", "/sdk/sdk.zip"
+
+
+%ul{"data-role"=>"listview", "data-inset"=>"true", "data-theme"=>"d"}
   %li{"data-role"=>"list-divider", :role=>"heading"} Statisticses
   %li=link_to "Most Active Top10 Apps", statisticses_path(:typee => "active_top10")
   %li=link_to "Average Age For my apps", statisticses_path(:typee => "average_age")
