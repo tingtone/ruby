@@ -28,4 +28,8 @@ class Player < ActiveRecord::Base
       self.player_apps.create(:app => app)
     end
   end
+  
+  def age
+    return (Date.today.year - birthday.year)
+  end #age
 end

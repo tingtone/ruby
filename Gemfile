@@ -7,7 +7,7 @@ gem 'capistrano-ext'
 gem 'haml'
 gem 'compass'
 gem 'devise'
-
+gem 'active_merchant'
 
 gem 'simple_form'
 gem 'inherited_resources'
@@ -20,6 +20,7 @@ gem 'kaminari'
 gem 'ancestry'
 gem 'rails_highcharts', '~> 0.0.3'
 gem 'stamp'
+gem 'mechanize'
 
 group :development do 
   gem 'thin'
