@@ -39,3 +39,10 @@ end
 every :monday, :at => "01:00 am" do
   thor "statistics:categories_time_percent_weeks"
 end
+
+# for developer stats
+every 1.day, :at => '01:00 am' do
+  thor "statistics:active_amount"
+  thor "statistics:average_age "
+  thor "statistics:most_gender"
+end

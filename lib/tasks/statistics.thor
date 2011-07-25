@@ -113,9 +113,34 @@ class Statistics < Thor
   def average_age
     require './config/environment'
     begin
+      yesterday = Date.yesterday.to_s(:db)
       
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      app_ids = datas.map(&:app_id).uniq
+      
+      app_ids.each do |app_id|
+        app = App.find app_id
+        players = app.players
+        ages = players.inject([]){|sum, player| sum << player.age }
+        player_amount = ages.size
+        ave_age = (ages.sum/player_amount).to_i
+
+        result = Hash.new.tap do |r|
+          developer = app.developer
+          r[:user_id] = developer.id
+          r[:developer_name] = developer.name
+          r[:app_id] = app.id
+          r[:app_name] = app.name
+          r[:ave_age] = ave_age
+          r[:player_amount] = player_amount
+        end
+
+        AveAgeStat.create(user_id: result[:user_id], developer_name: result[:developer_name], app_id: result[:app_id], app_name: result[:app_name], ave_age: result[:ave_age], player_amount: result[:player_amount], current_day: yesterday)
+      end
+      
+      say "successfully.", :green
     rescue
-      
+      say "something is wrong!", :red
     end
   end
   
@@ -126,9 +151,40 @@ class Statistics < Thor
   def most_gender
     require './config/environment'
     begin
+      yesterday = Date.yesterday.to_s(:db)
+
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      app_ids = datas.map(&:app_id).uniq
       
+      app_ids.each do |app_id|
+        app = App.find app_id
+        players = app.players
+        
+        boys = players.inject([]) do |sum, player|
+          next if player.gender != 1
+          sum << player  if player.gender == 1
+        end
+        girls = players.inject([]) do |sum, player|
+          next if player.gender != 2
+          sum << player  if player.gender == 2
+        end
+        boy_amount, girl_amount = boys.try(:size).to_i, girls.try(:size).to_i
+
+        result = Hash.new.tap do |r|
+          developer = app.developer
+          r[:user_id] = developer.id
+          r[:developer_name] = developer.name
+          r[:app_id] = app.id
+          r[:app_name] = app.name
+          r[:boy_amount] = boy_amount
+          r[:girl_amount] = girl_amount
+        end
+        GenderStat.create(user_id: result[:user_id], developer_name: result[:developer_name], app_id: result[:app_id], app_name: result[:app_name], boy_amount: result[:boy_amount], girl_amount: result[:girl_amount], current_day: yesterday)
+      end
+      
+      say "successfully.", :green
     rescue
-      
+      say "something is wrong!", :red
     end
   end
   
@@ -136,12 +192,34 @@ class Statistics < Thor
   # = Active Amount For my apps =
   # =============================
   desc "active_amount", 'got active amount for every apps every day'
-  def most_gender
+  def active_amount
     require './config/environment'
     begin
+      yesterday = Date.yesterday.to_s(:db)
+
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      app_ids = datas.map(&:app_id).uniq
       
+      app_ids.each do |app_id|
+        app = App.find app_id
+        players = app.players
+        
+        active_amount = players.try(:size).to_i
+        
+        result = Hash.new.tap do |r|
+          developer = app.developer
+          r[:user_id] = developer.id
+          r[:developer_name] = developer.name
+          r[:app_id] = app.id
+          r[:app_name] = app.name
+          r[:active_amount] = active_amount
+        end
+        ActiveStat.create(user_id: result[:user_id], developer_name: result[:developer_name], app_id: result[:app_id], app_name: result[:app_name], active_amount: result[:active_amount], current_day: yesterday)
+      end
+
+      say "successfully.", :green
     rescue
-      
+      say "something is wrong!", :red
     end
   end
   
