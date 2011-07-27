@@ -115,7 +115,7 @@ class Statistics < Thor
     begin
       yesterday = Date.yesterday.to_s(:db)
       
-      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') <= ?", yesterday)
       app_ids = datas.map(&:app_id).uniq
       
       app_ids.each do |app_id|
@@ -153,7 +153,7 @@ class Statistics < Thor
     begin
       yesterday = Date.yesterday.to_s(:db)
 
-      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') <= ?", yesterday)
       app_ids = datas.map(&:app_id).uniq
       
       app_ids.each do |app_id|
@@ -197,7 +197,7 @@ class Statistics < Thor
     begin
       yesterday = Date.yesterday.to_s(:db)
 
-      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') = ?", yesterday)
+      datas = PlayerApp.where("DATE_FORMAT(updated_at, '%Y-%m-%d') <= ?", yesterday)
       app_ids = datas.map(&:app_id).uniq
       
       app_ids.each do |app_id|

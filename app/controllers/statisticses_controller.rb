@@ -14,8 +14,7 @@ class StatisticsesController < ApplicationController
     
     
     if !params[:typee].blank? && params[:typee] == "active_amount"
-      # @active_amount = ActiveStat.active_amount(current_developer)
-      @active_amount = []
+      @active_amount = ActiveStat.active_amount(current_developer)
     end
     
     
