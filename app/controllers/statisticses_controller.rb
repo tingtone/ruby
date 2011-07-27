@@ -5,16 +5,16 @@ class StatisticsesController < ApplicationController
     # For Developer Dashboard
     
     if !params[:typee].blank? && params[:typee] == "average_age"
-      @average_age = []
+      @average_age = AveAgeStat.aveage_age(current_developer)
     end
     
     if !params[:typee].blank? && params[:typee] == "most_gender"
-      @most_gender = []
+      @most_gender = GenderStat.most_gender(current_developer)
     end
     
     
     if !params[:typee].blank? && params[:typee] == "active_amount"
-      @active_amount = []
+      @active_amount = ActiveStat.active_amount(current_developer)
     end
     
     

@@ -16,3 +16,17 @@
   %div{"data-role" =>"fieldcontain"}
     = high_chart("install_apps_day_trackers", @install_apps_day_trackers)
 
+- if @average_age
+  %div{"date-role" => "fieldcontain"}
+    - high_chart("average_age", @average_age) do |c|
+      =raw "options.tooltip.formatter = function() { return 'Average Age'+': '+ this.y +' ';}"
+
+- if @most_gender
+  %div{"date-role" => "fieldcontain"}
+    - high_chart("most_gender", @most_gender) do |c|
+      =raw "options.tooltip.formatter = function() { return 'Gender'+': '+ this.series.name + '<br/>' + this.point.name +' :' + this.y + 'Players';}"
+
+- if @active_amount
+  %div{"date-role" => "fieldcontain"}
+    - high_chart("active_amount", @active_amount) do |c|
+      =raw "options.tooltip.formatter = function() { return 'The Number of your app be installed'+': '+ this.y +' Players';}"
