@@ -1,5 +1,5 @@
 puts "--------> truncate tables"
-# ActiveRecord::Base.connection.execute("truncate categories;")
+ActiveRecord::Base.connection.execute("truncate categories;")
 # ActiveRecord::Base.connection.execute("truncate users;")
 # ActiveRecord::Base.connection.execute("truncate players;")
 # ActiveRecord::Base.connection.execute("truncate player_apps;")
@@ -9,7 +9,8 @@ puts "--------> truncate tables"
 
 # init categories
 puts "--------> init categories"
-categories = %w|Books Education Game App|
+categories = %w|Books Education Business Entertainment Finance Games Healthcare\ &\ Fitness Lifestyle Medical Music Navigation News Photography Productivity Reference Social\ Networking Sports Travel Utilities Weather|
+
 categories.each do |cat|
   Category.create(name: cat)
 end
@@ -21,6 +22,15 @@ education_sub_categories = ['General Knowledge', 'Language', 'Math', 'Puzzles', 
 education_sub_categories.each do |sub_cate|
   education.children.create(name: sub_cate)
 end
+puts "--------> add sub categories for Games"
+games = Category.find_by_name "Games"
+games_sbu_categories = %w|Action Adventure Arcade Board Card Casino Dice Educational Family Kids Music Puzzle Racing Role\ Playing Simulation Sports Strategy Trivia Word|
+
+games_sbu_categories.each do |sub_cate|
+  games.children.create(name: sub_cate)
+end
+
+
 
 =begin
 # init owner

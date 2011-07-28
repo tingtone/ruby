@@ -47,11 +47,36 @@ class Developer < User
 
     def filter_apps(option={})
       #  apps, support_device, device_lang, installed_apps
+      device_lang = device_lang_option option[:device_lang]
       device_apps = option[:apps].select{|app| app if app.support_device == option[:support_device] || app.support_device == 'iPad/iPhone'} if !option[:apps].blank?
-      language_apps = device_apps.select{|app| app if (app.language.include?(option[:device_lang]) ? app.language.include?(option[:device_lang]) : app.language == 'en'  ) } if !device_apps.blank?
+      language_apps = device_apps.select{|app| app if (app.language.include?(device_lang) ? app.language.include?(device_lang) : app.language == 'English'  ) } if !device_apps.blank?
       final_apps = (language_apps - option[:installed_apps]).sample(10)
       return final_apps
     end #filter_apps(support_device, language)
 
+    def device_lang_option(device_lang)
+      case device_lang.to_s
+      when 'en'
+        'English'
+      when 'fr'
+        'French'
+      when 'de'
+        'German'
+      when 'es'
+        'Spanish'
+      when 'pt'
+        'Portuguese'
+      when 'it'
+        'Italian'
+      when 'zh'
+        'Chinese'
+      when 'ja'
+        'Japanese'
+      when 'ko'
+        'Korean'
+      when 'ru'
+        'Russian'
+      end
+    end #device_lang_option
   end
 end

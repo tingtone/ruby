@@ -1,0 +1,8 @@
+= f.input :developer_id, :as => :hidden, :input_html => {:value => params[:developer_id], :name => "app[user_id]"}
+
+%div{"data-role" =>"fieldcontain"}
+  = f.input :name
+%div{"data-role" =>"fieldcontain"}
+  %div.input.select.required
+    %label.decimal.required.ui-input-text Category
+    = select('app', 'category_id', grouped_options_for_select(get_categories_sub_collect, (@app.try(:category_id).blank? ? "" : @app.try(:category_id))), { :include_blank => "--please choose categories--" } )
