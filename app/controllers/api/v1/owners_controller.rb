@@ -78,7 +78,7 @@ class Api::V1::OwnersController < Api::BaseController
         @player_app = PlayerApp.find_by_player_id_and_app_id(current_player.id, current_app.id)
         iap_timestamp = params[:iap_timestamp].to_i
         expired_timestamp = (Time.at(iap_timestamp) + 30.day).to_i
-        if @player_app.update_attributes(:payment_timestamp => , :payment_method => 'iap' )
+        if @player_app.update_attributes(:payment_timestamp => iap_timestamp, :payment_method => 'iap' )
           current_player.update_attributes(:expired_timestamp => expired_timestamp)
         end
         render :json => {:error => false}
