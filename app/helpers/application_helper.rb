@@ -23,33 +23,15 @@ module ApplicationHelper
   def support_language_options
     [['English', 'en'], ['Chinese', 'zh'], ['French', 'fr'], ['German', 'de'], ['Spanish', 'es'], ['Portuguese', 'pt'], ['Italian', 'it'], ['Japanese', 'ja'], ['Korean', 'ko'], ['Russian', 'ru']]
   end #support_language_options
-  
-  #Books Education Game App
+
   def get_categories_sub_collect
-      book_cates = [["Books",1]]
-      edu_cates = [["Education",2]]
-      game_cates = [["Game",3]]
-      app_cates = [["App",4]]
-      Category.find(1).children.each do |sub_cate|
-        book_cates <<  [sub_cate.name,sub_cate.id]
-      end
-      Category.find(2).children.each do |sub_cate|
-         edu_cates <<  [sub_cate.name,sub_cate.id]
-      end
-      Category.find(3).children.each do |sub_cate|
-         game_cates <<  [sub_cate.name,sub_cate.id]
-      end
-      Category.find(4).children.each do |sub_cate|
-         app_cates <<  [sub_cate.name,sub_cate.id]
-      end
-      
-      grouped_options = {
-         'Books' => book_cates,
-         'Education' => edu_cates,
-         'Game' => game_cates,
-         'App'  => app_cates
-        }
-      return grouped_options
+    root = Category.roots.collect{|c| [[c.name, c.id]]}
+    root.each do |r|
+      Category.find(r[0][1]).children.each{ |sub| r << [sub.name, sub.id] }
     end
+    grouped_options = {}
+    root.each{|r| grouped_options[r[0][0]] = r}
+    return grouped_options
+  end
   
 end

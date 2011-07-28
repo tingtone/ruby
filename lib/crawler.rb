@@ -32,7 +32,7 @@ class Crawler
   end #app_desc
   
   def app_icon
-    page.search("//img[@class='artwork']").first.attributes['src'].text
+    page.search("//div[@class='lockup product application']//img[@class='artwork']").first.attributes['src'].text
   end #app_icon
   
   def app_rated
@@ -48,7 +48,7 @@ class Crawler
   end #app_lang
   
   def app_requirements
-    page.search("//div[@class='fat-binary-blurb']").text
+    page.search("//div[@class='lockup product application']//p").text
   end #app_requirements
   
   def app_price
