@@ -1,5 +1,5 @@
 puts "--------> truncate tables"
-ActiveRecord::Base.connection.execute("truncate categories;")
+# ActiveRecord::Base.connection.execute("truncate categories;")
 # ActiveRecord::Base.connection.execute("truncate users;")
 # ActiveRecord::Base.connection.execute("truncate players;")
 # ActiveRecord::Base.connection.execute("truncate player_apps;")
