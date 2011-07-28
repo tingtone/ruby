@@ -30,6 +30,12 @@ class Api::V1::OwnersController < Api::BaseController
           end
         end
         result.merge! :player => @player
+        if false # 支付过
+          result[:player][:expired_timestamp] = @player.expired_timestamp.to_i
+          if false
+            result[:player][:is_web_pay] = true
+          end #满足条件
+        end
       end
       render :json => result
     end
@@ -63,4 +69,23 @@ class Api::V1::OwnersController < Api::BaseController
       render :json => {:error => false}
     end
   end
+  
+  def ipad
+    if !current_player
+      access_denied("no such device identifier") 
+    else
+      if !params[:iap_timestamp].blank?
+        @player_app = PlayerApp.find_by_player_id_and_app_id(current_player.id, current_app.id)
+        iap_timestamp = params[:iap_timestamp].to_i
+        expired_timestamp = (Time.at(iap_timestamp) + 30.day).to_i
+        if @player_app.update_attributes(:payment_timestamp => , :payment_method => 'iap' )
+          current_player.update_attributes(:expired_timestamp => expired_timestamp)
+        end
+        render :json => {:error => false}
+      else
+        render :json => {:error => true, :messages => "IapTime can't be blank!"}
+      end
+    end
+    
+  end #ipad
 end

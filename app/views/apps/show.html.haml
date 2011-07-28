@@ -2,46 +2,38 @@
 
 %div{"data-role" =>"fieldcontain"}
   %label App Name:
-  %br
-  = @app.name
-%div{"data-role" =>"fieldcontain"}
-  %label Description:
-  %br
-  = @app.description
-%div{"data-role" =>"fieldcontain"}
-  %label Price:
-  %br
-  = format_price(@app.price)
+  %strong= @app.name
 %div{"data-role" =>"fieldcontain"}
   %label Category:
-  %br
-  = @app.try(:category).try(:name)
-%div{"data-role" =>"fieldcontain"}
-  %label Rating:
-  %br
-  = "Age #{@app.rating}+"
-%div{"data-role" =>"fieldcontain"}
-  %label Support Device:
-  %br
-  = @app.support_device
-%div{"data-role" =>"fieldcontain"}
-  %label App iTunes URL:
-  %br
-  = @app.app_store_url
-%div{"data-role" =>"fieldcontain"}
-  %label ICON:
-  %br
-  = image_tag(@app.icon.url(:default))
-%div{"data-role" =>"fieldcontain"}
-  %label ScreenShot:
-  %br
-  = image_tag(@app.screenshot.url(:default))
+  %strong= @app.try(:category).try(:name)
+- if @app.rated
+  %div{"data-role" =>"fieldcontain"}
+    %label Rated:
+    %strong= "#{@app.try(:rated)} +"
+- if @app.support_device
+  %div{"data-role" =>"fieldcontain"}
+    %label Requirement:
+    %strong= @app.support_device
+- if @app.app_store_url
+  %div{"data-role" =>"fieldcontain"}
+    %label iTnues Url:
+    %strong= @app.app_store_url
+- if @app.price
+  %div{"data-role" =>"fieldcontain"}
+    %label Price:
+    %strong= @app.price
+- if @app.language
+  %div{"data-role" =>"fieldcontain"}
+    %label Languages:
+    %strong= @app.language.join(', ')
+- if @app.icon_path
+  %div{"data-role" =>"fieldcontain"}
+    %label ICON:
+    = image_tag(@app.icon_path)
 %hr
 %div{"data-role" =>"fieldcontain"}
   %label Key:
-  %br
-  = @app.key
+  %strong= @app.key
 %div{"data-role" =>"fieldcontain"}
   %label Secret:
-  %br
-  = @app.secret
+  %strong= @app.secret
