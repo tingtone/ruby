@@ -17,9 +17,11 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
-    active_merchant (1.5.2)
-      activesupport (>= 2.3.2)
+    activemerchant (1.16.0)
+      activesupport (>= 2.3.11)
+      braintree (>= 2.0.0)
       builder (>= 2.0.0)
+      json (>= 1.5.1)
     activemodel (3.0.9)
       activesupport (= 3.0.9)
       builder (~> 2.1.2)
@@ -42,6 +44,8 @@ GEM
       ZenTest
     awesome_print (0.4.0)
     bcrypt-ruby (2.1.4)
+    braintree (2.10.1)
+      builder (>= 2.0.0)
     builder (2.1.2)
     capistrano (2.6.0)
       highline
@@ -221,7 +225,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
-  active_merchant
+  activemerchant
   ancestry
   autotest
   autotest-rails

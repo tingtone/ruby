@@ -7,7 +7,7 @@ gem 'capistrano-ext'
 gem 'haml'
 gem 'compass'
 gem 'devise'
-gem 'active_merchant'
+gem 'activemerchant'
 
 gem 'simple_form'
 gem 'inherited_resources'
