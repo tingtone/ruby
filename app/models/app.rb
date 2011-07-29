@@ -49,7 +49,7 @@ class App < ActiveRecord::Base
       url = self.app_store_url
       app = Crawler.new url
       self.description = app.app_desc
-      self.rated = app.app_rated.split(' ').second.chop
+      self.rated = app.app_rated.split(' ').second.chop.to_i
       self.support_device = App.support_device_option(app.app_requirements)
       self.price = app.app_price
       self.language = app.app_lang.split(': ').last.split(', ')
