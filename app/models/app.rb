@@ -13,7 +13,7 @@ class App < ActiveRecord::Base
   validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
   # validates :description, :presence => true
   # validates :screenshot,  :presence => true, :unless => :new_record?
-  validates :app_store_url,  :presence => true, :uniqueness => true, :unless => :new_record?
+  validates :app_store_url,  :presence => true, :uniqueness => true, :unless => :new_record?, :app_store_url_format => true
   validates :category_id,  :presence => true
   # validates :price,  :presence => true
 
@@ -46,14 +46,14 @@ class App < ActiveRecord::Base
   end
 
   def fetch_app_info_from_itnues
-    url = self.app_store_url
-    app = Crawler.new url
-    self.description = app.app_desc
-    self.rated = app.app_rated.split(' ').last.chop
-    self.support_device = App.support_device_option(app.app_requirements)
-    self.price = app.app_price
-    self.language = app.app_lang.split(': ').last.split(', ')
-    self.icon_path = app.app_icon
+      url = self.app_store_url
+      app = Crawler.new url
+      self.description = app.app_desc
+      self.rated = app.app_rated.split(' ').last.chop
+      self.support_device = App.support_device_option(app.app_requirements)
+      self.price = app.app_price
+      self.language = app.app_lang.split(': ').last.split(', ')
+      self.icon_path = app.app_icon
   end #fetch_app_info_from_itnues
   
   # def language=(langs)

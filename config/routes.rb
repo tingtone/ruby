@@ -11,6 +11,7 @@ Server::Application.routes.draw do
   match "/faq(.:format)" => 'home#faq', :as => :faq
   match "/quit(.:format)" => 'home#quit', :as => :quit
   match "/download(.:format)" => 'home#download', :as => :sdk_download
+  match "/copyright(.:format)" => 'home#copyright', :as => :copyright
 
   resources :statisticses
 
