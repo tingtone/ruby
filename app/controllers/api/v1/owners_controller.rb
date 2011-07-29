@@ -30,12 +30,12 @@ class Api::V1::OwnersController < Api::BaseController
           end
         end
         result.merge! :player => @player
-        if false # 支付过
-          result[:player][:expired_timestamp] = @player.expired_timestamp.to_i
-          if false
-            result[:player][:is_web_pay] = true
-          end #满足条件
-        end
+        # if @player.is_pay?
+        #           result[:player][:expired_timestamp] = @player.expired_timestamp.to_i
+        #           if @player.is_web_pay?(current_app)
+        #             result[:player][:is_web_pay] = true
+        #           end
+        #         end
       end
       render :json => result
     end

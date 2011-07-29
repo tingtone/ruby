@@ -32,4 +32,32 @@ class Player < ActiveRecord::Base
   def age
     return (Date.today.year - birthday.year)
   end #age
+  
+  def is_pay?
+    !expired_timestamp.nil?
+  end #is_pay
+  
+  def iap_payment?(current_app)
+    payment_method = PlayerApp.find_by_app_id_and_player_id(current_app.id, player_id).payment_method
+    case payment_method
+    when 'iap'
+      true
+    else
+      false
+    end
+  end
+  
+  def web_payment(current_app)
+    payment_method = PlayerApp.find_by_app_id_and_player_id(current_app.id, player_id).payment_method
+    case payment_method
+    when 'iap'
+      false
+    when 'paypal'
+      true
+    when 'zhifubao'
+      true
+    else
+      false
+    end
+  end
 end
