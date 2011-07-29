@@ -47,9 +47,11 @@ class App < ActiveRecord::Base
 
   def fetch_app_info_from_itnues
       url = self.app_store_url
+      rated = ''
       app = Crawler.new url
+      rated.each_char{|i| rated << i if i =~ /4/i}
       self.description = app.app_desc
-      self.rated = app.app_rated.split(' ').last.chop
+      self.rated = rated.to_i
       self.support_device = App.support_device_option(app.app_requirements)
       self.price = app.app_price
       self.language = app.app_lang.split(': ').last.split(', ')

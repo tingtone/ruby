@@ -12,17 +12,9 @@ module ApplicationHelper
     content_for(:footer) { yield }
   end #footer
   
-  def format_price price
-    if price.to_s == '0.0' || price.to_s == '0'
-      "Free"
-    else
-      number_to_currency(price, :unit => '$')
-    end
-  end #format_price
-  
-  def support_language_options
-    [['English', 'en'], ['Chinese', 'zh'], ['French', 'fr'], ['German', 'de'], ['Spanish', 'es'], ['Portuguese', 'pt'], ['Italian', 'it'], ['Japanese', 'ja'], ['Korean', 'ko'], ['Russian', 'ru']]
-  end #support_language_options
+  # def support_language_options
+  #     [['English', 'en'], ['Chinese', 'zh'], ['French', 'fr'], ['German', 'de'], ['Spanish', 'es'], ['Portuguese', 'pt'], ['Italian', 'it'], ['Japanese', 'ja'], ['Korean', 'ko'], ['Russian', 'ru']]
+  #   end #support_language_options
 
   def get_categories_sub_collect
     root = Category.roots.collect{|c| [[c.name, c.id]]}
