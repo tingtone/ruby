@@ -24,6 +24,8 @@ class App < ActiveRecord::Base
 
   scope :except, lambda { |app_id| where("id != ?", app_id) }
   scope :random, lambda { |number| order("RAND()").limit(number) }
+  scope :valid_apps, where("app_store_url is not NULL")
+
 
   before_create :generate_keys
   

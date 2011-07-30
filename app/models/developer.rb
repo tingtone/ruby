@@ -16,12 +16,12 @@ class Developer < User
         @developer = Developer.find developer_id
         @player = Player.find_by_device_identifier(device)
         @installed_apps = @player.apps
-        @developer_apps = @developer.apps
+        @developer_apps = @developer.apps.select{|app| app if !app.app_store_url.blank?}
 
         if @developer.exchange_own?
           final_apps = @developer_apps
         elsif @developer.exchange_all?
-          final_apps = App.order("created_at desc").all.select{|app| app if app.developer.exchange_all?}
+          final_apps = App.valid_apps.select{|app| app if app.developer.exchange_all?}
         else
           final_apps = []
         end #if
@@ -36,7 +36,7 @@ class Developer < User
           end
         end
       rescue
-        @apps = App.all.sample(10)
+        @apps = App.valid_apps.sample(10)
       end
       return @apps
     end #self.got_exchange_apps
