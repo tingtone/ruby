@@ -12,6 +12,7 @@ Server::Application.routes.draw do
   match "/quit(.:format)" => 'home#quit', :as => :quit
   match "/download(.:format)" => 'home#download', :as => :sdk_download
   match "/copyright(.:format)" => 'home#copyright', :as => :copyright
+  match "/feedback(.:format)" => 'home#feedback', :as => :feedback
 
   resources :statisticses
 
