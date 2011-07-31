@@ -45,6 +45,7 @@ Server::Application.routes.draw do
     namespace :v1 do
       match "owners/save" => "owners#save", :via => :post
       match "owners/sync" => "owners#sync", :via => :get
+      match "owners/iap" => "owners#iap", :via => :post
       resources :score_trackers, :only => [:create]
       resources :time_trackers, :only => [:create]
       resources :apps, :only => [:index]
