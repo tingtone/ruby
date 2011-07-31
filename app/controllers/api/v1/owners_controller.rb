@@ -70,7 +70,7 @@ class Api::V1::OwnersController < Api::BaseController
     end
   end
   
-  def ipad
+  def iap
     if !current_player
       access_denied("no such device identifier") 
     else
