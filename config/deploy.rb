@@ -16,7 +16,7 @@ set :application, "kittypad_server"
 set :domain,      "ec2-50-16-134-27.compute-1.amazonaws.com"
 set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
 
-set :deploy_via,    :copy
+set :deploy_via,    :remote_cache
 set :copy_strategy, :checkout
 set :user,          'deploy'
 set :use_sudo, false
