@@ -71,7 +71,8 @@ class Api::V1::OwnersController < Api::BaseController
   end
   
   def iap
-    if !current_player
+    @player = Player.find_by_device_identifier(params[:device_identifier])
+    if !@player
       access_denied("no such device identifier") 
     else
       if !params[:iap_timestamp].blank?
