@@ -13,7 +13,7 @@ class App < ActiveRecord::Base
   validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
   # validates :description, :presence => true
   # validates :screenshot,  :presence => true, :unless => :new_record?
-  validates :app_store_url,  :presence => true, :uniqueness => true, :app_store_url_format => true
+  validates :app_store_url,  :presence => true, :uniqueness => true, :unless => :new_record?, :app_store_url_format => true
   validates :category_id,  :presence => true
   # validates :price,  :presence => true
 
