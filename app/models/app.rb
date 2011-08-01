@@ -29,7 +29,7 @@ class App < ActiveRecord::Base
 
   before_create :generate_keys
   
-  before_save :fetch_app_info_from_itnues
+  before_update :fetch_app_info_from_itnues
   # def to_exchange
   #     {:name => name, :description => description, :app_store_url => app_store_url, :icon_url => full_icon_url(:default)}
   #   end
