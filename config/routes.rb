@@ -12,6 +12,7 @@ Server::Application.routes.draw do
   match "/quit(.:format)" => 'home#quit', :as => :quit
   match "/download(.:format)" => 'home#download', :as => :sdk_download
   match "/copyright(.:format)" => 'home#copyright', :as => :copyright
+  match "/feedback(.:format)" => 'home#feedback', :as => :feedback
 
   resources :statisticses
 
@@ -44,6 +45,7 @@ Server::Application.routes.draw do
     namespace :v1 do
       match "owners/save" => "owners#save", :via => :post
       match "owners/sync" => "owners#sync", :via => :get
+      match "owners/iap" => "owners#iap", :via => :post
       resources :score_trackers, :only => [:create]
       resources :time_trackers, :only => [:create]
       resources :apps, :only => [:index]

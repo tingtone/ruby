@@ -13,7 +13,7 @@ class App < ActiveRecord::Base
   validates :name,  :presence => true, :uniqueness => true, :length => { :maximum => 100 }
   # validates :description, :presence => true
   # validates :screenshot,  :presence => true, :unless => :new_record?
-  validates :app_store_url,  :presence => true, :uniqueness => true, :unless => :new_record?, :app_store_url_format => true
+  validates :app_store_url,  :presence => true, :uniqueness => true, :app_store_url_format => true
   validates :category_id,  :presence => true
   # validates :price,  :presence => true
 
@@ -24,10 +24,12 @@ class App < ActiveRecord::Base
 
   scope :except, lambda { |app_id| where("id != ?", app_id) }
   scope :random, lambda { |number| order("RAND()").limit(number) }
+  scope :valid_apps, where("app_store_url is not NULL")
+
 
   before_create :generate_keys
   
-  before_update :fetch_app_info_from_itnues
+  before_save :fetch_app_info_from_itnues
   # def to_exchange
   #     {:name => name, :description => description, :app_store_url => app_store_url, :icon_url => full_icon_url(:default)}
   #   end
@@ -47,11 +49,9 @@ class App < ActiveRecord::Base
 
   def fetch_app_info_from_itnues
       url = self.app_store_url
-      rated = ''
       app = Crawler.new url
-      rated.each_char{|i| rated << i if i =~ /4/i}
       self.description = app.app_desc
-      self.rated = rated.to_i
+      self.rated = app.app_rated.split(' ').second.chop.to_i
       self.support_device = App.support_device_option(app.app_requirements)
       self.price = app.app_price
       self.language = app.app_lang.split(': ').last.split(', ')

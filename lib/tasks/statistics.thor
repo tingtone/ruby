@@ -161,12 +161,12 @@ class Statistics < Thor
         players = app.players
         
         boys = players.inject([]) do |sum, player|
-          next if player.gender != 1
-          sum << player  if player.gender == 1
+          next if player.gender != 0
+          sum << player  if player.gender == 0
         end
         girls = players.inject([]) do |sum, player|
-          next if player.gender != 2
-          sum << player  if player.gender == 2
+          next if player.gender != 1
+          sum << player  if player.gender == 1
         end
         boy_amount, girl_amount = boys.try(:size).to_i, girls.try(:size).to_i
 
