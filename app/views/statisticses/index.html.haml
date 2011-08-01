@@ -1,5 +1,7 @@
 = title "Your Statistics Info"
 
+=# link_to "feedback", feedback_path(:device => params[:device])
+
 - if @active_top10
   %div{"data-role" =>"fieldcontain"}
     = high_chart("my_id", @active_top10)
@@ -30,3 +32,5 @@
   %div{"date-role" => "fieldcontain"}
     - high_chart("active_amount", @active_amount) do |c|
       =raw "options.tooltip.formatter = function() { return 'The Number of your app be installed'+': '+ this.y +' Players';}"
+
+
