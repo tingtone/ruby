@@ -14,13 +14,23 @@ class Player < ActiveRecord::Base
   
 
   def as_json(options={})
-    {:device_identifier => device_identifier, :language => language, :name => name,
+    result = {:device_identifier => device_identifier, :language => language, :name => name,
       :gender => gender, :time_between_pause => time_between_pause, :pause_duration => pause_duration,
       :time_between_breaks => time_between_breaks,:break_duration => break_duration,
       :time_to_pause => time_to_pause, :time_to_break => time_to_break, :weekday_time => weekday_time,
       :weekend_time => weekend_time, :birthday => birthday.to_datetime.to_i,
       :time_left => time_left,
       :timestamp => timestamp}
+      
+    @player = Player.find_by_device_identifier(result[:device_identifier])
+    if @player.is_pay?
+      result[:expired_timestamp] = @player.expired_timestamp.to_i
+      if false
+        result[:is_web_pay] = true
+      end
+    end
+    
+    return result
   end
 
   def add_app(app)

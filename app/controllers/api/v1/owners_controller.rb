@@ -30,12 +30,6 @@ class Api::V1::OwnersController < Api::BaseController
           end
         end
         result.merge! :player => @player
-        if @player.is_pay?
-          
-          result[:player][:expired_timestamp] = @player.expired_timestamp.to_i
-          result[:player][:is_web_pay] = false
-          Rails.logger.info("=============>  result: #{result.inspect}")
-        end
       end
       render :json => result
     end

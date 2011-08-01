@@ -16,18 +16,14 @@ set :application, "kittypad_server"
 set :domain,      "ec2-50-16-134-27.compute-1.amazonaws.com"
 set :deploy_to, "/home/deploy/sites/kittypad.com/staging"
 
-
-
-set :scm, :git
-set :repository, "git@github.com:kittypad/ruby.git"
-set :branch, "master"
-
-set :deploy_via,    :remote_cache
+set :deploy_via,    :copy
 set :copy_strategy, :checkout
 set :user,          'deploy'
 set :use_sudo, false
 
-set :git_shallow_clone, 1
+set :scm, :git
+set :repository, "git@github.com:kittypad/ruby.git"
+set :branch, "master"
 
 role :web, "#{domain}"
 role :app, "#{domain}"
