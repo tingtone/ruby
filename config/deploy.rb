@@ -35,6 +35,7 @@ namespace :config do
   task :init do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/uploads #{release_path}/public/uploads"
+    run "ln -nfs #{shared_path}/sdk #{release_path}/public/sdk"
   end
 end
 

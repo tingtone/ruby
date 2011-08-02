@@ -6,6 +6,3 @@
   %div.input.select.required
     %label.decimal.required.ui-input-text Category
     = select('app', 'category_id', grouped_options_for_select(get_categories_sub_collect, (@app.try(:category_id).blank? ? "" : @app.try(:category_id))), { :include_blank => "--please choose categories--" } )
-
-%div{"data-role" =>"fieldcontain"}
-  = f.input :app_store_url
