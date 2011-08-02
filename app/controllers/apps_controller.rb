@@ -11,8 +11,8 @@ class AppsController < InheritedResources::Base
       @developer = @app.developer
       redirect_to exchange_app_developer_path(@developer, :device => params[:device], :developer_id => @developer.id)
     else
-      developer = Developer.find_by_name('simdm')
-      @kittypad_apps = developer.blank? ? [] : developer.apps.each_slice(3).to_a 
+      @all_apps = App.valid_apps.each_slice(3).to_a
+      # @kittypad_apps = developer.blank? ? [] : developer.apps.each_slice(3).to_a 
       
       # @apps = App.all
     end

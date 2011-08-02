@@ -2,11 +2,11 @@ class Developer < User
   has_many :apps, :foreign_key => :user_id
 
   def exchange_own?
-    self.exchange_app == 0
+    self.exchange_app == 1
   end
 
   def exchange_all?
-    self.exchange_app == 1
+    self.exchange_app == 0
   end
 
   class << self
