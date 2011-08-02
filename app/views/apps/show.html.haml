@@ -30,6 +30,12 @@
   %div{"data-role" =>"fieldcontain"}
     %label ICON:
     = image_tag(@app.icon_path)
+- if !@app.unite_pay.to_s.blank?
+  %div{"data-role" =>"fieldcontain"}
+    %label If Group purchases?
+    %strong=  @app.unite_pay ? 'Yes' : 'No'
+
+
 %hr
 %div{"data-role" =>"fieldcontain"}
   %label Key:
