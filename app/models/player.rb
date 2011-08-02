@@ -21,15 +21,17 @@ class Player < ActiveRecord::Base
       :weekend_time => weekend_time, :birthday => birthday.to_datetime.to_i,
       :time_left => time_left,
       :timestamp => timestamp}
-      
-    @player = Player.find_by_device_identifier(result[:device_identifier])
-    if @player.is_pay?
-      result[:expired_timestamp] = @player.expired_timestamp.to_i
-      if false
-        result[:is_web_pay] = true
-      end
-    end
     
+      if !options[:device_identifier].blank? && !options[:current_app_id].blank?
+        @player = Player.find_by_device_identifier(options[:device_identifier])
+        if @player.is_pay?
+          result[:expired_timestamp] = @player.expired_timestamp.to_i
+          current_app = App.find options[:current_app_id].to_i
+          if @player.web_payment(current_app)
+            result[:is_web_pay] = true
+          end
+        end
+      end
     return result
   end
 
@@ -46,19 +48,10 @@ class Player < ActiveRecord::Base
   def is_pay?
     !expired_timestamp.nil?
   end #is_pay
-  
-  def iap_payment?(current_app)
-    payment_method = PlayerApp.find_by_app_id_and_player_id(current_app.id, player_id).payment_method
-    case payment_method
-    when 'iap'
-      true
-    else
-      false
-    end
-  end
-  
+
   def web_payment(current_app)
-    payment_method = PlayerApp.find_by_app_id_and_player_id(current_app.id, player_id).payment_method
+    payment_method = PlayerApp.find_by_app_id_and_player_id(current_app.id, self.id).try(:payment_method).to_s
+    return false if payment_method.blank?
     case payment_method
     when 'iap'
       false

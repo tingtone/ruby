@@ -29,7 +29,7 @@ class Api::V1::OwnersController < Api::BaseController
             @player.update_attributes(time_left: @player.weekday_time.to_i)
           end
         end
-        result.merge! :player => @player
+        result.merge! :player => @player.as_json(device_identifier: params[:device_identifier] , current_app_id: current_app.id)
       end
       render :json => result
     end
