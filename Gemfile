@@ -22,6 +22,9 @@ gem 'rails_highcharts', '~> 0.0.3'
 gem 'stamp'
 gem 'mechanize'
 
+# gem 'aws-s3', :require => 'aws/s3'
+
+
 group :development do 
   gem 'thin'
   gem 'awesome_print', :require => 'ap'
