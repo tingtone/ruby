@@ -73,14 +73,14 @@ class App < ActiveRecord::Base
   end #support_device_option
   
   def change_download_times_count
-    app.change_times += 6
-    app.left_show_times += 6
-    app.save
+    self.change_times += 6
+    self.left_show_times += 6
+    self.save
   end #change_download_times_count
   
   def show_times_count
-    app.show_times += 1
-    app.left_show_times -= 1
-    app.save
+    self.show_times += 1
+    self.left_show_times -= 1
+    self.save
   end #show_tims_count
 end

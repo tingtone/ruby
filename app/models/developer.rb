@@ -30,9 +30,9 @@ class Developer < User
           @apps = []
         else
           if @player.device_user_agent.match(/iPad/)
-            @apps = filter_apps(:apps => final_apps, :support_device => 'iPhone', :device_lang => @player.language, :installed_apps => @installed_apps)
-          elsif @player.device_user_agent.match(/iPhone/)
             @apps = filter_apps(:apps => final_apps, :support_device => 'iPad', :device_lang => @player.language, :installed_apps => @installed_apps)
+          elsif @player.device_user_agent.match(/iPhone/)
+            @apps = filter_apps(:apps => final_apps, :support_device => 'iPhone', :device_lang => @player.language, :installed_apps => @installed_apps)
           end
         end
       rescue
