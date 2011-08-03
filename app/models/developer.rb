@@ -38,6 +38,7 @@ class Developer < User
       rescue
         @apps = App.valid_apps.sample(10)
       end
+      @apps.each{|app| app.show_times_count}
       return @apps
     end #self.got_exchange_apps
 
