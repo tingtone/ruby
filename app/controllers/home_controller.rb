@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  caches_page :index, :about, :faq, :tos, :copyright, :developer_page
+  
   
   def quit
     redirect_to destroy_user_session_path

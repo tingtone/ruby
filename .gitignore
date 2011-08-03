@@ -11,6 +11,7 @@ public/.DS_Store
 db/schema.rb
 public/uploads
 public/upload
+public/caches
 public/sdk/*.*
 upload/
 uploads/

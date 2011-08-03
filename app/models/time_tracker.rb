@@ -19,8 +19,11 @@ class TimeTracker < ActiveRecord::Base
     elsif last_tt && params_day == db_store_day
       time = current_player.time_left.to_i - params[:time_left].to_i
     else
-      time = -1
+      time = 0
     end
     return time
   end #self.played_time
 end
+
+
+10813976
