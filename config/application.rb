@@ -46,5 +46,6 @@ module Server
     config.filter_parameters += [:password]
     
     config.autoload_paths += %W{#{Rails.root}/lib}
+    config.action_controller.page_cache_directory = Rails.public_path + "/caches"
   end
 end

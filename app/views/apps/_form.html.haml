@@ -9,4 +9,7 @@
 
 %div{"data-role" =>"fieldcontain"}
   = f.input :app_store_url
-
+%hr
+%h4 If Group purchases
+%div{"data-role" =>"fieldcontain"}
+  = f.collection_radio :unite_pay, [[true, 'Yes'] ,[false, 'No']], :first, :last, :checked => 1

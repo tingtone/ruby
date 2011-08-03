@@ -11,7 +11,17 @@ class Player < ActiveRecord::Base
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "48x48>" }
   
+  before_update :update_time_left
   
+  # need update left time when player update weekend time or weekday time
+  def update_time_left
+    week = Time.at(self.timestamp.to_i).stamp("Sunday")
+    if week == 'Sunday' || week == 'Saturday'
+      self.time_left =  weekend_time.to_i if weekend_time_changed?
+    else
+      self.time_left =  weekday_time.to_i if weekday_time_changed?
+    end
+  end #update_time_left
 
   def as_json(options={})
     result = {:device_identifier => device_identifier, :language => language, :name => name,
@@ -37,7 +47,9 @@ class Player < ActiveRecord::Base
 
   def add_app(app)
     unless self.player_apps.find_by_app_id(app.id)
-      self.player_apps.create(:app => app)
+      if self.player_apps.create(:app => app)
+        app.change_download_times_count
+      end
     end
   end
   

@@ -3,19 +3,19 @@
 %div{"data-role"=>"navbar"}
   =# render '/layouts/shared/search'
 
-- if !@kittypad_apps.blank?
+- if !@all_apps.blank?
   %div{"data-theme" => "c"}
     %fieldset{:class=>"ui-grid-c"}
       %div{"data-role"=>"collapsible", "data-collapsed"=>"false", "data-theme"=>"a"}
-        %h3 KittyPad's Apps
-        - @kittypad_apps.each do |items|
+        %h3 Apps
+        - @all_apps.each do |items|
           - items.each_with_index do |item, index|
             - classname = if(index == 0); 'a'; elsif(index == 1); 'b' ; elsif(index == 2); 'c'; end
             %div{:class =>"ui-block-#{classname}", :style => "width: 33%"}
               %div.ui-bar{:style=>"height:65px"}
                 - if item.try(:icon_path)
                   = image_tag(item.icon_path, :class => "ui-li-thumb")
-              %h3.ui-li-heading= item.name
+              %h3.ui-li-heading= link_to item.name, app_path(item)
               = link_to image_tag("viewinitunes_en.png"), item.app_store_url
 
 - if @apps

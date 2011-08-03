@@ -2,11 +2,11 @@ class Developer < User
   has_many :apps, :foreign_key => :user_id
 
   def exchange_own?
-    self.exchange_app == 0
+    self.exchange_app == 1
   end
 
   def exchange_all?
-    self.exchange_app == 1
+    self.exchange_app == 0
   end
 
   class << self
@@ -30,14 +30,15 @@ class Developer < User
           @apps = []
         else
           if @player.device_user_agent.match(/iPad/)
-            @apps = filter_apps(:apps => final_apps, :support_device => 'iPhone', :device_lang => @player.language, :installed_apps => @installed_apps)
-          elsif @player.device_user_agent.match(/iPhone/)
             @apps = filter_apps(:apps => final_apps, :support_device => 'iPad', :device_lang => @player.language, :installed_apps => @installed_apps)
+          elsif @player.device_user_agent.match(/iPhone/)
+            @apps = filter_apps(:apps => final_apps, :support_device => 'iPhone', :device_lang => @player.language, :installed_apps => @installed_apps)
           end
         end
       rescue
         @apps = App.valid_apps.sample(10)
       end
+      @apps.each{|app| app.show_times_count}
       return @apps
     end #self.got_exchange_apps
 

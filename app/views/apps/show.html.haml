@@ -30,10 +30,16 @@
   %div{"data-role" =>"fieldcontain"}
     %label ICON:
     = image_tag(@app.icon_path)
-%hr
-%div{"data-role" =>"fieldcontain"}
-  %label Key:
-  %strong= @app.key
-%div{"data-role" =>"fieldcontain"}
-  %label Secret:
-  %strong= @app.secret
+- if !@app.unite_pay.to_s.blank?
+  %div{"data-role" =>"fieldcontain"}
+    %label If Group purchases?
+    %strong=  @app.unite_pay ? 'Yes' : 'No'
+
+- if developer_signed_in? && @app.belong_to_current_developer?(current_developer)
+  %hr
+  %div{"data-role" =>"fieldcontain"}
+    %label Key:
+    %strong= @app.key
+  %div{"data-role" =>"fieldcontain"}
+    %label Secret:
+    %strong= @app.secret

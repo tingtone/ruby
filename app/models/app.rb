@@ -24,7 +24,7 @@ class App < ActiveRecord::Base
 
   scope :except, lambda { |app_id| where("id != ?", app_id) }
   scope :random, lambda { |number| order("RAND()").limit(number) }
-  scope :valid_apps, where("app_store_url is not NULL")
+  scope :valid_apps, where("app_store_url is not NULL and left_show_times > 0")
 
 
   before_create :generate_keys
@@ -71,4 +71,16 @@ class App < ActiveRecord::Base
       'iPad'
     end
   end #support_device_option
+  
+  def change_download_times_count
+    self.change_times += 6
+    self.left_show_times += 6
+    self.save
+  end #change_download_times_count
+  
+  def show_times_count
+    self.show_times += 1
+    self.left_show_times -= 1
+    self.save
+  end #show_tims_count
 end
