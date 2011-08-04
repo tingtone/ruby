@@ -48,14 +48,17 @@ class App < ActiveRecord::Base
   end
 
   def fetch_app_info_from_itnues
-      url = self.app_store_url
-      app = Crawler.new url
-      self.description = app.app_desc
-      self.rated = app.app_rated.split(' ').second.chop.to_i
-      self.support_device = App.support_device_option(app.app_requirements)
-      self.price = app.app_price
-      self.language = app.app_lang.split(': ').last.split(', ')
-      self.icon_path = app.app_icon
+    url = self.app_store_url
+    app = Crawler.new url
+    self.description = app.app_desc
+    self.rated = app.app_rated.split(' ').second.chop.to_i
+    self.support_device = App.support_device_option(app.app_requirements)
+    self.price = app.app_price
+    self.language = app.app_lang.split(': ').last.split(', ')
+    self.icon_path = app.app_icon
+    #-- for change downloads page
+    self.change_times += 100
+    self.left_show_times += 100
   end #fetch_app_info_from_itnues
   
   # def language=(langs)
