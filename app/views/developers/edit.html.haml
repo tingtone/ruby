@@ -3,6 +3,6 @@
 = simple_form_for @developer, :as => :developer, :url => developer_path(@developer), :html => {:multipart => true} do |f|
   %div{"data-role" =>"fieldcontain"}
     = f.label "Change Download Setting (default settings is change owned apps)"
-    = f.collection_radio :exchange_app, [[1, 'change owned apps'] ,[2, 'change all apps']], :first, :last, :checked => 1
+    = f.collection_radio :exchange_app, [[1, 'change owned apps'] ,[0, 'change all apps']], :first, :last, :checked => 1
   %div{"data-role" =>"fieldcontain"}
     = f.submit "Update"
