@@ -27,8 +27,7 @@ class App < ActiveRecord::Base
   scope :valid_apps, where("app_store_url is not NULL and left_show_times > 0")
 
 
-  before_create :generate_keys
-  
+  before_create :generate_keys, :init_change_download_times
   before_update :fetch_app_info_from_itnues
   # def to_exchange
   #     {:name => name, :description => description, :app_store_url => app_store_url, :icon_url => full_icon_url(:default)}
@@ -38,6 +37,12 @@ class App < ActiveRecord::Base
   #     "#{RAILS_HOST}/public#{icon.url(style_name)}"
   #   end
 
+  def init_change_download_times
+    #-- for change downloads page
+    self.change_times += 100
+    self.left_show_times += 100
+  end #init_change_download_times
+  
   def generate_keys
     self.key ||= generate_key(16)
     self.secret ||= generate_key(32)
@@ -56,9 +61,6 @@ class App < ActiveRecord::Base
     self.price = app.app_price
     self.language = app.app_lang.split(': ').last.split(', ')
     self.icon_path = app.app_icon
-    #-- for change downloads page
-    self.change_times += 100
-    self.left_show_times += 100
   end #fetch_app_info_from_itnues
   
   # def language=(langs)
