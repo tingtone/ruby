@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end #quit
   
   def download
-    sdk_path = "/sdk/sdk.zip"
+    sdk_path = "https://s3.amazonaws.com/kittypad_sdk/sdk.zip"
     redirect_to sdk_path
   end #download
 end

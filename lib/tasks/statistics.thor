@@ -159,15 +159,12 @@ class Statistics < Thor
       app_ids.each do |app_id|
         app = App.find app_id
         players = app.players
-        
-        boys = players.inject([]) do |sum, player|
-          next if player.gender != 0
-          sum << player  if player.gender == 0
+        boys, girls = [], []
+        players.each do |player|
+          boys << player  if player.gender == 0
+          girls << player if player.gender == 1
         end
-        girls = players.inject([]) do |sum, player|
-          next if player.gender != 1
-          sum << player  if player.gender == 1
-        end
+
         boy_amount, girl_amount = boys.try(:size).to_i, girls.try(:size).to_i
 
         result = Hash.new.tap do |r|
